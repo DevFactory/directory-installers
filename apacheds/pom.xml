@@ -19,10 +19,11 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.directory.installers</groupId>
+    <groupId>org.apache.directory.server</groupId>
     <artifactId>apacheds-parent</artifactId>
     <version>1.5.1-SNAPSHOT</version>
   </parent>
+  <groupId>org.apache.directory.installers</groupId>
   <artifactId>apacheds-server-installers</artifactId>
   <name>ApacheDS Server Installers</name>
   <packaging>jar</packaging>
@@ -35,11 +36,11 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>mitosis</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>  
 
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
+      <groupId>org.apache.directory.installers</groupId>
       <artifactId>apacheds-server-main</artifactId>
       <version>${pom.version}</version>
     </dependency>  
@@ -47,7 +48,7 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>
@@ -59,19 +60,19 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-tools</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>  
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-schema-extras</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>
@@ -453,7 +454,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>${pom.version}</version>
+                <version>1.5.1</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -531,7 +532,7 @@
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <!--<rpmTopDir>${user.home}/rpmbuild</rpmTopDir>-->
                   <finalName>
-                    apacheds-server-${pom.version}-i386.rpm
+                    apacheds-server-1.5.1-i386.rpm
                   </finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
@@ -578,7 +579,7 @@
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <!--<rpmTopDir>${user.home}/rpmbuild</rpmTopDir>-->
                   <finalName>
-                    apacheds-server-${pom.version}-x86_64.rpm
+                    apacheds-server-1.5.1-x86_64.rpm
                   </finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
@@ -622,7 +623,7 @@
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
                   <finalName>
-                    apacheds-server-${pom.version}-setup
+                    apacheds-server-1.5.1-setup
                   </finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
@@ -661,9 +662,9 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>${pom.groupId}</groupId>
+                  <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>${pom.version}</version>
+                  <version>1.5.1</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
