@@ -23,7 +23,7 @@
     <artifactId>apacheds-parent</artifactId>
     <version>1.5.1-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.directory.server</groupId>  
+  <groupId>org.apache.directory.installers</groupId>  
   <artifactId>apacheds-server-main</artifactId>
   <name>ApacheDS Server Main</name>
   <packaging>jar</packaging>  
@@ -32,19 +32,19 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-jndi</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>  
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
-      <version>${pom.version}</version>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>
@@ -149,9 +149,9 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>${pom.groupId}</groupId>
+                  <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>${pom.version}</version>
+                  <version>1.5.1</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}</outputDirectory>
