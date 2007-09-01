@@ -74,13 +74,13 @@ install -m 644 ${image.basedir}/conf/apacheds-default.conf $RPM_BUILD_ROOT%{adsd
 install -m 644 ${image.basedir}/conf/log4j.properties $RPM_BUILD_ROOT%{adsdata}/default/conf/log4j.properties
 install -m 744 ${image.basedir}/bin/${server.init} $RPM_BUILD_ROOT/etc/init.d/%{name}
 install -m 644 ${image.basedir}/conf/apacheds-sysconfig.conf $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/apacheds
-install -m 644 ${image.basedir}/${app.license.name} $RPM_BUILD_ROOT%{adshome}
-install -m 644 ${image.basedir}/${app.readme.name} $RPM_BUILD_ROOT%{adshome}
+install -m 644 ${image.basedir}/LICENSE $RPM_BUILD_ROOT%{adshome}
+install -m 644 ${image.basedir}/README $RPM_BUILD_ROOT%{adshome}
+install -m 644 ${image.basedir}/NOTICE $RPM_BUILD_ROOT%{adshome}
 install -m 644 ${image.basedir}/${app.icon} $RPM_BUILD_ROOT%{adshome}
 ${install.append.libs}
 ${install.docs}
 ${install.sources}
-${install.notice.file}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -120,10 +120,10 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}
 %config %{adsdata}/default/conf/apacheds.conf
 %config %{adsdata}/default/conf/server.xml
 %config %{_sysconfdir}/sysconfig/apacheds
-%{adshome}/${app.readme.name}
-%{adshome}/${app.license.name}
+%{adshome}/README
+%{adshome}/LICENSE
+%{adshome}/NOTICE
 %{adshome}/${app.icon}
 ${verify.append.libs}
 ${verify.docs}
 ${verify.sources}
-${verify.notice.file}
