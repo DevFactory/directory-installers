@@ -61,6 +61,12 @@
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
+        <artifactId>apacheds-server-jndi</artifactId>
+        <version>1.5.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-schema-extras</artifactId>
         <version>1.5.1</version>
       </dependency>
