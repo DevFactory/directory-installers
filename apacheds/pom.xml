@@ -33,6 +33,12 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.directory.installers</groupId>
+      <artifactId>apacheds-noarch-installer</artifactId>
+      <version>${pom.version}</version>
+    </dependency>  
+
+    <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>mitosis</artifactId>
     </dependency>  
