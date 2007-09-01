@@ -19,13 +19,12 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.directory.server</groupId>
-    <artifactId>apacheds-parent</artifactId>
+    <groupId>org.apache.directory.installer</groupId>
+    <artifactId>installers-parent</artifactId>
     <version>1.5.1-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.directory.installers</groupId>
-  <artifactId>apacheds-server-installers</artifactId>
-  <name>ApacheDS Server Installers</name>
+  <artifactId>apacheds-installers</artifactId>
+  <name>ApacheDS Installers</name>
   <packaging>jar</packaging>
 
   <description>
@@ -36,19 +35,16 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>mitosis</artifactId>
-      <version>1.5.1</version>
-    </dependency>  
-
-    <dependency>
-      <groupId>org.apache.directory.installers</groupId>
-      <artifactId>apacheds-server-main</artifactId>
-      <version>${pom.version}</version>
     </dependency>  
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-jndi</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
-      <version>1.5.1</version>
     </dependency>
 
     <dependency>
@@ -60,19 +56,16 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-tools</artifactId>
-      <version>1.5.1</version>
     </dependency>  
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-schema-extras</artifactId>
-      <version>1.5.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
-      <version>1.5.1</version>
     </dependency>
 
     <dependency>

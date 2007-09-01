@@ -19,32 +19,28 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.directory.server</groupId>
-    <artifactId>apacheds-parent</artifactId>
+    <groupId>org.apache.directory.installer</groupId>
+    <artifactId>installers-parent</artifactId>
     <version>1.5.1-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.directory.installers</groupId>  
-  <artifactId>apacheds-server-main</artifactId>
-  <name>ApacheDS Server Main</name>
+  <artifactId>apacheds-noarch-installer</artifactId>
+  <name>ApacheDS Architecture Independent Installer</name>
   <packaging>jar</packaging>  
 
   <dependencies>
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-jndi</artifactId>
-      <version>1.5.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
-      <version>1.5.1</version>
     </dependency>  
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
-      <version>1.5.1</version>
     </dependency>
 
     <dependency>
