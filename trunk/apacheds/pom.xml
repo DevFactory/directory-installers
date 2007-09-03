@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.directory.installers</groupId>
     <artifactId>installers-parent</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2-SNAPSHOT</version>
   </parent>
   <artifactId>apacheds-installers</artifactId>
   <name>ApacheDS Installers</name>
@@ -453,7 +453,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.1</version>
+                <version>1.5.2-SNAPSHOT</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -531,7 +531,7 @@
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <!--<rpmTopDir>${user.home}/rpmbuild</rpmTopDir>-->
                   <finalName>
-                    apacheds-server-1.5.1-i386.rpm
+                    apacheds-server-1.5.2-SNAPSHOT-i386.rpm
                   </finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
@@ -578,7 +578,7 @@
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <!--<rpmTopDir>${user.home}/rpmbuild</rpmTopDir>-->
                   <finalName>
-                    apacheds-server-1.5.1-x86_64.rpm
+                    apacheds-server-1.5.2-SNAPSHOT-x86_64.rpm
                   </finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
@@ -622,7 +622,7 @@
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
                   <finalName>
-                    apacheds-server-1.5.1-setup
+                    apacheds-server-1.5.2-SNAPSHOT-setup
                   </finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
@@ -663,7 +663,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.1</version>
+                  <version>1.5.2-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
