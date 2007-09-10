@@ -27,7 +27,7 @@
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.1</version>
+  <version>1.5.2-SNAPSHOT</version>
   <name>ApacheDS Installers</name>
   <packaging>pom</packaging>
 
@@ -38,67 +38,67 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>mitosis</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2-SNAPSHOT</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-xml</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2-SNAPSHOT</version>
       </dependency>
   
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-tools</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2-SNAPSHOT</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-jndi</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-schema-extras</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-bootstrap-partition</artifactId>
-        <version>1.5.1</version>
+        <version>1.5.2-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-asn1-codec</artifactId>
-        <version>0.9.7</version>
+        <version>0.9.8-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap</artifactId>
-        <version>0.9.7</version>
+        <version>0.9.8-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap-constants</artifactId>
-        <version>0.9.7</version>
+        <version>0.9.8-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
 
       <dependency>
