@@ -74,7 +74,7 @@ public class Service implements DaemonApplication
         {
             log.info( "server: loading settings from ", args[0] );
             ApplicationContext factory = null;
-            factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURL().toString() );
+            factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             cfg = ( MutableServerStartupConfiguration ) factory.getBean( "configuration" );
             env = ( Properties ) factory.getBean( "environment" );
         }
