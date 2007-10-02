@@ -20,24 +20,21 @@
 package org.apache.directory.server;
 
 
-import java.io.File;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.directory.InitialDirContext;
-
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.configuration.MutableServerStartupConfiguration;
 import org.apache.directory.server.core.configuration.ShutdownConfiguration;
 import org.apache.directory.server.core.configuration.SyncConfiguration;
 import org.apache.directory.server.jndi.ServerContextFactory;
-
+import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import javax.naming.Context;
+import javax.naming.directory.InitialDirContext;
+import java.io.File;
+import java.util.Properties;
 
 
 /**
@@ -74,7 +71,7 @@ public class Service implements DaemonApplication
         {
             log.info( "server: loading settings from ", args[0] );
             ApplicationContext factory = null;
-            factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
+            factory = new ClassPathXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             cfg = ( MutableServerStartupConfiguration ) factory.getBean( "configuration" );
             env = ( Properties ) factory.getBean( "environment" );
         }
