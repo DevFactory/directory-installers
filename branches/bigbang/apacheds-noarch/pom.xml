@@ -30,6 +30,11 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-xbean-spring</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-jndi</artifactId>
     </dependency>
 
@@ -84,6 +89,11 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.xbean</groupId>
+      <artifactId>xbean-spring</artifactId>
     </dependency>
   </dependencies>
 
