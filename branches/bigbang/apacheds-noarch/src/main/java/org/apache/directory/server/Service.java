@@ -26,7 +26,7 @@ import org.apache.directory.server.configuration.MutableServerStartupConfigurati
 import org.apache.directory.server.core.configuration.ShutdownConfiguration;
 import org.apache.directory.server.core.configuration.SyncConfiguration;
 import org.apache.directory.server.jndi.ServerContextFactory;
-import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
+import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -70,8 +70,7 @@ public class Service implements DaemonApplication
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
         {
             log.info( "server: loading settings from ", args[0] );
-            ApplicationContext factory = null;
-            factory = new ClassPathXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
+            ApplicationContext factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             cfg = ( MutableServerStartupConfiguration ) factory.getBean( "configuration" );
             env = ( Properties ) factory.getBean( "environment" );
         }
