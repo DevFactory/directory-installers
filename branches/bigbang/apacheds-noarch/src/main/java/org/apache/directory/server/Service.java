@@ -22,19 +22,17 @@ package org.apache.directory.server;
 
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
-import org.apache.directory.server.configuration.MutableServerStartupConfiguration;
-import org.apache.directory.server.core.configuration.ShutdownConfiguration;
-import org.apache.directory.server.core.configuration.SyncConfiguration;
+import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.jndi.ServerContextFactory;
-import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.naming.Context;
 import javax.naming.directory.InitialDirContext;
 import java.io.File;
-import java.util.Properties;
+import java.util.Hashtable;
 
 
 /**
@@ -45,12 +43,10 @@ import java.util.Properties;
  */
 public class Service implements DaemonApplication
 {
-    private static final Logger log = LoggerFactory.getLogger( Service.class );
-    private Properties env;
-    private Thread workerThread = null;
+    private static final Logger LOG = LoggerFactory.getLogger( Service.class );
+    private Thread workerThread;
     private SynchWorker worker = new SynchWorker();
-    private MutableServerStartupConfiguration cfg;
-    private boolean startNoWait = false;
+    private ApacheDS apacheDS;
 
 
     public void init( InstallationLayout install, String[] args ) throws Exception
@@ -58,56 +54,48 @@ public class Service implements DaemonApplication
         printBanner();
         long startTime = System.currentTimeMillis();
 
-//        if ( install != null )
-//        {
-//            log.info( "server: loading settings from ", install.getConfigurationFile() );
-//            ApplicationContext factory = null;
-//            factory = new FileSystemXmlApplicationContext( install.getConfigurationFile().toURL().toString() );
-//            cfg = ( MutableServerStartupConfiguration ) factory.getBean( "configuration" );
-//            env = ( Properties ) factory.getBean( "environment" );
-//        }
-//        else if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
+        Hashtable<String, Object> env;
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
         {
-            log.info( "server: loading settings from ", args[0] );
-            ApplicationContext factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
-            cfg = ( MutableServerStartupConfiguration ) factory.getBean( "configuration" );
-            env = ( Properties ) factory.getBean( "environment" );
+            LOG.info( "server: loading settings from ", args[0] );
+            ApplicationContext factory = new ClassPathXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
+            apacheDS = ( ApacheDS ) factory.getBean( "apacheDS" );
+            //noinspection unchecked
+            env = ( Hashtable ) factory.getBean( "environment" );
         }
         else
         {
-            log.info( "server: using default settings ..." );
-            env = new Properties();
-            cfg = new MutableServerStartupConfiguration();
+            LOG.info( "server: using default settings ..." );
+            env = new Hashtable<String,Object>();
+            apacheDS = new ApacheDS();
         }
 
-        env.setProperty( Context.PROVIDER_URL, "ou=system" );
-        env.setProperty( Context.INITIAL_CONTEXT_FACTORY, ServerContextFactory.class.getName() );
+        env.put( ApacheDS.JNDI_KEY, apacheDS );
+        env.put( Context.PROVIDER_URL, "ou=system" );
+        env.put( Context.INITIAL_CONTEXT_FACTORY, ServerContextFactory.class.getName() );
 
         if ( install != null )
         {
-            cfg.setWorkingDirectory( install.getPartitionsDirectory() );
+            apacheDS.getDirectoryService().setWorkingDirectory( install.getPartitionsDirectory() );
         }
 
-        env.putAll( cfg.toJndiEnvironment() );
         new InitialDirContext( env );
 
-        if ( cfg.getSynchPeriodMillis() > 0 )
+        if ( apacheDS.getSynchPeriodMillis() > 0 )
         {
             workerThread = new Thread( worker, "SynchWorkerThread" );
         }
         
-        if ( log.isInfoEnabled() )
+        if ( LOG.isInfoEnabled() )
         {
-            log.info( "server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
+            LOG.info( "server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
         }
     }
 
 
     public void synch() throws Exception
     {
-        env.putAll( new SyncConfiguration().toJndiEnvironment() );
-        new InitialDirContext( env );
+        apacheDS.getDirectoryService().sync();
     }
 
 
@@ -117,7 +105,6 @@ public class Service implements DaemonApplication
         {
             workerThread.start();
         }
-        return;
     }
 
 
@@ -131,15 +118,14 @@ public class Service implements DaemonApplication
                 worker.lock.notify();
             }
     
-            while ( startNoWait && workerThread.isAlive() )
+            while ( workerThread.isAlive() )
             {
-                log.info( "Waiting for SynchWorkerThread to die." );
+                LOG.info( "Waiting for SynchWorkerThread to die." );
                 workerThread.join( 500 );
             }
         }
 
-        env.putAll( new ShutdownConfiguration().toJndiEnvironment() );
-        new InitialDirContext( env );
+        apacheDS.shutdown();
     }
 
 
@@ -150,8 +136,8 @@ public class Service implements DaemonApplication
     
     class SynchWorker implements Runnable
     {
-        Object lock = new Object();
-        boolean stop = false;
+        final Object lock = new Object();
+        boolean stop;
 
 
         public void run()
@@ -162,11 +148,11 @@ public class Service implements DaemonApplication
                 {
                     try
                     {
-                        lock.wait( cfg.getSynchPeriodMillis() );
+                        lock.wait( apacheDS.getSynchPeriodMillis() );
                     }
                     catch ( InterruptedException e )
                     {
-                        log.warn( "SynchWorker failed to wait on lock.", e );
+                        LOG.warn( "SynchWorker failed to wait on lock.", e );
                     }
                 }
 
@@ -176,7 +162,7 @@ public class Service implements DaemonApplication
                 }
                 catch ( Exception e )
                 {
-                    log.error( "SynchWorker failed to synch directory.", e );
+                    LOG.error( "SynchWorker failed to synch directory.", e );
                 }
             }
         }
