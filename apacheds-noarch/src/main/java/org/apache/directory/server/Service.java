@@ -54,32 +54,24 @@ public class Service implements DaemonApplication
         printBanner();
         long startTime = System.currentTimeMillis();
 
-        Hashtable<String, Object> env;
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
         {
             LOG.info( "server: loading settings from ", args[0] );
             ApplicationContext factory = new ClassPathXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             apacheDS = ( ApacheDS ) factory.getBean( "apacheDS" );
-            //noinspection unchecked
-            env = ( Hashtable ) factory.getBean( "environment" );
         }
         else
         {
             LOG.info( "server: using default settings ..." );
-            env = new Hashtable<String,Object>();
             apacheDS = new ApacheDS();
         }
-
-        env.put( ApacheDS.JNDI_KEY, apacheDS );
-        env.put( Context.PROVIDER_URL, "ou=system" );
-        env.put( Context.INITIAL_CONTEXT_FACTORY, ServerContextFactory.class.getName() );
 
         if ( install != null )
         {
             apacheDS.getDirectoryService().setWorkingDirectory( install.getPartitionsDirectory() );
         }
 
-        new InitialDirContext( env );
+        apacheDS.startup();
 
         if ( apacheDS.getSynchPeriodMillis() > 0 )
         {
