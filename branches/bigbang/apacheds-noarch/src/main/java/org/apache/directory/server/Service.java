@@ -24,10 +24,10 @@ import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.jndi.ServerContextFactory;
+import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.naming.Context;
 import javax.naming.directory.InitialDirContext;
@@ -57,7 +57,7 @@ public class Service implements DaemonApplication
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
         {
             LOG.info( "server: loading settings from ", args[0] );
-            ApplicationContext factory = new ClassPathXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
+            ApplicationContext factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             apacheDS = ( ApacheDS ) factory.getBean( "apacheDS" );
         }
         else
