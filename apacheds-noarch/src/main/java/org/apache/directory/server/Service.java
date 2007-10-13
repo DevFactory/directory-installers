@@ -23,16 +23,16 @@ package org.apache.directory.server;
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.configuration.ApacheDS;
-import org.apache.directory.server.jndi.ServerContextFactory;
+import org.apache.directory.server.core.DefaultDirectoryService;
+import org.apache.directory.server.core.DirectoryService;
+import org.apache.directory.server.ldap.LdapServer;
+import org.apache.directory.server.protocol.shared.SocketAcceptor;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
-import javax.naming.Context;
-import javax.naming.directory.InitialDirContext;
 import java.io.File;
-import java.util.Hashtable;
 
 
 /**
@@ -63,7 +63,15 @@ public class Service implements DaemonApplication
         else
         {
             LOG.info( "server: using default settings ..." );
-            apacheDS = new ApacheDS();
+            DirectoryService directoryService = new DefaultDirectoryService();
+            directoryService.startup();
+            SocketAcceptor socketAcceptor = new SocketAcceptor( null );
+            LdapServer ldapServer = new LdapServer( socketAcceptor, directoryService );
+            ldapServer.start();
+            LdapServer ldapsServer = new LdapServer( socketAcceptor, directoryService );
+            ldapsServer.setEnableLdaps( true );
+            ldapsServer.start();
+            apacheDS = new ApacheDS( directoryService, ldapServer, ldapsServer );
         }
 
         if ( install != null )
