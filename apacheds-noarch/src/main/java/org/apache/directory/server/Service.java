@@ -66,10 +66,14 @@ public class Service implements DaemonApplication
             DirectoryService directoryService = new DefaultDirectoryService();
             directoryService.startup();
             SocketAcceptor socketAcceptor = new SocketAcceptor( null );
-            LdapServer ldapServer = new LdapServer( socketAcceptor, directoryService );
+            LdapServer ldapServer = new LdapServer();
+            ldapServer.setSocketAcceptor( socketAcceptor );
+            ldapServer.setDirectoryService( directoryService );
             ldapServer.start();
-            LdapServer ldapsServer = new LdapServer( socketAcceptor, directoryService );
+            LdapServer ldapsServer = new LdapServer();
             ldapsServer.setEnableLdaps( true );
+            ldapsServer.setSocketAcceptor( socketAcceptor );
+            ldapsServer.setDirectoryService( directoryService );
             ldapsServer.start();
             apacheDS = new ApacheDS( directoryService, ldapServer, ldapsServer );
         }
