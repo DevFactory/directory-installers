@@ -20,6 +20,8 @@
 package org.apache.directory.server;
 
 
+import java.io.File;
+
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.configuration.ApacheDS;
@@ -30,9 +32,6 @@ import org.apache.directory.server.protocol.shared.SocketAcceptor;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-
-import java.io.File;
 
 
 /**
@@ -47,6 +46,7 @@ public class Service implements DaemonApplication
     private Thread workerThread;
     private SynchWorker worker = new SynchWorker();
     private ApacheDS apacheDS;
+    private FileSystemXmlApplicationContext factory;
 
 
     public void init( InstallationLayout install, String[] args ) throws Exception
@@ -57,7 +57,7 @@ public class Service implements DaemonApplication
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
         {
             LOG.info( "server: loading settings from ", args[0] );
-            ApplicationContext factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
+            factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             apacheDS = ( ApacheDS ) factory.getBean( "apacheDS" );
         }
         else
@@ -76,6 +76,7 @@ public class Service implements DaemonApplication
             ldapsServer.setDirectoryService( directoryService );
             ldapsServer.start();
             apacheDS = new ApacheDS( directoryService, ldapServer, ldapsServer );
+            apacheDS.startup();
         }
 
         if ( install != null )
@@ -94,6 +95,10 @@ public class Service implements DaemonApplication
         {
             LOG.info( "server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
         }
+    }
+
+    public DirectoryService getDirectoryService() {
+        return apacheDS.getDirectoryService();
     }
 
 
@@ -129,6 +134,10 @@ public class Service implements DaemonApplication
             }
         }
 
+        if (factory != null)
+        {
+            factory.close();
+        }
         apacheDS.shutdown();
     }
 
