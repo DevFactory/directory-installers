@@ -20,9 +20,9 @@
 package org.apache.directory.server;
 
 
-import java.io.File;
-
 import org.apache.directory.daemon.InstallationLayout;
+
+import java.io.File;
 
 
 /**
@@ -46,7 +46,9 @@ public class UberjarMain
 
         if ( args.length > 0 && new File( args[0] ).isDirectory() )
         {
-            server.init( new InstallationLayout( args[0] ), new String[] {} );
+            InstallationLayout layout = new InstallationLayout( args[0] );
+            String confFile = layout.getConfigurationFile().toURI().toURL().toString();
+            server.init( layout, new String[] { confFile } );
             server.start();
         }
         else if ( args.length > 0 && new File( args[0] ).isFile() )
