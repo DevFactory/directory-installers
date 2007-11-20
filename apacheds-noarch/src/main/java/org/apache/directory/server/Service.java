@@ -76,7 +76,6 @@ public class Service implements DaemonApplication
             ldapsServer.setDirectoryService( directoryService );
             ldapsServer.start();
             apacheDS = new ApacheDS( directoryService, ldapServer, ldapsServer );
-            apacheDS.startup();
         }
 
         if ( install != null )

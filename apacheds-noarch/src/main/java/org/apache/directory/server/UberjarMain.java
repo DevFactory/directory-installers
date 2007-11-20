@@ -46,7 +46,7 @@ public class UberjarMain
 
         if ( args.length > 0 && new File( args[0] ).isDirectory() )
         {
-            server.init( new InstallationLayout( args[0] ), null );
+            server.init( new InstallationLayout( args[0] ), new String[] {} );
             server.start();
         }
         else if ( args.length > 0 && new File( args[0] ).isFile() )
