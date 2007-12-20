@@ -25,7 +25,7 @@
   </parent>
   <artifactId>apacheds-noarch-installer</artifactId>
   <name>ApacheDS Architecture Independent Installer</name>
-  <packaging>jar</packaging>  
+  <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
@@ -35,18 +35,22 @@
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-protocol-ntp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.apache.directory.daemon</groupId>
       <artifactId>daemon-bootstrappers</artifactId>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -70,7 +74,6 @@
       <artifactId>log4j</artifactId>
       <scope>runtime</scope>
     </dependency>
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -85,6 +88,12 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-xbean-spring</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
