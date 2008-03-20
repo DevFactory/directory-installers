@@ -141,7 +141,7 @@
                 <configuration>
                   <tasks>
                     <mkdir dir="target/images"/>
-                    <get src="http://builds.organicelement.com/repository/download/bt4/.lastSuccessful/ApacheDirectoryStudio_Windows.zip?guest=1"
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/1.1.0-SNAPSHOT-win32/ApacheDirectoryStudio-1.1.0-SNAPSHOT-win32.tar.gz"
                          verbose="on" usetimestamp="true"
                          dest="ApacheDirectoryStudio.zip"
                             />
@@ -293,7 +293,7 @@
                 <configuration>
                   <tasks>
                     <mkdir dir="target/images"/>
-                    <get src="http://builds.organicelement.com/repository/download/bt4/.lastSuccessful/ApacheDirectoryStudio_Windows.zip?guest=1"
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/1.1.0-SNAPSHOT-win32/ApacheDirectoryStudio-1.1.0-SNAPSHOT-win32.tar.gz"
                          verbose="on" usetimestamp="true"
                          dest="ApacheDirectoryStudio.zip"
                             />
