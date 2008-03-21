@@ -466,12 +466,6 @@
     </developer>
   </developers>
 
-  <contributors>
-    <contributor>
-      <name>Nick Faiz</name>
-    </contributor>
-  </contributors>
-
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</connection>
     <url>http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</url>
