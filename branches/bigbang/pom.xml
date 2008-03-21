@@ -331,19 +331,12 @@
     <url>http://issues.apache.org/jira/browse/DIRSERVER</url>
   </issueManagement>
 
-  <ciManagement>
-    <system>Continuum</system>
-    <url>http://vm094.oxylos.org/continuum/</url>
-  </ciManagement>
-
   <distributionManagement>
     <site>
       <id>apache.directory.installers</id>
       <url>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</url>
     </site>
   </distributionManagement>
-
-  <inceptionYear>2003</inceptionYear>
 
   <mailingLists>
     <mailingList>
@@ -478,13 +471,6 @@
       <name>Nick Faiz</name>
     </contributor>
   </contributors>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-    </license>
-  </licenses>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</connection>
