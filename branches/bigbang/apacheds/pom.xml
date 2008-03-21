@@ -146,10 +146,10 @@
                     <mkdir dir="target/images"/>
                     <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/1.1.0-SNAPSHOT-win32/ApacheDirectoryStudio-1.1.0-SNAPSHOT-win32.tar.gz"
                          verbose="on" usetimestamp="true"
-                         dest="ApacheDirectoryStudio.zip"
+                         dest="target/ApacheDirectoryStudio.zip"
                             />
-                    <touch file="ApacheDirectoryStudio.zip"/>
-                    <unzip src="ApacheDirectoryStudio.zip" dest="target/images/suite-win32" overwrite="false" />
+                    <touch file="target/ApacheDirectoryStudio.zip"/>
+                    <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/suite-win32" overwrite="false" />
                   </tasks>
                 </configuration>
                 <goals>
@@ -298,10 +298,10 @@
                     <mkdir dir="target/images"/>
                     <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/1.1.0-SNAPSHOT-win32/ApacheDirectoryStudio-1.1.0-SNAPSHOT-win32.tar.gz"
                          verbose="on" usetimestamp="true"
-                         dest="ApacheDirectoryStudio.zip"
+                         dest="target/ApacheDirectoryStudio.zip"
                             />
-                    <touch file="ApacheDirectoryStudio.zip"/>
-                    <unzip src="ApacheDirectoryStudio.zip" dest="target/images/studio-win32" overwrite="false" />
+                    <touch file="target/ApacheDirectoryStudio.zip"/>
+                    <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/studio-win32" overwrite="false" />
                   </tasks>
                 </configuration>
                 <goals>
