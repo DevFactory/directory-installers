@@ -425,7 +425,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2-SNAPSHOT</version>
             <configuration>
               <excludes>
 
@@ -532,7 +532,7 @@
                   </packagedFiles>
                   <id>apacheds-i386-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
-                  <!--<rpmTopDir>${user.home}/rpmbuild</rpmTopDir>-->
+                  <rpmTopDir>target/rpmbuild</rpmTopDir>
                   <finalName>
                     apacheds-server-1.5.2-SNAPSHOT-i386.rpm
                   </finalName>
@@ -579,7 +579,7 @@
                   </packagedFiles>
                   <id>apacheds-x86_64-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
-                  <!--<rpmTopDir>${user.home}/rpmbuild</rpmTopDir>-->
+                  <rpmTopDir>target/rpmbuild</rpmTopDir>
                   <finalName>
                     apacheds-server-1.5.2-SNAPSHOT-x86_64.rpm
                   </finalName>
