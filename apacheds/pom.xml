@@ -271,7 +271,7 @@
                 <id>deploy-installer-studio-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>../target/images/apacheds-studio-${studio-version}-setup.exe</file>
+                  <file>target/images/apacheds-studio-${studio-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>apacheds-suite-setup</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -423,7 +423,7 @@
                 <id>deploy-installer-studio-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>../target/images/apacheds-studio-${studio-version}-setup.exe</file>
+                  <file>target/images/apacheds-studio-${studio-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>apacheds-studio-setup</artifactId>
                   <groupId>${pom.groupId}</groupId>
