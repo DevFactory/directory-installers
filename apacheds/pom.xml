@@ -273,10 +273,10 @@
                 <configuration>
                   <file>target/images/apacheds-studio-${studio-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
-                  <artifactId>apacheds-suite-setup</artifactId>
+                  <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>exe</packaging>
-                  <version>${studio-version}-win32</version>
+                  <version>suite-win32-${studio-version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -425,10 +425,10 @@
                 <configuration>
                   <file>target/images/apacheds-studio-${studio-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
-                  <artifactId>apacheds-studio-setup</artifactId>
+                  <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>exe</packaging>
-                  <version>${studio-version}-win32</version>
+                  <version>studio-win32-${studio-version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
