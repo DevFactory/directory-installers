@@ -34,97 +34,84 @@
     Installer generating project for ApacheDS
   </description>
 
+  <properties>
+    <studio-version>1.1.0-SNAPSHOT</studio-version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.directory.installers</groupId>
       <artifactId>apacheds-noarch-installer</artifactId>
       <version>${pom.version}</version>
     </dependency>  
-
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>mitosis</artifactId>
     </dependency>  
-
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-jndi</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.apache.directory.daemon</groupId>
       <artifactId>daemon-bootstrappers</artifactId>
       <scope>provided</scope>
     </dependency>  
-
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-tools</artifactId>
     </dependency>  
-
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-schema-extras</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl104-over-slf4j</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <scope>runtime</scope>
     </dependency>
-
     <dependency>
       <groupId>tanukisoft</groupId>
       <artifactId>wrapper</artifactId>
       <scope>runtime</scope>
     </dependency>
-
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <scope>runtime</scope>
     </dependency>
-
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
     </dependency>
-
     <dependency>
       <groupId>commons-cli</groupId>
       <artifactId>commons-cli</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -144,12 +131,14 @@
                 <configuration>
                   <tasks>
                     <mkdir dir="target/images"/>
-                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/1.1.0-SNAPSHOT-win32/ApacheDirectoryStudio-1.1.0-SNAPSHOT-win32.tar.gz"
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip"
                          verbose="on" usetimestamp="true"
-                         dest="target/ApacheDirectoryStudio.zip"
-                            />
+                         dest="target/ApacheDirectoryStudio.zip" />
                     <touch file="target/ApacheDirectoryStudio.zip"/>
                     <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/suite-win32" overwrite="false" />
+                    <move toDir="target/images/suite-win32/ApacheDirectoryStudio">
+                      <fileset dir="target/images/suite-win32/ApacheDirectoryStudio-win32-${studio-version}" />
+                    </move>
                   </tasks>
                 </configuration>
                 <goals>
@@ -161,13 +150,12 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>suite</name>
                 <version>1.0</version>
                 <description>Apache Directory Suite</description>
-
                 <icon>src/main/resources/feather.ico</icon>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
@@ -202,9 +190,7 @@
                   <filtered>true</filtered>
                 </packagedFile>
               </packagedFiles>
-              <applicationClass>
-                org.apache.ldap.server.Service
-              </applicationClass>
+              <applicationClass>org.apache.ldap.server.Service</applicationClass>
               <nsisTargets>
                 <nsisTarget>
                   <packagedFiles>
@@ -233,17 +219,14 @@
                       <filtered>false</filtered>
                     </packagedFile>
                   </packagedFiles>
-
                   <id>suite-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-suite-win.nsi</nsisConfigurationFile>
-                  <finalName>
-                    apacheds-suite-1.0-setup
-                  </finalName>
+                  <finalName>apacheds-suite-${studio-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
-                  <osArch>x86</osArch>
+                  <osArch>win32</osArch>
                   <daemonFramework>tanuki</daemonFramework>
                 </nsisTarget>
               </nsisTargets>
@@ -281,6 +264,27 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>deploy-installer-studio-win32</id>
+                <phase>deploy</phase>
+                <configuration>
+                  <file>../target/images/apacheds-studio-${studio-version}-setup.exe</file>
+                  <url>${pom.distributionManagement.snapshotRepository.url}</url>
+                  <artifactId>apacheds-suite-setup</artifactId>
+                  <groupId>${pom.groupId}</groupId>
+                  <packaging>exe</packaging>
+                  <version>${studio-version}-win32</version>
+                  <uniqueVersion>false</uniqueVersion>
+                </configuration>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
     </profile>
@@ -296,12 +300,14 @@
                 <configuration>
                   <tasks>
                     <mkdir dir="target/images"/>
-                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/1.1.0-SNAPSHOT-win32/ApacheDirectoryStudio-1.1.0-SNAPSHOT-win32.tar.gz"
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip"
                          verbose="on" usetimestamp="true"
-                         dest="target/ApacheDirectoryStudio.zip"
-                            />
+                         dest="target/ApacheDirectoryStudio.zip" />
                     <touch file="target/ApacheDirectoryStudio.zip"/>
                     <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/studio-win32" overwrite="false" />
+                    <move toDir="target/images/studio-win32/ApacheDirectoryStudio">
+                      <fileset dir="target/images/studio-win32/ApacheDirectoryStudio-win32-${studio-version}" />
+                    </move>
                   </tasks>
                 </configuration>
                 <goals>
@@ -313,7 +319,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -354,9 +360,7 @@
                   <filtered>true</filtered>
                 </packagedFile>
               </packagedFiles>
-              <applicationClass>
-                org.apache.ldap.server.Service
-              </applicationClass>
+              <applicationClass>org.apache.ldap.server.Service</applicationClass>
               <nsisTargets>
                 <nsisTarget>
                   <packagedFiles>
@@ -371,13 +375,11 @@
                   <id>studio-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-studio-win.nsi</nsisConfigurationFile>
-                  <finalName>
-                    apacheds-studio-1.0-setup
-                  </finalName>
+                  <finalName>apacheds-studio-${studio-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
-                  <osArch>x86</osArch>
+                  <osArch>win32</osArch>
                   <daemonFramework>tanuki</daemonFramework>
                 </nsisTarget>
               </nsisTargets>
@@ -410,6 +412,27 @@
               <execution>
                 <goals>
                   <goal>generate</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>deploy-installer-studio-win32</id>
+                <phase>deploy</phase>
+                <configuration>
+                  <file>../target/images/apacheds-studio-${studio-version}-setup.exe</file>
+                  <url>${pom.distributionManagement.snapshotRepository.url}</url>
+                  <artifactId>apacheds-studio-setup</artifactId>
+                  <groupId>${pom.groupId}</groupId>
+                  <packaging>exe</packaging>
+                  <version>${studio-version}-win32</version>
+                  <uniqueVersion>false</uniqueVersion>
+                </configuration>
+                <goals>
+                  <goal>deploy-file</goal>
                 </goals>
               </execution>
             </executions>
@@ -533,9 +556,7 @@
                   <id>apacheds-i386-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>
-                    apacheds-server-1.5.2-SNAPSHOT-i386.rpm
-                  </finalName>
+                  <finalName>apacheds-server-1.5.2-SNAPSHOT-i386.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>i386</osArch>
@@ -543,6 +564,7 @@
                   <scriptFile>src/main/installers/apacheds-init</scriptFile>
                   <!--<bootstrapperConfigurationFile>../../daemon/plugin/src/main/resources/org/apache/directory/daemon/installers/wrapper/conf/apacheds.conf</bootstrapperConfigurationFile>-->
                 </rpmTarget>
+
                 <rpmTarget>
                   <packagedFiles>
                     <packagedFile>
@@ -580,9 +602,7 @@
                   <id>apacheds-x86_64-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>
-                    apacheds-server-1.5.2-SNAPSHOT-x86_64.rpm
-                  </finalName>
+                  <finalName>apacheds-server-1.5.2-SNAPSHOT-x86_64.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>x86_64</osArch>
@@ -624,9 +644,7 @@
                   <id>server-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
-                  <finalName>
-                    apacheds-server-1.5.2-SNAPSHOT-setup
-                  </finalName>
+                  <finalName>apacheds-server-1.5.2-SNAPSHOT-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -634,7 +652,6 @@
                   <daemonFramework>tanuki</daemonFramework>
                 </nsisTarget>
               </nsisTargets>
-
             </configuration>
             <executions>
               <execution>
