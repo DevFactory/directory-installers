@@ -268,7 +268,7 @@
             <artifactId>maven-deploy-plugin</artifactId>
             <executions>
               <execution>
-                <id>deploy-installer-studio-win32</id>
+                <id>deploy-installer-suite-win32</id>
                 <phase>deploy</phase>
                 <configuration>
                   <file>target/images/apacheds-suite-${studio-version}-setup.exe</file>
