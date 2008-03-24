@@ -669,7 +669,7 @@
                 <id>deploy-installer-server-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-{server-version}-setup.exe</file>
+                  <file>target/images/apacheds-server-${server-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -685,7 +685,7 @@
                 <id>deploy-installer-server-rpm-x86</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-{server-version}-x86.rpm</file>
+                  <file>target/images/apacheds-server-${server-version}-x86.rpm</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -701,7 +701,7 @@
                 <id>deploy-installer-server-rpm-x86_64</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-{server-version}-x86_64.rpm</file>
+                  <file>target/images/apacheds-server-${server-version}-x86_64.rpm</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
