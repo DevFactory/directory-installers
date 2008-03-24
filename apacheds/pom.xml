@@ -36,6 +36,7 @@
 
   <properties>
     <studio-version>1.1.0-SNAPSHOT</studio-version>
+    <server-version>1.5.2-SNAPSHOT</server-version>
   </properties>
 
   <dependencies>
@@ -657,6 +658,59 @@
               <execution>
                 <goals>
                   <goal>generate</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>deploy-installer-server-win32</id>
+                <phase>deploy</phase>
+                <configuration>
+                  <file>target/images/apacheds-server-{server-version}-setup.exe</file>
+                  <url>${pom.distributionManagement.snapshotRepository.url}</url>
+                  <artifactId>ApacheDirectoryInstaller</artifactId>
+                  <groupId>${pom.groupId}</groupId>
+                  <packaging>exe</packaging>
+                  <version>server-win32-${server-version}</version>
+                  <uniqueVersion>false</uniqueVersion>
+                </configuration>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>deploy-installer-server-rpm-x86</id>
+                <phase>deploy</phase>
+                <configuration>
+                  <file>target/images/apacheds-server-{server-version}-x86.rpm</file>
+                  <url>${pom.distributionManagement.snapshotRepository.url}</url>
+                  <artifactId>ApacheDirectoryInstaller</artifactId>
+                  <groupId>${pom.groupId}</groupId>
+                  <packaging>rpm</packaging>
+                  <version>server-x86-${server-version}</version>
+                  <uniqueVersion>false</uniqueVersion>
+                </configuration>
+                <goals>
+                  <goal>deploy-file</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>deploy-installer-server-rpm-x86_64</id>
+                <phase>deploy</phase>
+                <configuration>
+                  <file>target/images/apacheds-server-{server-version}-x86_64.rpm</file>
+                  <url>${pom.distributionManagement.snapshotRepository.url}</url>
+                  <artifactId>ApacheDirectoryInstaller</artifactId>
+                  <groupId>${pom.groupId}</groupId>
+                  <packaging>rpm</packaging>
+                  <version>server-x86_64-${server-version}</version>
+                  <uniqueVersion>false</uniqueVersion>
+                </configuration>
+                <goals>
+                  <goal>deploy-file</goal>
                 </goals>
               </execution>
             </executions>
