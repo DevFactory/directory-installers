@@ -1,21 +1,24 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    (the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
 -->
-<!-- $Rev:  $ $Date:  $ -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -331,23 +334,12 @@
     <url>http://issues.apache.org/jira/browse/DIRSERVER</url>
   </issueManagement>
 
-  <inceptionYear>2003</inceptionYear>
-
-  <mailingLists>
-    <mailingList>
-      <name>The Directory Developers List</name>
-      <subscribe>dev-subscribe@directory.apache.org</subscribe>
-      <unsubscribe>dev-unsubscribe@directory.apache.org</unsubscribe>
-      <post>dev@directory.apache.org</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/directory-dev</archive>
-    </mailingList>
-    <mailingList>
-      <name>The Directory Commits (SVN) List</name>
-      <subscribe>commits-subscribe@directory.apache.org</subscribe>
-      <unsubscribe>commits-unsubscribe@directory.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/directory-commits</archive>
-    </mailingList>
-  </mailingLists>
+  <distributionManagement>
+    <site>
+      <id>apache.directory.installers</id>
+      <url>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</url>
+    </site>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
@@ -392,87 +384,6 @@
     <module>apacheds</module>
     <module>apacheds-noarch</module>
   </modules>
-
-  <developers>
-    <developer>
-      <id>adc</id>
-    </developer>
-    <developer>
-      <id>akarasulu</id>
-      <url>http://directory.apache.org/community/who/akarasulu.html</url>
-    </developer>
-    <developer>
-      <id>bayard</id>
-    </developer>
-    <developer>
-      <id>bloritsch</id>
-    </developer>
-    <developer>
-      <id>brett</id>
-    </developer>
-    <developer>
-      <id>ckoppelt</id>
-    </developer>
-    <developer>
-      <id>elecharny</id>
-      <url>http://directory.apache.org/community/who/elecharny.html</url>
-    </developer>
-    <developer>
-      <id>erodriguez</id>
-      <url>http://directory.apache.org/community/who/erodriguez.html</url>
-    </developer>
-    <developer>
-      <id>ersiner</id>
-      <url>http://directory.apache.org/community/who/ersiner.html</url>
-    </developer>
-    <developer>
-      <id>jmachols</id>
-      <url>http://directory.apache.org/community/who/jmachols.html</url>
-    </developer>
-    <developer>
-      <id>niklas</id>
-    </developer>
-    <developer>
-      <id>noel</id>
-      <url>http://directory.apache.org/community/who/noel.html</url>
-    </developer>
-    <developer>
-      <id>pamarcelot</id>
-    </developer>
-    <developer>
-      <id>psteitz</id>
-      <url>http://directory.apache.org/community/who/psteitz.html</url>
-    </developer>
-    <developer>
-      <id>szoerner</id>
-      <url>http://directory.apache.org/community/who/szoerner.html</url>
-    </developer>
-    <developer>
-      <id>trustin</id>
-      <url>http://directory.apache.org/community/who/trustin.html</url>
-    </developer>
-    <developer>
-      <id>vtence</id>
-      <url>http://directory.apache.org/community/who/vtence.html</url>
-    </developer>
-    <developer>
-      <id>wesmckean</id>
-      <url>http://directory.apache.org/community/who/wesmckean.html</url>
-    </developer>
-  </developers>
-
-  <contributors>
-    <contributor>
-      <name>Nick Faiz</name>
-    </contributor>
-  </contributors>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-    </license>
-  </licenses>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</connection>
@@ -520,27 +431,88 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>project-team</report>
-              <report>mailing-list</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <aggregate>true</aggregate>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <configuration>
+          <aggregate>true</aggregate>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.5</targetJdk>
+          <aggregate>true</aggregate>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <configuration>
+          <tags>
+            <tag>TODO</tag>
+            <tag>@todo</tag>
+            <tag>@deprecated</tag>
+            <tag>FIXME</tag>
+          </tags>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>1.1.1</version>
+        <configuration>
+          <xmlOutput>false</xmlOutput>
+          <!--
+            <xmlOutput>true|false</xmlOutput>
+            <xmlOutputDirectory>directory location of xml findbugs report</xmlOutputDirectory>
+            <threshold>High|Normal|Low|Exp|Ignore</threshold>
+            <effort>Min|Default|Max</effort>
+            <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+            <includeFilterFile>findbugs-include.xml</includeFilterFile>
+            <visitors>FindDeadLocalStores,UnreadFields</visitors>
+            <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+            <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
+            <pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
+            <debug>true|false</debug>
+            <relaxed>true|false</relaxed>
+          -->
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
     </plugins>
   </reporting>
+
+  <repositories>
+    <repository>
+      <id>apache.directory.snapshot.repo</id>
+      <name>Snapshot repository for the Apache Directory project</name>
+      <url>http://vm094.oxylos.org/mirror-maven2/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+  
 </project>
