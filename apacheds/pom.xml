@@ -653,6 +653,51 @@
                   <daemonFramework>tanuki</daemonFramework>
                 </nsisTarget>
               </nsisTargets>
+              
+              <!-- Targets for Mac OS X .pkg installer package -->
+              <pkgTargets>
+                <pkgTarget>
+                 <id>apacheds-macosx</id>
+                  <finalName>apacheds-macosx-${pom.version}.dmg</finalName>
+                  <osName>Mac OS X</osName>
+                  <osFamily>macosx</osFamily>
+                  <osArch>x86</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </pkgTarget>
+              </pkgTargets>
+              
+              <!-- Targets for Debian .deb installer package -->
+              <debTargets>
+                <debTarget>
+                 <id>apacheds-debian-i386</id>
+                  <finalName>apacheds-debian-i386-${pom.version}.deb</finalName>
+                  <osName>linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>i386</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </debTarget>
+                <debTarget>
+                 <id>apacheds-debian-amd64</id>
+                  <finalName>apacheds-debian-amd64-${pom.version}.deb</finalName>
+                  <osName>linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>amd64</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </debTarget>
+              </debTargets>
+              
+              <!-- Targets for Linux Binary .bin installer -->
+              <binTargets>
+                <binTarget>
+                 <id>apacheds-bin-installer</id>
+                  <finalName>apacheds-linux-${pom.version}.bin</finalName>
+                  <osName>Linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>i386</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </binTarget>
+              </binTargets>
+              
             </configuration>
             <executions>
               <execution>
