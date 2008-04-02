@@ -195,6 +195,15 @@
             <configuration>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>app</shadedClassifierName>
+                <artifactSet>
+                  <excludes>
+                      <!-- this should not be needed and is not needed when building just the installers
+                      it does seem to be needed when building *-with-dependencies -->
+                    <exclude>bouncycastle:bcprov-jdk15</exclude>
+                  </excludes>
+                </artifactSet>
+                <!-- Uncomment the filters below and remove the dependency on shared-bouncycastle-reduced
+                if you want to try to shrink the bc repackaging further. I (djencks) got stuck -->
 <!--
               <filters>
                 <filter>
