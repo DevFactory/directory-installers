@@ -9,7 +9,7 @@ IF NOT exist target/apacheds-noarch-installer-1.5.2-SNAPSHOT-app.jar GOTO :MVN
 
 :MVN
    echo uber jar not found need to build it
-   call mvn clean assembly:assembly
+   call mvn clean install
    GOTO :JAVA
 
 :JAVA
