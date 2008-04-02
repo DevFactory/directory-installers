@@ -6,4 +6,4 @@ else
   mvn clean install
 fi
 
-java -Dlog4j.debug -Dlog4j.configuration=file:./log4j.properties -jar target/apacheds-noarch-installer-1.5.2-SNAPSHOT-app.jar server.xml 
+java -Dlog4j.debug -Dlog4j.configuration=file:./log4j.properties -jar target/apacheds-noarch-installer-1.5.2-SNAPSHOT-app.jar target/plan/server.xml 
