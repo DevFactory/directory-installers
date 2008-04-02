@@ -255,6 +255,7 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
+                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -407,6 +408,7 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
+                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -475,6 +477,7 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
+                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
 
               <application>
