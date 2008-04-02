@@ -28,7 +28,7 @@
   </parent>
   <artifactId>apacheds-noarch-installer</artifactId>
   <name>ApacheDS Architecture Independent Installer</name>
-  <packaging>jar</packaging>  
+  <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
@@ -64,7 +64,7 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-xml</artifactId>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
@@ -74,7 +74,7 @@
     <dependency>
       <groupId>org.apache.directory.daemon</groupId>
       <artifactId>daemon-bootstrappers</artifactId>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -98,47 +98,130 @@
       <artifactId>log4j</artifactId>
       <scope>runtime</scope>
     </dependency>
+<!--
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <scope>runtime</scope>
+      <version>1.1.1</version>
+    </dependency>
+-->
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>aopalliance</groupId>
+          <artifactId>aopalliance</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>org.apache.xbean</groupId>
       <artifactId>xbean-spring</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jmx</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>1.0.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>.</directory>
-              <includes>
-                <include>*.log</include>
-                <include>server.xml</include>
-                <include>META-INF</include>
-                <include>example.com</include>
-              </includes>
-              <followSymlinks>false</followSymlinks>
-            </fileset>
-          </filesets>
-        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>app</shadedClassifierName>
+              <archive>
+                <manifest>
+                  <mainClass>org.apache.directory.server.UberjarMain</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
+      <!--<plugin>-->
+        <!--<artifactId>maven-clean-plugin</artifactId>-->
+        <!--<configuration>-->
+          <!--<filesets>-->
+            <!--<fileset>-->
+              <!--<directory>.</directory>-->
+              <!--<includes>-->
+                <!--<include>*.log</include>-->
+                <!--<include>server.xml</include>-->
+                <!--<include>META-INF</include>-->
+                <!--<include>example.com</include>-->
+              <!--</includes>-->
+              <!--<followSymlinks>false</followSymlinks>-->
+            <!--</fileset>-->
+          <!--</filesets>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
+<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -150,7 +233,9 @@
           </archive>
         </configuration>
       </plugin>
+-->
 
+<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -158,13 +243,14 @@
           <archive>
             <manifest>
               <mainClass>org.apache.directory.server.UberjarMain</mainClass>
-            </manifest> 
+            </manifest>
           </archive>
           <descriptor>src/main/assembly/apacheds-main.xml</descriptor>
           <classifier>app</classifier>
           <appendAssemblyId>false</appendAssemblyId>
         </configuration>
       </plugin>
+-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
