@@ -195,11 +195,12 @@
             <configuration>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>app</shadedClassifierName>
+<!--
               <filters>
                 <filter>
                   <artifact>bouncycastle:bcprov-jdk15</artifact>
-<!--
                   <includes>
+                    <include>org/bouncycastle/asn1/**</include>
                     <include>org/bouncycastle/jce/provider/BouncyCastleProvider.class</include>
                     <include>org/bouncycastle/x509/X509V1CertificateGenerator.class</include>
                     <include>org/bouncycastle/jce/interfaces/ConfigurableProvider.class</include>
@@ -213,8 +214,13 @@
                     <include>org/bouncycastle/asn1/DEREncodable.class</include>
                     <include>org/bouncycastle/jce/provider/symmetric/CamelliaMappings.class</include>
                     <include>org/bouncycastle/asn1/ntt/NTTObjectIdentifiers.class</include>
+                    <include>org/bouncycastle/jce/provider/symmetric/CAST5Mappings.class</include>
+                    <include>org/bouncycastle/jce/provider/symmetric/SEEDMappings.class</include>
+                    <include>org/bouncycastle/asn1/kisa/KISAObjectIdentifiers.class</include>
+                    <include>org/bouncycastle/asn1/pkcs/PKCSObjectIdentifiers.class</include>
+                    <include>org.bouncycastle.jce.provider.JDKX509CertificateFactory.class</include>
+                    <include>org.bouncycastle.jce.provider.JDKX509CertificateFactory.class</include>
                   </includes>
--->
                   <excludes>
                     <exclude>META-INF/BCKEY.SF</exclude>
                     <exclude>META-INF/BCKEY.DSA</exclude>
@@ -234,27 +240,12 @@
                   </excludes>
                 </filter>
               </filters>
+-->
             </configuration>
           </execution>
         </executions>
       </plugin>
-      <!--<plugin>-->
-        <!--<artifactId>maven-clean-plugin</artifactId>-->
-        <!--<configuration>-->
-          <!--<filesets>-->
-            <!--<fileset>-->
-              <!--<directory>.</directory>-->
-              <!--<includes>-->
-                <!--<include>*.log</include>-->
-                <!--<include>server.xml</include>-->
-                <!--<include>META-INF</include>-->
-                <!--<include>example.com</include>-->
-              <!--</includes>-->
-              <!--<followSymlinks>false</followSymlinks>-->
-            <!--</fileset>-->
-          <!--</filesets>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -267,22 +258,6 @@
         </configuration>
       </plugin>
 
-<!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>org.apache.directory.server.UberjarMain</mainClass>
-            </manifest>
-          </archive>
-          <descriptor>src/main/assembly/apacheds-main.xml</descriptor>
-          <classifier>app</classifier>
-          <appendAssemblyId>false</appendAssemblyId>
-        </configuration>
-      </plugin>
--->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -301,7 +276,7 @@
                   <version>1.5.2-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
-              <outputDirectory>${basedir}</outputDirectory>
+              <outputDirectory>${basedir}/target/plan</outputDirectory>
               <overWriteReleases>true</overWriteReleases>
               <overWriteSnapshots>true</overWriteSnapshots>
             </configuration>

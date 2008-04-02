@@ -13,4 +13,4 @@ IF NOT exist target/apacheds-noarch-installer-1.5.2-SNAPSHOT-app.jar GOTO :MVN
    GOTO :JAVA
 
 :JAVA
-   java -Dlog4j.configuration="file:///%cd%/log4j.properties" -jar target/apacheds-noarch-installer-1.5.2-SNAPSHOT-app.jar server.xml
+   java -Dlog4j.configuration="file:///%cd%/log4j.properties" -jar target/apacheds-noarch-installer-1.5.2-SNAPSHOT-app.jar target/plan/server.xml
