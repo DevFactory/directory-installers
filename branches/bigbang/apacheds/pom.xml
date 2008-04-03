@@ -630,11 +630,19 @@
               <!-- Targets for Linux Binary .bin installer -->
               <binTargets>
                 <binTarget>
-                 <id>apacheds-bin-installer</id>
-                  <finalName>apacheds-${server-version}.bin</finalName>
+                 <id>apacheds-bin-installer-i386</id>
+                  <finalName>apacheds-${server-version}-i386.bin</finalName>
                   <osName>Linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>i386</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </binTarget>
+                 <binTarget>
+                 <id>apacheds-bin-installer-x86_64</id>
+                  <finalName>apacheds-${server-version}-x86_64.bin</finalName>
+                  <osName>Linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>x86_64</osArch>
                   <daemonFramework>tanuki</daemonFramework>
                 </binTarget>
               </binTargets>
