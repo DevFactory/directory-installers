@@ -37,6 +37,7 @@
   <properties>
     <studio-version>1.1.0-SNAPSHOT</studio-version>
     <server-version>1.5.2-SNAPSHOT</server-version>
+    <suite-version>1.1.0-SNAPSHOT</suite-version>
   </properties>
 
   <dependencies>
@@ -158,9 +159,9 @@
                     </packagedFile>
                   </packagedFiles>
                   <id>suite-win32</id>
-                  <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/local/share/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-suite-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-suite-${studio-version}-setup</finalName>
+                  <finalName>apache-directory-suite-${suite-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -210,7 +211,7 @@
                 <id>deploy-installer-suite-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-suite-${studio-version}-setup.exe</file>
+                  <file>target/images/apache-directory-suite-${suite-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -312,9 +313,9 @@
                   </packagedFiles>
 
                   <id>studio-win32</id>
-                  <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/local/share/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-studio-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-studio-${studio-version}-setup</finalName>
+                  <finalName>apache-directory-studio-${studio-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -363,7 +364,7 @@
                 <id>deploy-installer-studio-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-studio-${studio-version}-setup.exe</file>
+                  <file>target/images/apache-directory-studio-${studio-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -497,7 +498,7 @@
                   <id>apacheds-i386-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>apacheds-server-1.5.2-SNAPSHOT-i386.rpm</finalName>
+                  <finalName>apacheds-${server-version}-i386.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>i386</osArch>
@@ -543,7 +544,7 @@
                   <id>apacheds-x86_64-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>apacheds-server-1.5.2-SNAPSHOT-x86_64.rpm</finalName>
+                  <finalName>apacheds-${server-version}-x86_64.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>x86_64</osArch>
@@ -583,9 +584,9 @@
                   </packagedFiles>
 
                   <id>server-win32</id>
-                  <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/local/share/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-server-1.5.2-SNAPSHOT-setup</finalName>
+                  <finalName>apacheds-${server-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -598,7 +599,7 @@
               <pkgTargets>
                 <pkgTarget>
                  <id>apacheds-macosx</id>
-                  <finalName>apacheds-macosx-${pom.version}.dmg</finalName>
+                  <finalName>apacheds-${server-version}.dmg</finalName>
                   <osName>Mac OS X</osName>
                   <osFamily>macosx</osFamily>
                   <osArch>x86</osArch>
@@ -610,7 +611,7 @@
               <debTargets>
                 <debTarget>
                  <id>apacheds-debian-i386</id>
-                  <finalName>apacheds-debian-i386-${pom.version}.deb</finalName>
+                  <finalName>apacheds-${server-version}-i386.deb</finalName>
                   <osName>linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>i386</osArch>
@@ -618,7 +619,7 @@
                 </debTarget>
                 <debTarget>
                  <id>apacheds-debian-amd64</id>
-                  <finalName>apacheds-debian-amd64-${pom.version}.deb</finalName>
+                  <finalName>apacheds-${server-version}-amd64.deb</finalName>
                   <osName>linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>amd64</osArch>
@@ -630,7 +631,7 @@
               <binTargets>
                 <binTarget>
                  <id>apacheds-bin-installer</id>
-                  <finalName>apacheds-linux-${pom.version}.bin</finalName>
+                  <finalName>apacheds-${server-version}.bin</finalName>
                   <osName>Linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>i386</osArch>
@@ -654,7 +655,7 @@
                 <id>deploy-installer-server-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-${server-version}-setup.exe</file>
+                  <file>target/images/apacheds-${server-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
