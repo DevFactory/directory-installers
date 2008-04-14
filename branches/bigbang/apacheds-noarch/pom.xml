@@ -24,7 +24,7 @@
   <parent>
     <groupId>org.apache.directory.installers</groupId>
     <artifactId>installers-parent</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.2</version>
   </parent>
   <artifactId>apacheds-noarch-installer</artifactId>
   <name>ApacheDS Architecture Independent Installer</name>
@@ -140,7 +140,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.2-SNAPSHOT</version>
+                  <version>1.5.2</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/target/plan</outputDirectory>
