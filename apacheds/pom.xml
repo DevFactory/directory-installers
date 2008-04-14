@@ -24,7 +24,7 @@
   <parent>
     <groupId>org.apache.directory.installers</groupId>
     <artifactId>installers-parent</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.2</version>
   </parent>
   <artifactId>apacheds-installers</artifactId>
   <name>ApacheDS Installers</name>
@@ -35,9 +35,9 @@
   </description>
 
   <properties>
-    <studio-version>1.1.0-SNAPSHOT</studio-version>
-    <server-version>1.5.2-SNAPSHOT</server-version>
-    <suite-version>1.1.0-SNAPSHOT</suite-version>
+    <studio-version>1.1.0</studio-version>
+    <server-version>1.5.2</server-version>
+    <suite-version>1.1.0</suite-version>
   </properties>
 
   <dependencies>
@@ -89,7 +89,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.1.2</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -259,7 +259,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.1.2</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -389,7 +389,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.1.2</version>
             <configuration>
               <excludes>
 
@@ -421,7 +421,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.2-SNAPSHOT</version>
+                <version>1.5.2</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -731,7 +731,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.2-SNAPSHOT</version>
+                  <version>1.5.2</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
