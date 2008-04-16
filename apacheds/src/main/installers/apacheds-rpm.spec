@@ -55,7 +55,7 @@ mkdir -p $RPM_BUILD_ROOT%{adsdata}/default/conf
 mkdir -p $RPM_BUILD_ROOT%{adsdata}/default/partitions
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/%{name}/default
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/run/%{name}/default
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+mkdir -p $RPM_BUILD_ROOT/etc/init.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
 ${mk.docs.dirs}
 ${mk.sources.dirs}
