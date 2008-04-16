@@ -15,7 +15,7 @@
 
   <properties>
     <studio-version>1.1.0</studio-version>
-    <server-version>1.5.2</server-version>
+    <server-version>1.5.3-SNAPSHOT</server-version>
     <suite-version>1.1.0</suite-version>
   </properties>
 
@@ -396,7 +396,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.2</version>
+                <version>1.5.3-SNAPSHOT</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -706,7 +706,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.2</version>
+                  <version>1.5.3-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
