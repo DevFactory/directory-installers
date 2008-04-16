@@ -30,7 +30,7 @@
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.2</version>
+  <version>1.5.3-SNAPSHOT</version>
   <name>ApacheDS Installers</name>
   <packaging>pom</packaging>
 
@@ -486,9 +486,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/tags/1.5.2</connection>
-    <url>http://svn.apache.org/repos/asf/directory/installers/tags/1.5.2</url>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/tags/1.5.2</developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</connection>
+    <url>http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</url>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/branches/bigbang</developerConnection>
   </scm>
 
   <build>
