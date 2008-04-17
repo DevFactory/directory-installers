@@ -1,30 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-  
-  http://www.apache.org/licenses/LICENSE-2.0
-  
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
--->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.directory.installers</groupId>
     <artifactId>installers-parent</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.3-SNAPSHOT</version>
   </parent>
   <artifactId>apacheds-installers</artifactId>
   <name>ApacheDS Installers</name>
@@ -35,8 +14,9 @@
   </description>
 
   <properties>
-    <studio-version>1.1.0-SNAPSHOT</studio-version>
-    <server-version>1.5.2-SNAPSHOT</server-version>
+    <studio-version>1.1.0</studio-version>
+    <server-version>1.5.3-SNAPSHOT</server-version>
+    <suite-version>1.1.0</suite-version>
   </properties>
 
   <dependencies>
@@ -46,76 +26,13 @@
       <version>${pom.version}</version>
     </dependency>  
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>mitosis</artifactId>
-    </dependency>  
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-jndi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-xml</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.directory.daemon</groupId>
-      <artifactId>daemon-bootstrappers</artifactId>
-      <scope>provided</scope>
-    </dependency>  
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-tools</artifactId>
-    </dependency>  
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-schema-extras</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-bootstrap-partition</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl104-over-slf4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>tanukisoft</groupId>
       <artifactId>wrapper</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-cli</groupId>
-      <artifactId>commons-cli</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-tools</artifactId>
     </dependency>
   </dependencies>
 
@@ -131,11 +48,9 @@
                 <phase>process-resources</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="target/images"/>
-                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip"
-                         verbose="on" usetimestamp="true"
-                         dest="target/ApacheDirectoryStudio.zip" />
-                    <touch file="target/ApacheDirectoryStudio.zip"/>
+                    <mkdir dir="target/images" />
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip" verbose="on" usetimestamp="true" dest="target/ApacheDirectoryStudio.zip" />
+                    <touch file="target/ApacheDirectoryStudio.zip" />
                     <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/suite-win32" overwrite="false" />
                     <move toDir="target/images/suite-win32/ApacheDirectoryStudio">
                       <fileset dir="target/images/suite-win32/ApacheDirectoryStudio-win32-${studio-version}" />
@@ -151,7 +66,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.1.4-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -223,7 +138,7 @@
                   <id>suite-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-suite-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-suite-${studio-version}-setup</finalName>
+                  <finalName>apache-directory-suite-${suite-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -255,6 +170,7 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
+                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -272,7 +188,7 @@
                 <id>deploy-installer-suite-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-suite-${studio-version}-setup.exe</file>
+                  <file>target/images/apache-directory-suite-${suite-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -300,11 +216,9 @@
                 <phase>process-resources</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="target/images"/>
-                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip"
-                         verbose="on" usetimestamp="true"
-                         dest="target/ApacheDirectoryStudio.zip" />
-                    <touch file="target/ApacheDirectoryStudio.zip"/>
+                    <mkdir dir="target/images" />
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip" verbose="on" usetimestamp="true" dest="target/ApacheDirectoryStudio.zip" />
+                    <touch file="target/ApacheDirectoryStudio.zip" />
                     <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/studio-win32" overwrite="false" />
                     <move toDir="target/images/studio-win32/ApacheDirectoryStudio">
                       <fileset dir="target/images/studio-win32/ApacheDirectoryStudio-win32-${studio-version}" />
@@ -320,7 +234,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.1.4-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -374,9 +288,9 @@
                   </packagedFiles>
 
                   <id>studio-win32</id>
-                  <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/local/share/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-studio-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-studio-${studio-version}-setup</finalName>
+                  <finalName>apache-directory-studio-${studio-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -407,6 +321,7 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
+                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -424,7 +339,7 @@
                 <id>deploy-installer-studio-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-studio-${studio-version}-setup.exe</file>
+                  <file>target/images/apache-directory-studio-${studio-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -449,7 +364,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>1.1.4-SNAPSHOT</version>
             <configuration>
               <excludes>
 
@@ -475,12 +390,13 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
+                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
 
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.2-SNAPSHOT</version>
+                <version>1.5.3-SNAPSHOT</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -557,7 +473,7 @@
                   <id>apacheds-i386-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>apacheds-server-1.5.2-SNAPSHOT-i386.rpm</finalName>
+                  <finalName>apacheds-${server-version}-i386.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>i386</osArch>
@@ -603,7 +519,7 @@
                   <id>apacheds-x86_64-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>apacheds-server-1.5.2-SNAPSHOT-x86_64.rpm</finalName>
+                  <finalName>apacheds-${server-version}-x86_64.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>x86_64</osArch>
@@ -645,7 +561,7 @@
                   <id>server-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-server-1.5.2-SNAPSHOT-setup</finalName>
+                  <finalName>apacheds-${server-version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -653,6 +569,59 @@
                   <daemonFramework>tanuki</daemonFramework>
                 </nsisTarget>
               </nsisTargets>
+              
+              <!-- Targets for Mac OS X .pkg installer package -->
+              <pkgTargets>
+                <pkgTarget>
+                 <id>apacheds-macosx</id>
+                  <finalName>apacheds-${server-version}.dmg</finalName>
+                  <osName>Mac OS X</osName>
+                  <osFamily>macosx</osFamily>
+                  <osArch>x86</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </pkgTarget>
+              </pkgTargets>
+              
+              <!-- Targets for Debian .deb installer package -->
+              <debTargets>
+                <debTarget>
+                 <id>apacheds-debian-i386</id>
+                  <finalName>apacheds-${server-version}-i386.deb</finalName>
+                  <osName>linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>i386</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </debTarget>
+                <debTarget>
+                 <id>apacheds-debian-amd64</id>
+                  <finalName>apacheds-${server-version}-amd64.deb</finalName>
+                  <osName>linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>amd64</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </debTarget>
+              </debTargets>
+              
+              <!-- Targets for Linux Binary .bin installer -->
+              <binTargets>
+                <binTarget>
+                 <id>apacheds-bin-installer-i386</id>
+                  <finalName>apacheds-${server-version}-i386.bin</finalName>
+                  <osName>Linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>i386</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </binTarget>
+                 <binTarget>
+                 <id>apacheds-bin-installer-x86_64</id>
+                  <finalName>apacheds-${server-version}-x86_64.bin</finalName>
+                  <osName>Linux</osName>
+                  <osFamily>linux</osFamily>
+                  <osArch>x86_64</osArch>
+                  <daemonFramework>tanuki</daemonFramework>
+                </binTarget>
+              </binTargets>
+              
             </configuration>
             <executions>
               <execution>
@@ -669,7 +638,7 @@
                 <id>deploy-installer-server-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-${server-version}-setup.exe</file>
+                  <file>target/images/apacheds-${server-version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
@@ -737,7 +706,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.2-SNAPSHOT</version>
+                  <version>1.5.3-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
@@ -750,4 +719,3 @@
     </plugins>
   </build>
 </project>
-
