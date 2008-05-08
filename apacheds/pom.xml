@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.apache.directory.installers</groupId>
     <artifactId>installers-parent</artifactId>
-    <version>1.5.3-SNAPSHOT</version>
+    <version>1.5.4-SNAPSHOT</version>
   </parent>
   <artifactId>apacheds-installers</artifactId>
   <name>ApacheDS Installers</name>
@@ -15,7 +15,7 @@
 
   <properties>
     <studio-version>1.1.0</studio-version>
-    <server-version>1.5.3-SNAPSHOT</server-version>
+    <server-version>1.5.4-SNAPSHOT</server-version>
     <suite-version>1.1.0</suite-version>
   </properties>
 
@@ -66,7 +66,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.5-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -234,7 +234,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.5-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -364,7 +364,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.5-SNAPSHOT</version>
             <configuration>
               <excludes>
 
@@ -396,7 +396,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.3-SNAPSHOT</version>
+                <version>1.5.4-SNAPSHOT</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -706,7 +706,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.3-SNAPSHOT</version>
+                  <version>1.5.4-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
