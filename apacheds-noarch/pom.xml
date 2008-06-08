@@ -140,7 +140,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.2</version>
+                  <version>${version}</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/target/plan</outputDirectory>

@@ -14,7 +14,7 @@
   </description>
 
   <properties>
-    <studio-version>1.1.0</studio-version>
+    <studio-version>1.2.0.SNAPSHOT</studio-version>
     <server-version>1.5.4-SNAPSHOT</server-version>
     <suite-version>1.1.0</suite-version>
   </properties>
