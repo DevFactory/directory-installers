@@ -180,7 +180,6 @@ Section "Application Files" SecServerFiles
     Call ReplaceInFile
 
   ;Store install folder
-  WriteRegStr HKLM "SOFTWARE\${Vendor}\${Project}\Server" "InstallDir" $SERVER_HOME_DIR
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${Project} Server" "DisplayName" "${Project} Server - (remove only)"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${Project} Server" "DisplayIcon" "$SERVER_HOME_DIR\uninstall.exe"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${Project} Server" "UninstallString" '"$SERVER_HOME_DIR\uninstall.exe"'
@@ -443,7 +442,6 @@ FunctionEnd
 ;Uninstaller Section
 
 Section "Uninstall"
-  ReadRegStr $SERVER_HOME_DIR HKLM "SOFTWARE\${Vendor}\${Project}\Server" "InstallDir"
 
   ; Need to parse a list of instances or directories somehow
   Push "default"
@@ -457,12 +455,12 @@ Section "Uninstall"
   RMDir /r "$SMPROGRAMS\Apache Directory Suite\Server"
 
   ; remove files in root, then all dirs created by the installer.... leave user added or instance dirs.
-  Delete "$SERVER_HOME_DIR\*"
-  RMDir /r "$SERVER_HOME_DIR\bin"
-  RMDir /r "$SERVER_HOME_DIR\conf"
-  RMDir /r "$SERVER_HOME_DIR\var"
-  RMDir /r "$SERVER_HOME_DIR\lib"
-  RMDir /r "$SERVER_HOME_DIR\log"
+  Delete "$INSTDIR\*"
+  RMDir /r "$INSTDIR\bin"
+  RMDir /r "$INSTDIR\conf"
+  RMDir /r "$INSTDIR\var"
+  RMDir /r "$INSTDIR\lib"
+  RMDir /r "$INSTDIR\log"
 
 SectionEnd
 
