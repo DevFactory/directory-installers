@@ -571,16 +571,16 @@
               </nsisTargets>
               
               <!-- Targets for Mac OS X .pkg installer package -->
-              <pkgTargets>
-                <pkgTarget>
+              <macOsXPkgTargets>
+                <macOsXPkgTarget>
                  <id>apacheds-macosx</id>
                   <finalName>apacheds-${server-version}.dmg</finalName>
                   <osName>Mac OS X</osName>
                   <osFamily>macosx</osFamily>
                   <osArch>x86</osArch>
                   <daemonFramework>tanuki</daemonFramework>
-                </pkgTarget>
-              </pkgTargets>
+                </macOsXPkgTarget>
+              </macOsXPkgTargets>
               
               <!-- Targets for Debian .deb installer package -->
               <debTargets>
