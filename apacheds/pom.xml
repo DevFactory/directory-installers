@@ -622,6 +622,28 @@
                 </binTarget>
               </binTargets>
               
+              <!-- Targets for Archive installer -->
+              <archiveTargets>
+                <archiveTarget>
+                  <id>apacheds-archive-zip</id>
+                  <osName>any</osName>
+                  <osFamily>any</osFamily>
+                  <osArch>any</osArch>
+                  <daemonFramework>any</daemonFramework>
+                  <finalName>apacheds-${server-version}.zip</finalName>
+                  <archiveType>zip</archiveType>
+                </archiveTarget>
+                <archiveTarget>
+                  <id>apacheds-archive-tar.gz</id>
+                  <osName>any</osName>
+                  <osFamily>any</osFamily>
+                  <osArch>any</osArch>
+                  <daemonFramework>any</daemonFramework>
+                  <finalName>apacheds-${server-version}.tar.gz</finalName>
+                  <archiveType>tar.gz</archiveType>
+                </archiveTarget>
+              </archiveTargets>
+              
             </configuration>
             <executions>
               <execution>
