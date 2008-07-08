@@ -153,7 +153,7 @@ XPStyle on
 
 SectionGroup "Apache Directory Server"
 Section "Application Files" SecServerFiles
-  SectionIn 1 2
+  SectionIn 1 RO
   SetOutPath "$SERVER_HOME_DIR\bin"
   File /r "bin\*.*"
 
@@ -178,6 +178,8 @@ Section "Application Files" SecServerFiles
     Push $R0
     Push "$SERVER_HOME_DIR\conf\apacheds.conf" ; file to replace in
     Call ReplaceInFile
+    
+  CreateDirectory "$INSTANCE_HOME_DIR"
 
   ;Store install folder
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${Project} Server" "DisplayName" "${Project} Server - (remove only)"
@@ -207,7 +209,9 @@ SectionEnd
 
 ; This section needs a custom screen to ask for a name for the instance (replace default)
 Section "Example Instance" SecInstanceFiles
-    SectionIn 1 2
+    SectionIn 1
+    StrCpy $R9 "Passed the Example Instance section"
+    
     Push "default"
     Call CreateInstanceDirs
 
@@ -216,6 +220,8 @@ Section "Example Instance" SecInstanceFiles
     File "conf\log4j.properties"
     File /oname=apacheds.conf "conf\apacheds-default.conf"
     File "conf\server.xml"
+    ; Removing the redundant server.xml file (see DIRSERVER-1112)
+    Delete "$SERVER_HOME_DIR\conf\server.xml"
 
     Push "$INSTANCE_HOME_DIR\default\conf"
     Push "*.*"
@@ -294,6 +300,8 @@ FunctionEnd
 Function .onInstSuccess
   Push "$INSTANCE_HOME_DIR\conf\apacheds-default.conf"
   Call ConvertUnixNewLines
+
+  StrCmp $R9 "" End
 
   ; Start the server
   MessageBox MB_YESNO|MB_ICONQUESTION "Do you want to start the default directory instance?" IDYES startService IDNO End

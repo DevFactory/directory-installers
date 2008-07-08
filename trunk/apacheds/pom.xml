@@ -136,7 +136,7 @@
                     </packagedFile>
                   </packagedFiles>
                   <id>suite-win32</id>
-                  <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/bin/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-suite-win.nsi</nsisConfigurationFile>
                   <finalName>apache-directory-suite-${suite-version}-setup</finalName>
                   <osName>Windows XP</osName>
@@ -288,7 +288,7 @@
                   </packagedFiles>
 
                   <id>studio-win32</id>
-                  <nsisCompiler>/usr/local/share/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/bin/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-studio-win.nsi</nsisConfigurationFile>
                   <finalName>apache-directory-studio-${studio-version}-setup</finalName>
                   <osName>Windows XP</osName>
@@ -559,7 +559,7 @@
                   </packagedFiles>
 
                   <id>server-win32</id>
-                  <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
+                  <nsisCompiler>/usr/bin/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
                   <finalName>apacheds-${server-version}-setup</finalName>
                   <osName>Windows XP</osName>
