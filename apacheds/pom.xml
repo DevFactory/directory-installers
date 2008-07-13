@@ -33,9 +33,9 @@
   </description>
 
   <properties>
-    <studio-version>1.2.0.SNAPSHOT</studio-version>
-    <server-version>1.5.3-SNAPSHOT</server-version>
-    <suite-version>1.1.0</suite-version>
+    <studio-version>1.2.0</studio-version>
+    <server-version>${pom.version}</server-version>
+    <suite-version>1.2.0</suite-version>
   </properties>
 
   <dependencies>
@@ -85,7 +85,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.4</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -253,7 +253,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.4</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -383,7 +383,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.4</version>
             <configuration>
               <excludes>
 
@@ -415,7 +415,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.3-SNAPSHOT</version>
+                <version>${server-version}</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
