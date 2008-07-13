@@ -33,9 +33,9 @@
   </description>
 
   <properties>
-    <studio-version>1.2.0.SNAPSHOT</studio-version>
-    <server-version>1.5.4-SNAPSHOT</server-version>
-    <suite-version>1.1.0</suite-version>
+    <studio-version>1.2.0</studio-version>
+    <server-version>${pom.version}</server-version>
+    <suite-version>1.2.0</suite-version>
   </properties>
 
   <dependencies>
@@ -415,7 +415,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>1.5.4-SNAPSHOT</version>
+                <version>${server-version}</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
