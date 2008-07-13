@@ -46,97 +46,97 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>mitosis</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-xbean-spring</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-xml</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
   
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.1.4</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-tools</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-jndi</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-ntp</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-kerberos</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-changepw</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-dns</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-schema-extras</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-bootstrap-partition</artifactId>
-        <version>1.5.3-SNAPSHOT</version>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-asn1-codec</artifactId>
-        <version>0.9.11-SNAPSHOT</version>
+        <version>0.9.11</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap</artifactId>
-        <version>0.9.11-SNAPSHOT</version>
+        <version>0.9.11</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap-constants</artifactId>
-        <version>0.9.11-SNAPSHOT</version>
+        <version>0.9.11</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>1.1.4-SNAPSHOT</version>
+        <version>1.1.4</version>
       </dependency>
 
       <dependency>
@@ -223,10 +223,19 @@
         <version>1.2.14</version>
       </dependency>
 
+      <!-- reinstate when forked version is removed after new 1.0.1 jar comes out
       <dependency>
         <groupId>jdbm</groupId>
         <artifactId>jdbm</artifactId>
         <version>1.0</version>
+      </dependency>
+      -->
+
+      <!-- TODO remove me once 1.0.1 version of jdbm comes out -->
+      <dependency>
+        <groupId>org.apache.directory.server</groupId>
+        <artifactId>apacheds-jdbm</artifactId>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
