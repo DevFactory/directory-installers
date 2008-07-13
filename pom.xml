@@ -31,7 +31,7 @@
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
   <version>1.5.3-SNAPSHOT</version>
-  <name>ApacheDS Installers</name>
+  <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
   <properties>
