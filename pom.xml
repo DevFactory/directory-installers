@@ -31,7 +31,7 @@
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
   <version>1.5.4-SNAPSHOT</version>
-  <name>ApacheDS Installers</name>
+  <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
   <properties>
@@ -223,10 +223,19 @@
         <version>1.2.14</version>
       </dependency>
 
+      <!-- reinstate when forked version is removed after new 1.0.1 comes out
       <dependency>
         <groupId>jdbm</groupId>
         <artifactId>jdbm</artifactId>
         <version>1.0</version>
+      </dependency>
+      -->
+
+      <!-- TODO remove me once 1.0.1 version of jdbm comes out -->
+      <dependency>
+        <groupId>org.apache.directory.server</groupId>
+        <artifactId>apacheds-jdbm</artifactId>
+        <version>1.5.3</version>
       </dependency>
 
       <dependency>
