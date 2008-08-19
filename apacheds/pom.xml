@@ -85,7 +85,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.5-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -253,7 +253,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.5-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -383,7 +383,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.5-SNAPSHOT</version>
             <configuration>
               <excludes>
 
@@ -600,24 +600,6 @@
                   <daemonFramework>tanuki</daemonFramework>
                 </macOsXPkgTarget>
               </macOsXPkgTargets>
-
-              <!-- Targets for Solaris .pkg installer package -->
-              <solarisPkgTargets>
-                <solarisPkgTarget>
-                 <id>apacheds-solaris-x86</id>
-                  <finalName>apacheds-${server-version}-solaris-x86.pkg</finalName>
-                  <osName>solaris</osName>
-                  <osArch>x86</osArch>
-                  <daemonFramework>tanuki</daemonFramework>
-                </solarisPkgTarget>
-                <solarisPkgTarget>
-                 <id>apacheds-solaris-sparc</id>
-                  <finalName>apacheds-${server-version}-solaris-sparc.pkg</finalName>
-                  <osName>solaris</osName>
-                  <osArch>sparc</osArch>
-                  <daemonFramework>tanuki</daemonFramework>
-                </solarisPkgTarget>
-              </solarisPkgTargets>
               
               <!-- Targets for Debian .deb installer package -->
               <debTargets>
@@ -765,7 +747,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.3-SNAPSHOT</version>
+                  <version>1.5.4-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
