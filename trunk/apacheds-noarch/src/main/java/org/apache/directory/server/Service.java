@@ -27,7 +27,7 @@ import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
-import org.apache.directory.server.ldap.LdapServer;
+import org.apache.directory.server.ldap.LdapService;
 import org.apache.directory.server.protocol.shared.SocketAcceptor;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
@@ -66,16 +66,16 @@ public class Service implements DaemonApplication
             DirectoryService directoryService = new DefaultDirectoryService();
             directoryService.startup();
             SocketAcceptor socketAcceptor = new SocketAcceptor( null );
-            LdapServer ldapServer = new LdapServer();
-            ldapServer.setSocketAcceptor( socketAcceptor );
-            ldapServer.setDirectoryService( directoryService );
-            ldapServer.start();
-            LdapServer ldapsServer = new LdapServer();
+            LdapService ldapService = new LdapService();
+            ldapService.setSocketAcceptor( socketAcceptor );
+            ldapService.setDirectoryService( directoryService );
+            ldapService.start();
+            LdapService ldapsServer = new LdapService();
             ldapsServer.setEnableLdaps( true );
             ldapsServer.setSocketAcceptor( socketAcceptor );
             ldapsServer.setDirectoryService( directoryService );
             ldapsServer.start();
-            apacheDS = new ApacheDS( directoryService, ldapServer, ldapsServer );
+            apacheDS = new ApacheDS( directoryService, ldapService, ldapsServer );
         }
 
         if ( install != null )
