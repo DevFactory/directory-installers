@@ -376,6 +376,7 @@
       </build>
     </profile>
 
+    <!-- Profile for Server Installers -->
     <profile>
       <id>server-installer</id>
       <build>
@@ -454,6 +455,7 @@
                 org.apache.ldap.server.Service
               </applicationClass>
 
+              <!-- Targets for Linux .rpm installer package -->
               <rpmTargets>
                 <rpmTarget>
                   <packagedFiles>
@@ -500,7 +502,6 @@
                   <scriptFile>src/main/installers/apacheds-init</scriptFile>
                   <!--<bootstrapperConfigurationFile>../../daemon/plugin/src/main/resources/org/apache/directory/daemon/installers/wrapper/conf/apacheds.conf</bootstrapperConfigurationFile>-->
                 </rpmTarget>
-
                 <rpmTarget>
                   <packagedFiles>
                     <packagedFile>
@@ -547,7 +548,8 @@
                   <!--<bootstrapperConfigurationFile>../../daemon/plugin/src/main/resources/org/apache/directory/daemon/installers/wrapper/conf/apacheds.conf</bootstrapperConfigurationFile>-->
                 </rpmTarget>
               </rpmTargets>
-
+              
+              <!-- Targets for Windows .exe installer package -->
               <nsisTargets>
                 <nsisTarget>
                   <packagedFiles>
@@ -690,7 +692,22 @@
               </execution>
             </executions>
           </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- Profile for deploying the Windows installer (if and only if it has been created) -->
+    <profile>
+      <id>deploy-installer-server-win32</id>
+      <activation>
+        <file>
+          <exists>target/images/apacheds-${server-version}-setup.exe</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
             <executions>
               <execution>
@@ -709,6 +726,26 @@
                   <goal>deploy-file</goal>
                 </goals>
               </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- Profile for deploying the Linux RPM x86 installer (if and only if it has been created) -->
+    <profile>
+      <id>deploy-installer-server-rpm-x86</id>
+      <activation>
+        <file>
+          <exists>target/images/apacheds-server-${server-version}-x86.rpm</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
               <execution>
                 <id>deploy-installer-server-rpm-x86</id>
                 <phase>deploy</phase>
@@ -725,6 +762,26 @@
                   <goal>deploy-file</goal>
                 </goals>
               </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- Profile for deploying the Linux RPM x86_64 installer (if and only if it has been created) -->
+    <profile>
+      <id>deploy-installer-server-rpm-x86_64</id>
+      <activation>
+        <file>
+          <exists>target/images/apacheds-server-${server-version}-x86_64.rpm</exists>
+        </file>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <executions>
               <execution>
                 <id>deploy-installer-server-rpm-x86_64</id>
                 <phase>deploy</phase>
