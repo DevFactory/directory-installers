@@ -312,9 +312,13 @@ checkUser() {
             IDEXE="/usr/bin/id"
             if [ ! -x "$IDEXE" ]
             then
-                echo "Unable to locate 'id'."
-                echo "Please report this message along with the location of the command on your system."
-                exit 1
+                IDEXE="/bin/id"
+                if [ ! -x "$IDEXE" ]
+                then
+                    echo "Unable to locate 'id'."
+                    echo "Please report this message along with the location of the command on your system."
+                    exit 1
+                fi
             fi
         fi
 
