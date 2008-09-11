@@ -30,7 +30,7 @@
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.4-SNAPSHOT</version>
+  <version>1.5.4</version>
   <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
@@ -46,97 +46,109 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>mitosis</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-xbean-spring</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-xml</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
   
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>1.1.5-SNAPSHOT</version>
+        <version>1.1.5</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-tools</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
+      </dependency>  
+
+      <dependency>
+        <groupId>org.apache.directory.server</groupId>
+        <artifactId>apacheds-xdbm-base</artifactId>
+        <version>1.5.4</version>
+      </dependency>  
+
+      <dependency>
+        <groupId>org.apache.directory.server</groupId>
+        <artifactId>apacheds-xdbm-search</artifactId>
+        <version>1.5.4</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-jndi</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-ntp</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-kerberos</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-changepw</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-dns</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-schema-extras</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-bootstrap-partition</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-asn1-codec</artifactId>
-        <version>0.9.12-SNAPSHOT</version>
+        <version>0.9.12</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap</artifactId>
-        <version>0.9.12-SNAPSHOT</version>
+        <version>0.9.12</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap-constants</artifactId>
-        <version>0.9.12-SNAPSHOT</version>
+        <version>0.9.12</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>1.1.5-SNAPSHOT</version>
+        <version>1.1.5</version>
       </dependency>
 
       <dependency>
@@ -235,7 +247,7 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-jdbm</artifactId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.4</version>
       </dependency>
 
       <dependency>
@@ -438,6 +450,11 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-bootstrap-partition</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-xdbm-base</artifactId>
     </dependency>
 
     <dependency>
