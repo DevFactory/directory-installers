@@ -25,12 +25,12 @@
   <parent>
     <groupId>org.apache.directory.project</groupId>
     <artifactId>project</artifactId>
-    <version>12</version>
+    <version>13-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.4</version>
+  <version>1.5.5-SNAPSHOT</version>
   <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
@@ -407,7 +407,7 @@
   <distributionManagement>
     <site>
       <id>apache.directory.installers</id>
-      <url>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</url>
+      <url>scpexe://localhost/tmp/installers/</url>
     </site>
   </distributionManagement>
 
