@@ -201,7 +201,9 @@
             </executions>
           </plugin>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-suite-win32</id>
@@ -352,7 +354,9 @@
             </executions>
           </plugin>
           <plugin>
+            <groupId>org.apache.org.maven</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-studio-win32</id>
@@ -709,6 +713,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-win32</id>
@@ -745,6 +750,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-rpm-x86</id>
@@ -781,6 +787,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-rpm-x86_64</id>
@@ -817,6 +824,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-macosx</id>
@@ -853,6 +861,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-solaris-x86</id>
@@ -889,6 +898,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-solaris-sparc</id>
@@ -925,6 +935,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-debian-i386</id>
@@ -961,6 +972,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-debian-amd64</id>
@@ -997,6 +1009,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-binary-i386</id>
@@ -1033,6 +1046,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-binary-x86_64</id>
@@ -1069,6 +1083,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-archive-zip</id>
@@ -1105,6 +1120,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-archive-tar.gz</id>
@@ -1135,6 +1151,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.0</version>
         <executions>
           <execution>
             <id>unpack-server-xml</id>

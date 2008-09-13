@@ -36,7 +36,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -116,6 +116,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.2</version>
         <configuration>
           <archive>
             <manifest>
@@ -128,6 +129,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.0</version>
         <executions>
           <execution>
             <id>unpack-server-xml</id>
