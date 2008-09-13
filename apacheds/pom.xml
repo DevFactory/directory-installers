@@ -85,7 +85,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -253,7 +253,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -384,7 +384,7 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6-SNAPSHOT</version>
             <configuration>
               <excludes>
 
@@ -1147,7 +1147,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.4</version>
+                  <version>1.5.5-SNAPSHOT</version>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
