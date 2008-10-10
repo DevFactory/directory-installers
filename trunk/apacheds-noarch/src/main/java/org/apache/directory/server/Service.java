@@ -28,7 +28,7 @@ import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.ldap.LdapService;
-import org.apache.directory.server.protocol.shared.SocketAcceptor;
+import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +65,7 @@ public class Service implements DaemonApplication
             LOG.info( "server: using default settings ..." );
             DirectoryService directoryService = new DefaultDirectoryService();
             directoryService.startup();
-            SocketAcceptor socketAcceptor = new SocketAcceptor( null );
+            NioSocketAcceptor socketAcceptor = new NioSocketAcceptor( null );
             LdapService ldapService = new LdapService();
             ldapService.setSocketAcceptor( socketAcceptor );
             ldapService.setDirectoryService( directoryService );
