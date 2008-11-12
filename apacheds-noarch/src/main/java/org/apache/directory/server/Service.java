@@ -66,7 +66,7 @@ public class Service implements DaemonApplication
             LOG.info( "server: using default settings ..." );
             DirectoryService directoryService = new DefaultDirectoryService();
             directoryService.startup();
-            SocketAcceptor socketAcceptor = new NioSocketAcceptor( null );
+            SocketAcceptor socketAcceptor = new NioSocketAcceptor();
             LdapService ldapService = new LdapService();
             ldapService.setSocketAcceptor( socketAcceptor );
             ldapService.setDirectoryService( directoryService );
