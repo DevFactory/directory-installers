@@ -28,6 +28,7 @@ import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.ldap.LdapService;
+import org.apache.directory.server.ntp.NtpServer;
 import org.apache.mina.transport.socket.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
@@ -46,13 +47,37 @@ public class Service implements DaemonApplication
     private static final Logger LOG = LoggerFactory.getLogger( Service.class );
     private Thread workerThread;
     private SynchWorker worker = new SynchWorker();
+    
+    /** The LDAP server instance */ 
     private ApacheDS apacheDS;
+    
+    /** The NTP server instance */
+    private NtpServer ntpServer;
+    
     private FileSystemXmlApplicationContext factory;
 
 
     public void init( InstallationLayout install, String[] args ) throws Exception
     {
-        printBanner();
+    	// Initialize the LDAP server
+    	initAds( install, args );
+        
+        // Now, initialize the other servers
+        initNtp( install, args );
+        //initDns( install, args );
+        //initDhcp( install, args );
+        //initKerberos( install, args );
+    }
+    
+    
+    /**
+     * Initialize the LDAP server
+     */
+    private void initAds( InstallationLayout install, String[] args ) throws Exception
+    {
+    	LOG.info( "Starting the LDAP server" );
+    	
+        printBannerLDAP();
         long startTime = System.currentTimeMillis();
 
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
@@ -93,10 +118,44 @@ public class Service implements DaemonApplication
         
         if ( LOG.isInfoEnabled() )
         {
-            LOG.info( "server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
+            LOG.info( "LDAP server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
         }
     }
 
+    
+    /**
+     * Initialize the LDAP server
+     */
+    private void initNtp( InstallationLayout install, String[] args ) throws Exception
+    {
+    	if ( factory == null )
+    	{
+    		return;
+    	}
+
+    	try
+    	{
+            ntpServer = ( NtpServer ) factory.getBean( "ntpServer" );
+    	}
+    	catch ( Exception e )
+    	{
+        	LOG.info( "Cannot find any reference to the NTP Server in the server.xml file : the server won't be started" );
+        	return;
+    	}
+    	
+    	LOG.info( "Starting the NTP server" );
+    	
+        printBannerNTP();
+        long startTime = System.currentTimeMillis();
+
+        ntpServer.start();
+
+        if ( LOG.isInfoEnabled() )
+        {
+            LOG.info( "NTP server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
+        }
+    }
+    
     public DirectoryService getDirectoryService() {
         return apacheDS.getDirectoryService();
     }
@@ -181,16 +240,38 @@ public class Service implements DaemonApplication
         }
     }
 
-    public static final String BANNER = "           _                     _          ____  ____   \n"
-        + "          / \\   _ __   __ _  ___| |__   ___|  _ \\/ ___|  \n"
-        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | \\___ \\   \n"
-        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| |___) |  \n"
-        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|____/   \n"
-        + "               |_|                                                               \n";
+    public static final String BANNER_LDAP = 
+    	  "           _                     _          ____  ____   \n"
+        + "          / \\   _ __    ___  ___| |__   ___|  _ \\/ ___|  \n"
+        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | \\___ \\  \n"
+        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| |___) | \n"
+        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|____/  \n"
+        + "               |_|                                       \n";
 
 
-    public static void printBanner()
+    public static final String BANNER_NTP =
+  	    "           _                     _          _   _ _____ _ __    \n"
+      + "          / \\   _ __    ___  ___| |__   ___| \\ | |_  __| '_ \\   \n"
+      + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ .\\| | | | | |_) |  \n"
+      + "        / ___ \\| |_) | (_| | (__| | | |  __/ |\\  | | | | .__/   \n"
+      + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|_| \\_| |_| |_|      \n"
+      + "               |_|                                              \n";
+
+
+    /**
+     * Print the LDAP banner
+     */
+    public static void printBannerLDAP()
     {
-        System.out.println( BANNER );
+        System.out.println( BANNER_LDAP );
+    }
+
+
+    /**
+     * Print the NTP banner
+     */
+    public static void printBannerNTP()
+    {
+        System.out.println( BANNER_NTP );
     }
 }
