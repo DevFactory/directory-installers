@@ -27,6 +27,7 @@ import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
+import org.apache.directory.server.kerberos.kdc.KdcServer;
 import org.apache.directory.server.ldap.LdapService;
 import org.apache.directory.server.ntp.NtpServer;
 import org.apache.mina.transport.socket.SocketAcceptor;
@@ -54,26 +55,32 @@ public class Service implements DaemonApplication
     /** The NTP server instance */
     private NtpServer ntpServer;
     
+    /** The Kerberos server instance */
+    private KdcServer kdcServer;
+    
     private FileSystemXmlApplicationContext factory;
 
 
     public void init( InstallationLayout install, String[] args ) throws Exception
     {
     	// Initialize the LDAP server
-    	initAds( install, args );
+    	initLdap( install, args );
         
-        // Now, initialize the other servers
+        // Initialize the NTP server
         initNtp( install, args );
+        
         //initDns( install, args );
         //initDhcp( install, args );
-        //initKerberos( install, args );
+        
+        // Initialize the Kerberos server
+        initKerberos( install, args );
     }
     
     
     /**
      * Initialize the LDAP server
      */
-    private void initAds( InstallationLayout install, String[] args ) throws Exception
+    private void initLdap( InstallationLayout install, String[] args ) throws Exception
     {
     	LOG.info( "Starting the LDAP server" );
     	
@@ -124,7 +131,7 @@ public class Service implements DaemonApplication
 
     
     /**
-     * Initialize the LDAP server
+     * Initialize the NTP server
      */
     private void initNtp( InstallationLayout install, String[] args ) throws Exception
     {
@@ -155,7 +162,44 @@ public class Service implements DaemonApplication
             LOG.info( "NTP server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
         }
     }
+
     
+
+    
+    /**
+     * Initialize the KERBEROS server
+     */
+    private void initKerberos( InstallationLayout install, String[] args ) throws Exception
+    {
+    	if ( factory == null )
+    	{
+    		return;
+    	}
+
+    	try
+    	{
+            kdcServer = ( KdcServer ) factory.getBean( "kdcServer" );
+    	}
+    	catch ( Exception e )
+    	{
+        	LOG.info( "Cannot find any reference to the Kerberos Server in the server.xml file : the server won't be started" );
+        	return;
+    	}
+    	
+    	LOG.info( "Starting the Kerberos server" );
+    	
+        printBannerKERBEROS();
+        long startTime = System.currentTimeMillis();
+
+        kdcServer.start();
+
+        if ( LOG.isInfoEnabled() )
+        {
+            LOG.info( "Kerberos server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
+        }
+    }
+    
+
     public DirectoryService getDirectoryService() {
         return apacheDS.getDirectoryService();
     }
@@ -258,6 +302,15 @@ public class Service implements DaemonApplication
       + "               |_|                                              \n";
 
 
+    public static final String BANNER_KERBEROS = 
+  	    "           _                     _          _  __ ____  _ _     \n"
+      + "          / \\   _ __    ___  ___| |__   ___| |/ /|  _ \\| ' \\    \n"
+      + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ ' / | |_) ) |) |   \n"
+      + "        / ___ \\| |_) | (_| | (__| | | |  __/ . \\ | .  /| |_) )  \n"
+      + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|_|\\_\\|_|\\_\\|_.__/   \n"
+      + "               |_|                                              \n";
+
+
     /**
      * Print the LDAP banner
      */
@@ -273,5 +326,14 @@ public class Service implements DaemonApplication
     public static void printBannerNTP()
     {
         System.out.println( BANNER_NTP );
+    }
+
+
+    /**
+     * Print the Kerberos banner
+     */
+    public static void printBannerKERBEROS()
+    {
+        System.out.println( BANNER_KERBEROS );
     }
 }
