@@ -506,9 +506,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</connection>
-    <url>http://svn.apache.org/repos/asf/directory/installers/branches/bigbang</url>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/branches/bigbang</developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/trunk</connection>
+    <url>http://svn.apache.org/repos/asf/directory/installers/trunk</url>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/trunk</developerConnection>
   </scm>
 
   <build>
