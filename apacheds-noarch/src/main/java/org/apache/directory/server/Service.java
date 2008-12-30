@@ -31,8 +31,7 @@ import org.apache.directory.server.dns.DnsServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
 import org.apache.directory.server.ldap.LdapService;
 import org.apache.directory.server.ntp.NtpServer;
-import org.apache.mina.transport.socket.SocketAcceptor;
-import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import org.apache.directory.server.protocol.shared.transport.TcpTransport;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,17 +108,16 @@ public class Service implements DaemonApplication
             LOG.info( "server: using default settings ..." );
             DirectoryService directoryService = new DefaultDirectoryService();
             directoryService.startup();
-            SocketAcceptor socketAcceptor = new NioSocketAcceptor();
             LdapService ldapService = new LdapService();
-            ldapService.setSocketAcceptor( socketAcceptor );
             ldapService.setDirectoryService( directoryService );
+            ldapService.setTcpTransport( new TcpTransport( 10389 ) );
             ldapService.start();
-            LdapService ldapsServer = new LdapService();
-            ldapsServer.setEnableLdaps( true );
-            ldapsServer.setSocketAcceptor( socketAcceptor );
-            ldapsServer.setDirectoryService( directoryService );
-            ldapsServer.start();
-            apacheDS = new ApacheDS( directoryService, ldapService, ldapsServer );
+            LdapService ldapsService = new LdapService();
+            ldapService.setTcpTransport( new TcpTransport( 10686 ) );
+            ldapsService.setEnableLdaps( true );
+            ldapsService.setDirectoryService( directoryService );
+            ldapsService.start();
+            apacheDS = new ApacheDS( directoryService, ldapService, ldapsService );
         }
 
         if ( install != null )
