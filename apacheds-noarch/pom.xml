@@ -97,6 +97,7 @@
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
                   <version>${version}</version>
+                  <excludes>serverAuthenticatorInAuthenticationInterceptor.xml,serverJdbmPartition.xml,serverReplicationInterceptor.xml</excludes>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/target/plan</outputDirectory>
