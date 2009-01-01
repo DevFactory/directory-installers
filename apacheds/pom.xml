@@ -1165,6 +1165,7 @@
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
                   <version>1.5.5-SNAPSHOT</version>
+                  <excludes>serverAuthenticatorInAuthenticationInterceptor.xml,serverJdbmPartition.xml,serverReplicationInterceptor.xml</excludes>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${basedir}/src/main/installers</outputDirectory>
