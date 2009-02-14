@@ -36,7 +36,7 @@
 
   <properties>
     <projectName>Apache Directory Server</projectName>
-    <!--<siteId>apacheds</siteId>-->
+    <distributionManagement.site.url>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</distributionManagement.site.url>
     <skin.version>1.0.0-SNAPSHOT</skin.version>
   </properties>
 
@@ -402,7 +402,7 @@
   <distributionManagement>
     <site>
       <id>apache.directory.installers</id>
-      <url>scpexe://localhost/tmp/installers/</url>
+      <url>${distributionManagement.site.url}</url>
     </site>
   </distributionManagement>
 
