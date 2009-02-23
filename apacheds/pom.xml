@@ -85,7 +85,6 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.6-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>suite</name>
@@ -189,7 +188,6 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
-                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -203,7 +201,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-suite-win32</id>
@@ -255,7 +252,6 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.6-SNAPSHOT</version>
             <configuration>
               <application>
                 <name>studio</name>
@@ -342,7 +338,6 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
-                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -356,7 +351,6 @@
           <plugin>
             <groupId>org.apache.org.maven</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-studio-win32</id>
@@ -388,7 +382,6 @@
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
-            <version>1.1.6-SNAPSHOT</version>
             <configuration>
               <excludes>
 
@@ -414,7 +407,6 @@
                 <exclude>freemarker:freemarker</exclude>
                 <exclude>asm:asm-util</exclude>
                 <exclude>jasperreports:jasperreports</exclude>
-                <exclude>bouncycastle:bcprov-jdk15</exclude>
               </excludes>
 
               <application>
@@ -713,7 +705,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-win32</id>
@@ -750,7 +741,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-rpm-x86</id>
@@ -787,7 +777,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-rpm-x86_64</id>
@@ -824,7 +813,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-macosx</id>
@@ -861,7 +849,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-solaris-x86</id>
@@ -898,7 +885,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-solaris-sparc</id>
@@ -935,7 +921,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-debian-i386</id>
@@ -972,7 +957,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-debian-amd64</id>
@@ -1009,7 +993,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-binary-i386</id>
@@ -1046,7 +1029,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-binary-x86_64</id>
@@ -1083,7 +1065,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-archive-zip</id>
@@ -1120,7 +1101,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>deploy-installer-server-archive-tar.gz</id>
@@ -1147,11 +1127,19 @@
   </profiles>
   
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.directory.daemon</groupId>
+          <artifactId>daemon-plugin</artifactId>
+          <version>1.1.6-SNAPSHOT</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.0</version>
         <executions>
           <execution>
             <id>unpack-server-xml</id>
