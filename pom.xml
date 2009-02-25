@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.directory.project</groupId>
     <artifactId>project</artifactId>
-    <version>14</version>
+    <version>15</version>
   </parent>
 
   <groupId>org.apache.directory.installers</groupId>
@@ -36,7 +36,7 @@
 
   <properties>
     <projectName>Apache Directory Server</projectName>
-    <distributionManagement.site.url>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</distributionManagement.site.url>
+    <distMgmtSiteUrl>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</distMgmtSiteUrl>
     <skin.version>1.0.0-SNAPSHOT</skin.version>
   </properties>
 
@@ -402,7 +402,7 @@
   <distributionManagement>
     <site>
       <id>apache.directory.installers</id>
-      <url>${distributionManagement.site.url}</url>
+      <url>${distMgmtSiteUrl}</url>
     </site>
   </distributionManagement>
 
@@ -512,39 +512,12 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/trunk</developerConnection>
   </scm>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.0.5</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-antlr-plugin</artifactId>
-          <version>2.0-beta-1</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>generate</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
-  </build>
-
   <reporting>
     <excludeDefaults>true</excludeDefaults>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.5</version>
         <configuration>
           <aggregate>true</aggregate>
         </configuration>
@@ -575,36 +548,10 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
-        <configuration>
-          <tags>
-            <tag>TODO</tag>
-            <tag>@todo</tag>
-            <tag>@deprecated</tag>
-            <tag>FIXME</tag>
-          </tags>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>1.1.1</version>
-        <configuration>
-          <xmlOutput>false</xmlOutput>
-          <!--
-            <xmlOutput>true|false</xmlOutput>
-            <xmlOutputDirectory>directory location of xml findbugs report</xmlOutputDirectory>
-            <threshold>High|Normal|Low|Exp|Ignore</threshold>
-            <effort>Min|Default|Max</effort>
-            <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-            <includeFilterFile>findbugs-include.xml</includeFilterFile>
-            <visitors>FindDeadLocalStores,UnreadFields</visitors>
-            <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-            <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
-            <pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
-            <debug>true|false</debug>
-            <relaxed>true|false</relaxed>
-          -->
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -613,12 +560,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.2</version>
       </plugin>
     </plugins>
   </reporting>
 
   <repositories>
+    <!-- Remove me when ASF CI can deploy Snapshots -->
     <repository>
       <id>apache.directory.snapshot.repo</id>
       <name>Snapshot repository for the Apache Directory project</name>
@@ -628,5 +575,4 @@
       </releases>
     </repository>
   </repositories>
-  
 </project>
