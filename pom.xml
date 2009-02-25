@@ -575,4 +575,16 @@
       </releases>
     </repository>
   </repositories>
+
+  <pluginRepositories>
+    <!-- Remove me when ASF CI can deploy Snapshots -->
+    <pluginRepository>
+      <id>apache.directory.snapshot.plugin.repo</id>
+      <name>Snapshot repository for the Apache Directory project</name>
+      <url>http://vm094.oxylos.org/mirror-maven2/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
