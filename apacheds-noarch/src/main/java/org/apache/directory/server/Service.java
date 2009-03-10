@@ -45,7 +45,9 @@ import org.slf4j.LoggerFactory;
  */
 public class Service implements DaemonApplication
 {
+    /** A logger for this class */
     private static final Logger LOG = LoggerFactory.getLogger( Service.class );
+    
     private Thread workerThread;
     private SynchWorker worker = new SynchWorker();
     
