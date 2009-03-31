@@ -37,7 +37,7 @@
   <properties>
     <projectName>Apache Directory Server</projectName>
     <distMgmtSiteUrl>scpexe://vm094.oxylos.org/var/www/html/projects/installers/</distMgmtSiteUrl>
-    <skin.version>1.0.0-SNAPSHOT</skin.version>
+    <skin.version>1.0.0</skin.version>
   </properties>
 
   <url>http://directory.apache.org/apacheds/1.5</url>
