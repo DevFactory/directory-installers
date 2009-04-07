@@ -370,7 +370,25 @@ public class Service implements DaemonApplication
         + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|_|\\__|____/   \n"
         + "               |_|                                              \n";
 
+    
+    public static final String BANNER_DHCP =
+          "           _                     _          ____  _   _  ___ ____  \n"
+        + "          / \\   _ __    ___  ___| |__   ___|  _ \\| | | |/ __|  _ \\ \n"
+        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | | |_| / /  | |_) )\n"
+        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| |  _  \\ \\__|  __/ \n"
+        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|_| |_|\\___|_|    \n"
+        + "               |_|                                                 \n";
+        
 
+    public static final String BANNER_CHANGE_PWD =
+          "         ___                              ___ __  __ __  ______    \n"
+        + "        / __|_       ___ _ __   ____  ___|  _ \\ \\ \\ / / / |  _ \\   \n"
+        + "       / /  | |__  / _` | '  \\ / ___\\/ _ \\ |_) \\ \\ / /\\/ /| | | |  \n"
+        + "       \\ \\__| '_  \\ (_| | |\\  | |___ | __/  __/ \\ ' /   / | |_| |  \n"
+        + "        \\___|_| |_|\\__,_|_| |_|\\__. |\\___| |     \\_/ \\_/  |____/   \n"
+        + "                                  |_|    |_|                       \n";
+        
+    
     /**
      * Print the LDAP banner
      */
@@ -404,5 +422,23 @@ public class Service implements DaemonApplication
     public static void printBannerDNS()
     {
         System.out.println( BANNER_DNS );
+    }
+
+
+    /**
+     * Print the DHCP banner
+     */
+    public static void printBannerDHCP()
+    {
+        System.out.println( BANNER_DHCP );
+    }
+
+
+    /**
+     * Print the CHANGE_PWD banner
+     */
+    public static void printBannerChangePwd()
+    {
+        System.out.println( BANNER_CHANGE_PWD );
     }
 }
