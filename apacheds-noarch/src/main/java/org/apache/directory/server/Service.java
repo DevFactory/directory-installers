@@ -93,7 +93,6 @@ public class Service implements DaemonApplication
      */
     private void initLdap( InstallationLayout install, String[] args ) throws Exception
     {
-        System.out.println( "Starting the LDAP server" );
         LOG.info( "Starting the LDAP server" );
         
         printBannerLDAP();
@@ -138,8 +137,6 @@ public class Service implements DaemonApplication
         {
             LOG.info( "LDAP server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
         }
-
-        System.out.println( "LDAP server started" );
     }
 
     
