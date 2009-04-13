@@ -24,6 +24,7 @@ import java.io.File;
 
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
+import org.apache.directory.server.changepw.ChangePasswordServer;
 import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
@@ -60,6 +61,9 @@ public class Service implements DaemonApplication
     /** The DNS server instance */
     private DnsServer dnsServer;
     
+    /** The Change Password server instance */
+    private ChangePasswordServer changePwdServer;
+    
     /** The Kerberos server instance */
     private KdcServer kdcServer;
     
@@ -81,7 +85,7 @@ public class Service implements DaemonApplication
         //initDhcp( install, args );
         
         // Initialize the ChangePwd server (Not ready yet)
-        //initChangePwd( install, args );
+        initChangePwd( install, args );
         
         // Initialize the Kerberos server
         initKerberos( install, args );
@@ -95,7 +99,7 @@ public class Service implements DaemonApplication
     {
         LOG.info( "Starting the LDAP server" );
         
-        printBannerLDAP();
+        printBanner( BANNER_LDAP );
         long startTime = System.currentTimeMillis();
 
         if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
@@ -163,7 +167,7 @@ public class Service implements DaemonApplication
         System.out.println( "Starting the NTP server" );
         LOG.info( "Starting the NTP server" );
         
-        printBannerNTP();
+        printBanner( BANNER_NTP );
         long startTime = System.currentTimeMillis();
 
         ntpServer.start();
@@ -199,7 +203,7 @@ public class Service implements DaemonApplication
         System.out.println( "Starting the DNS server" );
         LOG.info( "Starting the DNS server" );
         
-        printBannerDNS();
+        printBanner( BANNER_DNS );
         long startTime = System.currentTimeMillis();
 
         dnsServer.start();
@@ -235,7 +239,7 @@ public class Service implements DaemonApplication
         System.out.println( "Starting the Kerberos server" );
         LOG.info( "Starting the Kerberos server" );
         
-        printBannerKERBEROS();
+        printBanner( BANNER_KERBEROS );
         long startTime = System.currentTimeMillis();
 
         kdcServer.start();
@@ -244,6 +248,41 @@ public class Service implements DaemonApplication
         if ( LOG.isInfoEnabled() )
         {
             LOG.info( "Kerberos server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
+        }
+    }
+    
+    /**
+     * Initialize the Change Password server
+     */
+    private void initChangePwd( InstallationLayout install, String[] args ) throws Exception
+    {
+        if ( factory == null )
+        {
+            return;
+        }
+
+        try
+        {
+            changePwdServer = ( ChangePasswordServer ) factory.getBean( "changePasswordServer" );
+        }
+        catch ( Exception e )
+        {
+            LOG.info( "Cannot find any reference to the Change Password Server in the server.xml file : the server won't be started" );
+            return;
+        }
+        
+        System.out.println( "Starting the Change Password server" );
+        LOG.info( "Starting the Change Password server" );
+        
+        printBanner( BANNER_CHANGE_PWD );
+        long startTime = System.currentTimeMillis();
+
+        changePwdServer.start();
+
+        System.out.println( "Change Password server started" );
+        if ( LOG.isInfoEnabled() )
+        {
+            LOG.info( "Change Password server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
         }
     }
     
@@ -332,7 +371,7 @@ public class Service implements DaemonApplication
         }
     }
 
-    public static final String BANNER_LDAP = 
+    private static final String BANNER_LDAP = 
           "           _                     _          ____  ____   \n"
         + "          / \\   _ __    ___  ___| |__   ___|  _ \\/ ___|  \n"
         + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | \\___ \\  \n"
@@ -341,7 +380,7 @@ public class Service implements DaemonApplication
         + "               |_|                                       \n";
 
 
-    public static final String BANNER_NTP =
+    private static final String BANNER_NTP =
           "           _                     _          _   _ _____ _ __    \n"
         + "          / \\   _ __    ___  ___| |__   ___| \\ | |_  __| '_ \\   \n"
         + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ .\\| | | | | |_) |  \n"
@@ -350,7 +389,7 @@ public class Service implements DaemonApplication
         + "               |_|                                              \n";
 
 
-    public static final String BANNER_KERBEROS = 
+    private static final String BANNER_KERBEROS = 
           "           _                     _          _  __ ____   ___    \n"
         + "          / \\   _ __    ___  ___| |__   ___| |/ /|  _ \\ / __|   \n"
         + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ ' / | | | / /      \n"
@@ -359,7 +398,7 @@ public class Service implements DaemonApplication
         + "               |_|                                              \n";
 
 
-    public static final String BANNER_DNS =
+    private static final String BANNER_DNS =
           "           _                     _          ____  _   _ ____    \n"
         + "          / \\   _ __    ___  ___| |__   ___|  _ \\| \\ | / ___|   \n"
         + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | |  \\| \\__  \\   \n"
@@ -368,7 +407,7 @@ public class Service implements DaemonApplication
         + "               |_|                                              \n";
 
     
-    public static final String BANNER_DHCP =
+    private static final String BANNER_DHCP =
           "           _                     _          ____  _   _  ___ ____  \n"
         + "          / \\   _ __    ___  ___| |__   ___|  _ \\| | | |/ __|  _ \\ \n"
         + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | | |_| / /  | |_) )\n"
@@ -377,7 +416,7 @@ public class Service implements DaemonApplication
         + "               |_|                                                 \n";
         
 
-    public static final String BANNER_CHANGE_PWD =
+    private static final String BANNER_CHANGE_PWD =
           "         ___                              ___ __  __ __  ______    \n"
         + "        / __|_       ___ _ __   ____  ___|  _ \\ \\ \\ / / / |  _ \\   \n"
         + "       / /  | |__  / _` | '  \\ / ___\\/ _ \\ |_) \\ \\ / /\\/ /| | | |  \n"
@@ -385,57 +424,12 @@ public class Service implements DaemonApplication
         + "        \\___|_| |_|\\__,_|_| |_|\\__. |\\___| |     \\_/ \\_/  |____/   \n"
         + "                                  |_|    |_|                       \n";
         
-    
-    /**
-     * Print the LDAP banner
-     */
-    public static void printBannerLDAP()
-    {
-        System.out.println( BANNER_LDAP );
-    }
-
 
     /**
-     * Print the NTP banner
+     * Print the banner for a server
      */
-    public static void printBannerNTP()
+    public static void printBanner( String bannerConstant)
     {
-        System.out.println( BANNER_NTP );
-    }
-
-
-    /**
-     * Print the Kerberos banner
-     */
-    public static void printBannerKERBEROS()
-    {
-        System.out.println( BANNER_KERBEROS );
-    }
-
-
-    /**
-     * Print the DNS banner
-     */
-    public static void printBannerDNS()
-    {
-        System.out.println( BANNER_DNS );
-    }
-
-
-    /**
-     * Print the DHCP banner
-     */
-    public static void printBannerDHCP()
-    {
-        System.out.println( BANNER_DHCP );
-    }
-
-
-    /**
-     * Print the CHANGE_PWD banner
-     */
-    public static void printBannerChangePwd()
-    {
-        System.out.println( BANNER_CHANGE_PWD );
+        System.out.println( bannerConstant );
     }
 }
