@@ -102,7 +102,7 @@ public class Service implements DaemonApplication
         printBanner( BANNER_LDAP );
         long startTime = System.currentTimeMillis();
 
-        if ( args.length > 0 && new File( args[0] ).exists() ) // hack that takes server.xml file argument
+        if ( ( args != null ) && ( args.length > 0 ) && new File( args[0] ).exists() ) // hack that takes server.xml file argument
         {
             LOG.info( "server: loading settings from ", args[0] );
             factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
@@ -118,7 +118,7 @@ public class Service implements DaemonApplication
             ldapService.setTcpTransport( new TcpTransport( 10389 ) );
             ldapService.start();
             LdapService ldapsService = new LdapService();
-            ldapService.setTcpTransport( new TcpTransport( 10686 ) );
+            ldapsService.setTcpTransport( new TcpTransport( 10636 ) );
             ldapsService.setEnableLdaps( true );
             ldapsService.setDirectoryService( directoryService );
             ldapsService.start();
