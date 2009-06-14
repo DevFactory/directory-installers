@@ -42,24 +42,24 @@ public class UberjarMain
      */
     public static void main( String[] args ) throws Exception
     {
-        Service server = new Service();
+        Service service = new Service();
 
         if ( args.length > 0 && new File( args[0] ).isDirectory() )
         {
             InstallationLayout layout = new InstallationLayout( args[0] );
             String confFile = layout.getConfigurationFile().toURI().toURL().toString();
-            server.init( layout, new String[] { confFile } );
-            server.start();
+            service.init( layout, new String[] { confFile } );
+            service.start();
         }
         else if ( args.length > 0 && new File( args[0] ).isFile() )
         {
-            server.init( null, args );
-            server.start();
+            service.init( null, args );
+            service.start();
         }
         else
         {
-            server.init( null, null );
-            server.start();
+            service.init( null, null );
+            service.start();
         }
     }
 }

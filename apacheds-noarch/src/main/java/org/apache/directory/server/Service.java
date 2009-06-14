@@ -21,16 +21,18 @@ package org.apache.directory.server;
 
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.naming.NamingException;
 
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.changepw.ChangePasswordServer;
-import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.dns.DnsServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
-import org.apache.directory.server.ldap.LdapService;
+import org.apache.directory.server.ldap.LdapServer;
 import org.apache.directory.server.ntp.NtpServer;
 import org.apache.directory.server.protocol.shared.transport.TcpTransport;
 import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
@@ -49,11 +51,8 @@ public class Service implements DaemonApplication
     /** A logger for this class */
     private static final Logger LOG = LoggerFactory.getLogger( Service.class );
     
-    private Thread workerThread;
-    private SynchWorker worker = new SynchWorker();
-    
     /** The LDAP server instance */ 
-    private ApacheDS apacheDS;
+    private LdapServer ldapServer;
     
     /** The NTP server instance */
     private NtpServer ntpServer;
@@ -82,7 +81,7 @@ public class Service implements DaemonApplication
         // initDns( install, args );
         
         // Initialize the DHCP server (Not ready yet)
-        //initDhcp( install, args );
+        // initDhcp( install, args );
         
         // Initialize the ChangePwd server (Not ready yet)
         initChangePwd( install, args );
@@ -106,36 +105,29 @@ public class Service implements DaemonApplication
         {
             LOG.info( "server: loading settings from ", args[0] );
             factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
-            apacheDS = ( ApacheDS ) factory.getBean( "apacheDS" );
+            ldapServer = ( LdapServer ) factory.getBean( "ldapServer" );
         }
         else
         {
             LOG.info( "server: using default settings ..." );
             DirectoryService directoryService = new DefaultDirectoryService();
             directoryService.startup();
-            LdapService ldapService = new LdapService();
-            ldapService.setDirectoryService( directoryService );
-            ldapService.setTcpTransport( new TcpTransport( 10389 ) );
-            ldapService.start();
-            LdapService ldapsService = new LdapService();
-            ldapsService.setTcpTransport( new TcpTransport( 10636 ) );
-            ldapsService.setEnableLdaps( true );
-            ldapsService.setDirectoryService( directoryService );
-            ldapsService.start();
-            apacheDS = new ApacheDS( directoryService, ldapService, ldapsService );
+            ldapServer = new LdapServer();
+            ldapServer.setDirectoryService( directoryService );
+            TcpTransport tcpTransportSsl = new TcpTransport( 10636 );
+            tcpTransportSsl.enableSSL( true );
+            ldapServer.setTransports( new TcpTransport( 10389 ), tcpTransportSsl );
+            ldapServer.start();
         }
 
         if ( install != null )
         {
-            apacheDS.getDirectoryService().setWorkingDirectory( install.getPartitionsDirectory() );
+            ldapServer.getDirectoryService().setWorkingDirectory( install.getPartitionsDirectory() );
         }
 
-        apacheDS.startup();
+        // And start the server now
+        start();
 
-        if ( apacheDS.getSynchPeriodMillis() > 0 )
-        {
-            workerThread = new Thread( worker, "SynchWorkerThread" );
-        }
         
         if ( LOG.isInfoEnabled() )
         {
@@ -245,6 +237,7 @@ public class Service implements DaemonApplication
         kdcServer.start();
 
         System.out.println( "Kerberos server started" );
+        
         if ( LOG.isInfoEnabled() )
         {
             LOG.info( "Kerberos server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
@@ -288,47 +281,42 @@ public class Service implements DaemonApplication
     
 
     public DirectoryService getDirectoryService() {
-        return apacheDS.getDirectoryService();
+        return ldapServer.getDirectoryService();
     }
 
 
     public void synch() throws Exception
     {
-        apacheDS.getDirectoryService().sync();
+        ldapServer.getDirectoryService().sync();
     }
 
 
     public void start()
     {
-        if ( workerThread != null )
+        try
         {
-            workerThread.start();
+            ldapServer.start();
+        }
+        catch ( Exception e )
+        {
+            LOG.error( "Cannot start the server : " + e.getMessage() );
         }
     }
 
 
     public void stop( String[] args ) throws Exception
     {
-        if ( workerThread != null )
-        {
-            worker.stop = true;
-            synchronized ( worker.lock )
-            {
-                worker.lock.notify();
-            }
-    
-            while ( workerThread.isAlive() )
-            {
-                LOG.info( "Waiting for SynchWorkerThread to die." );
-                workerThread.join( 500 );
-            }
-        }
 
         if (factory != null)
         {
             factory.close();
         }
-        apacheDS.shutdown();
+        
+        // Stops the server
+        ldapServer.stop();
+        
+        // We now have to stop the underlaying DirectoryService
+        ldapServer.getDirectoryService().shutdown();
     }
 
 
@@ -337,39 +325,6 @@ public class Service implements DaemonApplication
     }
 
     
-    class SynchWorker implements Runnable
-    {
-        final Object lock = new Object();
-        boolean stop;
-
-
-        public void run()
-        {
-            while ( !stop )
-            {
-                synchronized ( lock )
-                {
-                    try
-                    {
-                        lock.wait( apacheDS.getSynchPeriodMillis() );
-                    }
-                    catch ( InterruptedException e )
-                    {
-                        LOG.warn( "SynchWorker failed to wait on lock.", e );
-                    }
-                }
-
-                try
-                {
-                    synch();
-                }
-                catch ( Exception e )
-                {
-                    LOG.error( "SynchWorker failed to synch directory.", e );
-                }
-            }
-        }
-    }
 
     private static final String BANNER_LDAP = 
           "           _                     _          ____  ____   \n"
