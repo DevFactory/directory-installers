@@ -49,17 +49,14 @@ public class UberjarMain
             InstallationLayout layout = new InstallationLayout( args[0] );
             String confFile = layout.getConfigurationFile().toURI().toURL().toString();
             service.init( layout, new String[] { confFile } );
-            service.start();
         }
         else if ( args.length > 0 && new File( args[0] ).isFile() )
         {
             service.init( null, args );
-            service.start();
         }
         else
         {
             service.init( null, null );
-            service.start();
         }
     }
 }

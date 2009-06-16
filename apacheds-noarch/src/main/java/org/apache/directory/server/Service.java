@@ -28,6 +28,7 @@ import javax.naming.NamingException;
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.changepw.ChangePasswordServer;
+import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.dns.DnsServer;
@@ -65,6 +66,8 @@ public class Service implements DaemonApplication
     
     /** The Kerberos server instance */
     private KdcServer kdcServer;
+    
+    private ApacheDS apacheDS;
     
     private FileSystemXmlApplicationContext factory;
 
@@ -106,6 +109,7 @@ public class Service implements DaemonApplication
             LOG.info( "server: loading settings from ", args[0] );
             factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
             ldapServer = ( LdapServer ) factory.getBean( "ldapServer" );
+            apacheDS = ( ApacheDS )factory.getBean( "apacheDS" );
         }
         else
         {
@@ -117,7 +121,7 @@ public class Service implements DaemonApplication
             TcpTransport tcpTransportSsl = new TcpTransport( 10636 );
             tcpTransportSsl.enableSSL( true );
             ldapServer.setTransports( new TcpTransport( 10389 ), tcpTransportSsl );
-            ldapServer.start();
+            apacheDS = new ApacheDS( ldapServer );
         }
 
         if ( install != null )
@@ -126,8 +130,7 @@ public class Service implements DaemonApplication
         }
 
         // And start the server now
-        start();
-
+        apacheDS.startup();
         
         if ( LOG.isInfoEnabled() )
         {
