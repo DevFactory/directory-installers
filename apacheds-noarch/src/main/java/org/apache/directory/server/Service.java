@@ -21,9 +21,6 @@ package org.apache.directory.server;
 
 
 import java.io.File;
-import java.io.IOException;
-
-import javax.naming.NamingException;
 
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
@@ -32,6 +29,7 @@ import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.dns.DnsServer;
+import org.apache.directory.server.integration.http.HttpServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
 import org.apache.directory.server.ldap.LdapServer;
 import org.apache.directory.server.ntp.NtpServer;
@@ -69,6 +67,8 @@ public class Service implements DaemonApplication
     
     private ApacheDS apacheDS;
     
+    private HttpServer httpServer;
+    
     private FileSystemXmlApplicationContext factory;
 
 
@@ -91,6 +91,9 @@ public class Service implements DaemonApplication
         
         // Initialize the Kerberos server
         initKerberos( install, args );
+        
+        // initialize the jetty http server
+        initHttpServer();
     }
     
     
@@ -282,7 +285,23 @@ public class Service implements DaemonApplication
         }
     }
     
+    
+    private void initHttpServer() throws Exception
+    {
+        if( factory == null )
+        {
+            return;
+        }
+        
+        httpServer = ( HttpServer ) factory.getBean( "httpServer" );
+        
+        if( httpServer != null )
+        {
+            httpServer.start();
+        }
+    }
 
+    
     public DirectoryService getDirectoryService() {
         return ldapServer.getDirectoryService();
     }
