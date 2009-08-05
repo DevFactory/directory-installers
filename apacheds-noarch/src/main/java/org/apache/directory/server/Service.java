@@ -292,9 +292,17 @@ public class Service implements DaemonApplication
         {
             return;
         }
-        
-        httpServer = ( HttpServer ) factory.getBean( "httpServer" );
-        
+
+        try
+        {
+            httpServer = ( HttpServer ) factory.getBean( "httpServer" );
+        }
+        catch ( Exception e )
+        {
+            LOG.info( "Cannot find any reference to the HTTP Server in the server.xml file : the server won't be started" );
+            return;
+        }
+
         if( httpServer != null )
         {
             httpServer.start();
