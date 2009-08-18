@@ -40,8 +40,8 @@
     <skin.version>1.0.0</skin.version>
 
     <!-- Set versions for depending projects -->
-    <org.apache.directory.shared.version>0.9.15-SNAPSHOT</org.apache.directory.shared.version>
-    <org.apache.directory.daemon.version>1.1.6-SNAPSHOT</org.apache.directory.daemon.version>
+    <org.apache.directory.shared.version>0.9.15</org.apache.directory.shared.version>
+    <org.apache.directory.daemon.version>1.1.6</org.apache.directory.daemon.version>
   </properties>
 
   <url>http://directory.apache.org/apacheds/1.5</url>
@@ -264,7 +264,7 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-jdbm</artifactId>
-        <version>1.5.5-SNAPSHOT</version>
+        <version>1.5.5</version>
       </dependency>
 
       <dependency>
