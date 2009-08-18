@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.directory.project</groupId>
     <artifactId>project</artifactId>
-    <version>15</version>
+    <version>16</version>
   </parent>
 
   <groupId>org.apache.directory.installers</groupId>
@@ -40,8 +40,9 @@
     <skin.version>1.0.0</skin.version>
 
     <!-- Set versions for depending projects -->
-    <org.apache.directory.shared.version>0.9.15</org.apache.directory.shared.version>
-    <org.apache.directory.daemon.version>1.1.6</org.apache.directory.daemon.version>
+    <shared.version>0.9.15</shared.version>
+    <daemon.version>1.1.6</daemon.version>
+    <server.version>1.5.5</server.version>
   </properties>
 
   <url>http://directory.apache.org/apacheds/1.5</url>
@@ -51,127 +52,127 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-xbean-spring</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-xml</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
   
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>${org.apache.directory.daemon.version}</version>
+        <version>${daemon.version}</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-tools</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-xdbm-base</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-xdbm-search</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>  
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-server-jndi</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-ntp</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-kerberos</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-interceptor-kerberos</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-changepw</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-protocol-dns</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-schema-extras</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-bootstrap-partition</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-asn1-codec</artifactId>
-        <version>${org.apache.directory.shared.version}</version>
+        <version>${shared.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap</artifactId>
-        <version>${org.apache.directory.shared.version}</version>
+        <version>${shared.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap-constants</artifactId>
-        <version>${org.apache.directory.shared.version}</version>
+        <version>${shared.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-client-api</artifactId>
-        <version>${org.apache.directory.shared.version}</version>
+        <version>${shared.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-cursor</artifactId>
-        <version>${org.apache.directory.shared.version}</version>
+        <version>${shared.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
-        <version>${org.apache.directory.daemon.version}</version>
+        <version>${daemon.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.directory.server.http</groupId>
         <artifactId>apacheds-http-integration</artifactId>
-        <version>${pom.version}</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
@@ -264,7 +265,7 @@
       <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-jdbm</artifactId>
-        <version>1.5.5</version>
+        <version>${server.version}</version>
       </dependency>
 
       <dependency>
