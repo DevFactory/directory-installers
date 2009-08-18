@@ -30,7 +30,7 @@
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.5</version>
+  <version>1.5.6-SNAPSHOT</version>
   <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
@@ -540,9 +540,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/tags/1.5.5</connection>
-    <url>http://svn.apache.org/repos/asf/directory/installers/tags/1.5.5</url>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/tags/1.5.5</developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/trunk</connection>
+    <url>http://svn.apache.org/repos/asf/directory/installers/trunk</url>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/trunk</developerConnection>
   </scm>
 
   <reporting>
