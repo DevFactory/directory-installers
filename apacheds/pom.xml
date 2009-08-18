@@ -34,7 +34,7 @@
 
   <properties>
     <studio-version>1.3.0.SNAPSHOT</studio-version>
-    <server-version>1.5.5</server-version>
+    <server-version>1.5.6-SNAPSHOT</server-version>
     <suite-version>1.2.0</suite-version>
   </properties>
 
@@ -1132,7 +1132,7 @@
         <plugin>
           <groupId>org.apache.directory.daemon</groupId>
           <artifactId>daemon-plugin</artifactId>
-          <version>1.1.6</version>
+          <version>1.1.7-SNAPSHOT</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -1152,7 +1152,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.5</version>
+                  <version>1.5.6-SNAPSHOT</version>
                   <excludes>serverAuthenticatorInAuthenticationInterceptor.xml,serverJdbmPartition.xml,serverReplicationInterceptor.xml</excludes>
                 </artifactItem>
               </artifactItems>
