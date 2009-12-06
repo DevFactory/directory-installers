@@ -40,7 +40,7 @@
     <skin.version>1.0.0</skin.version>
 
     <!-- Set versions for depending projects -->
-    <shared.version>0.9.16-SNAPSHOT</shared.version>
+    <shared.version>0.9.17-SNAPSHOT</shared.version>
     <daemon.version>1.1.7-SNAPSHOT</daemon.version>
     <server.version>1.5.6-SNAPSHOT</server.version>
   </properties>
