@@ -23,11 +23,12 @@ package org.apache.directory.server;
 import java.io.File;
 
 import org.apache.directory.daemon.DaemonApplication;
-import org.apache.directory.daemon.InstallationLayout;
+import org.apache.directory.daemon.InstanceLayout;
 import org.apache.directory.server.changepw.ChangePasswordServer;
 import org.apache.directory.server.configuration.ApacheDS;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
+import org.apache.directory.server.core.factory.DefaultDirectoryServiceFactory;
 import org.apache.directory.server.dns.DnsServer;
 import org.apache.directory.server.integration.http.HttpServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
@@ -72,25 +73,25 @@ public class Service implements DaemonApplication
     private FileSystemXmlApplicationContext factory;
 
 
-    public void init( InstallationLayout install, String[] args ) throws Exception
+    public void init( InstanceLayout layout, String[] args ) throws Exception
     {
         // Initialize the LDAP server
-        initLdap( install, args );
+        initLdap( layout, args );
         
         // Initialize the NTP server
-        initNtp( install, args );
+        initNtp( layout, args );
         
         // Initialize the DNS server (Not ready yet)
-        // initDns( install, args );
+        // initDns( layout, args );
         
         // Initialize the DHCP server (Not ready yet)
-        // initDhcp( install, args );
+        // initDhcp( layout, args );
         
         // Initialize the ChangePwd server (Not ready yet)
-        initChangePwd( install, args );
+        initChangePwd( layout, args );
         
         // Initialize the Kerberos server
-        initKerberos( install, args );
+        initKerberos( layout, args );
         
         // initialize the jetty http server
         initHttpServer();
@@ -100,7 +101,7 @@ public class Service implements DaemonApplication
     /**
      * Initialize the LDAP server
      */
-    private void initLdap( InstallationLayout install, String[] args ) throws Exception
+    private void initLdap( InstanceLayout layout, String[] args ) throws Exception
     {
         LOG.info( "Starting the LDAP server" );
         
@@ -117,7 +118,8 @@ public class Service implements DaemonApplication
         else
         {
             LOG.info( "server: using default settings ..." );
-            DirectoryService directoryService = new DefaultDirectoryService();
+            DefaultDirectoryServiceFactory.DEFAULT.init( "default" );
+            DirectoryService directoryService = DefaultDirectoryServiceFactory.DEFAULT.getDirectoryService();
             directoryService.startup();
             ldapServer = new LdapServer();
             ldapServer.setDirectoryService( directoryService );
@@ -127,9 +129,9 @@ public class Service implements DaemonApplication
             apacheDS = new ApacheDS( ldapServer );
         }
 
-        if ( install != null )
+        if ( layout != null )
         {
-            ldapServer.getDirectoryService().setWorkingDirectory( install.getPartitionsDirectory() );
+            ldapServer.getDirectoryService().setWorkingDirectory( layout.getPartitionsDir() );
         }
 
         // And start the server now
@@ -145,7 +147,7 @@ public class Service implements DaemonApplication
     /**
      * Initialize the NTP server
      */
-    private void initNtp( InstallationLayout install, String[] args ) throws Exception
+    private void initNtp( InstanceLayout layout, String[] args ) throws Exception
     {
         if ( factory == null )
         {
@@ -181,7 +183,7 @@ public class Service implements DaemonApplication
     /**
      * Initialize the DNS server
      */
-    private void initDns( InstallationLayout install, String[] args ) throws Exception
+    private void initDns( InstanceLayout layout, String[] args ) throws Exception
     {
         if ( factory == null )
         {
@@ -217,7 +219,7 @@ public class Service implements DaemonApplication
     /**
      * Initialize the KERBEROS server
      */
-    private void initKerberos( InstallationLayout install, String[] args ) throws Exception
+    private void initKerberos( InstanceLayout layout, String[] args ) throws Exception
     {
         if ( factory == null )
         {
@@ -253,7 +255,7 @@ public class Service implements DaemonApplication
     /**
      * Initialize the Change Password server
      */
-    private void initChangePwd( InstallationLayout install, String[] args ) throws Exception
+    private void initChangePwd( InstanceLayout layout, String[] args ) throws Exception
     {
         if ( factory == null )
         {
@@ -417,4 +419,5 @@ public class Service implements DaemonApplication
     {
         System.out.println( bannerConstant );
     }
+
 }

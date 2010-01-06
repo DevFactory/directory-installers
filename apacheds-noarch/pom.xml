@@ -98,4 +98,12 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencies>
+  	<dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-core-annotations</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+  </dependencies>
 </project>
