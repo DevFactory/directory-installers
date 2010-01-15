@@ -37,7 +37,7 @@
   <properties>
     <projectName>Apache Directory Server</projectName>
     <distMgmtSiteUrl>scpexe://people.apache.org/www/directory.apache.org/installers/gen-docs/${version}/</distMgmtSiteUrl>
-    <skin.version>1.0.0</skin.version>
+    <skin.version>1.0.1</skin.version>
 
     <!-- Set versions for depending projects -->
     <shared.version>0.9.18-SNAPSHOT</shared.version>
