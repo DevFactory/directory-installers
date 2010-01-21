@@ -26,10 +26,9 @@ import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstanceLayout;
 import org.apache.directory.server.changepw.ChangePasswordServer;
 import org.apache.directory.server.configuration.ApacheDS;
-import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.core.factory.DefaultDirectoryServiceFactory;
-import org.apache.directory.server.dns.DnsServer;
+//import org.apache.directory.server.dns.DnsServer;
 import org.apache.directory.server.integration.http.HttpServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
 import org.apache.directory.server.ldap.LdapServer;
@@ -58,7 +57,7 @@ public class Service implements DaemonApplication
     private NtpServer ntpServer;
     
     /** The DNS server instance */
-    private DnsServer dnsServer;
+//    private DnsServer dnsServer;
     
     /** The Change Password server instance */
     private ChangePasswordServer changePwdServer;
@@ -183,37 +182,37 @@ public class Service implements DaemonApplication
     /**
      * Initialize the DNS server
      */
-    private void initDns( InstanceLayout layout, String[] args ) throws Exception
-    {
-        if ( factory == null )
-        {
-            return;
-        }
-
-        try
-        {
-            dnsServer = ( DnsServer ) factory.getBean( "dnsServer" );
-        }
-        catch ( Exception e )
-        {
-            LOG.info( "Cannot find any reference to the DNS Server in the server.xml file : the server won't be started" );
-            return;
-        }
-        
-        System.out.println( "Starting the DNS server" );
-        LOG.info( "Starting the DNS server" );
-        
-        printBanner( BANNER_DNS );
-        long startTime = System.currentTimeMillis();
-
-        dnsServer.start();
-        System.out.println( "DNS Server started" );
-
-        if ( LOG.isInfoEnabled() )
-        {
-            LOG.info( "DNS server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
-        }
-    }
+//    private void initDns( InstanceLayout layout, String[] args ) throws Exception
+//    {
+//        if ( factory == null )
+//        {
+//            return;
+//        }
+//
+//        try
+//        {
+//            dnsServer = ( DnsServer ) factory.getBean( "dnsServer" );
+//        }
+//        catch ( Exception e )
+//        {
+//            LOG.info( "Cannot find any reference to the DNS Server in the server.xml file : the server won't be started" );
+//            return;
+//        }
+//        
+//        System.out.println( "Starting the DNS server" );
+//        LOG.info( "Starting the DNS server" );
+//        
+//        printBanner( BANNER_DNS );
+//        long startTime = System.currentTimeMillis();
+//
+//        dnsServer.start();
+//        System.out.println( "DNS Server started" );
+//
+//        if ( LOG.isInfoEnabled() )
+//        {
+//            LOG.info( "DNS server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
+//        }
+//    }
 
 
     /**
@@ -385,22 +384,22 @@ public class Service implements DaemonApplication
         + "               |_|                                              \n";
 
 
-    private static final String BANNER_DNS =
-          "           _                     _          ____  _   _ ____    \n"
-        + "          / \\   _ __    ___  ___| |__   ___|  _ \\| \\ | / ___|   \n"
-        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | |  \\| \\__  \\   \n"
-        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| | . ' |___) |  \n"
-        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|_|\\__|____/   \n"
-        + "               |_|                                              \n";
-
-    
-    private static final String BANNER_DHCP =
-          "           _                     _          ____  _   _  ___ ____  \n"
-        + "          / \\   _ __    ___  ___| |__   ___|  _ \\| | | |/ __|  _ \\ \n"
-        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | | |_| / /  | |_) )\n"
-        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| |  _  \\ \\__|  __/ \n"
-        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|_| |_|\\___|_|    \n"
-        + "               |_|                                                 \n";
+//    private static final String BANNER_DNS =
+//          "           _                     _          ____  _   _ ____    \n"
+//        + "          / \\   _ __    ___  ___| |__   ___|  _ \\| \\ | / ___|   \n"
+//        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | |  \\| \\__  \\   \n"
+//        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| | . ' |___) |  \n"
+//        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|_|\\__|____/   \n"
+//        + "               |_|                                              \n";
+//
+//    
+//    private static final String BANNER_DHCP =
+//          "           _                     _          ____  _   _  ___ ____  \n"
+//        + "          / \\   _ __    ___  ___| |__   ___|  _ \\| | | |/ __|  _ \\ \n"
+//        + "         / _ \\ | '_ \\ / _` |/ __| '_ \\ / _ \\ | | | |_| / /  | |_) )\n"
+//        + "        / ___ \\| |_) | (_| | (__| | | |  __/ |_| |  _  \\ \\__|  __/ \n"
+//        + "       /_/   \\_\\ .__/ \\__,_|\\___|_| |_|\\___|____/|_| |_|\\___|_|    \n"
+//        + "               |_|                                                 \n";
         
 
     private static final String BANNER_CHANGE_PWD =
