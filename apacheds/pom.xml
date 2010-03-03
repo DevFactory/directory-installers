@@ -33,9 +33,11 @@
   </description>
 
   <properties>
-    <studio-version>1.3.0.SNAPSHOT</studio-version>
-    <server-version>1.5.6-SNAPSHOT</server-version>
-    <suite-version>1.2.0</suite-version>
+    <daemon.version>1.1.7-SNAPSHOT</daemon.version>
+    <daemon.plugin.version>1.1.7-SNAPSHOT</daemon.plugin.version>
+    <server.version>1.5.6-SNAPSHOT</server.version>
+    <studio.version>1.3.0.SNAPSHOT</studio.version>
+    <suite.version>1.2.0</suite.version>
   </properties>
 
   <dependencies>
@@ -68,11 +70,11 @@
                 <configuration>
                   <tasks>
                     <mkdir dir="target/images" />
-                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip" verbose="on" usetimestamp="true" dest="target/ApacheDirectoryStudio.zip" />
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio.version}-win32/ApacheDirectoryStudio-${studio.version}-win32.zip" verbose="on" usetimestamp="true" dest="target/ApacheDirectoryStudio.zip" />
                     <touch file="target/ApacheDirectoryStudio.zip" />
                     <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/suite-win32" overwrite="false" />
                     <move toDir="target/images/suite-win32/ApacheDirectoryStudio">
-                      <fileset dir="target/images/suite-win32/ApacheDirectoryStudio-win32-${studio-version}" />
+                      <fileset dir="target/images/suite-win32/ApacheDirectoryStudio-win32-${studio.version}" />
                     </move>
                   </tasks>
                 </configuration>
@@ -156,7 +158,7 @@
                   <id>suite-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-suite-win.nsi</nsisConfigurationFile>
-                  <finalName>apache-directory-suite-${suite-version}-setup</finalName>
+                  <finalName>apache-directory-suite-${suite.version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -206,12 +208,12 @@
                 <id>deploy-installer-suite-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apache-directory-suite-${suite-version}-setup.exe</file>
+                  <file>target/images/apache-directory-suite-${suite.version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>exe</packaging>
-                  <version>suite-win32-${studio-version}</version>
+                  <version>suite-win32-${studio.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -235,11 +237,11 @@
                 <configuration>
                   <tasks>
                     <mkdir dir="target/images" />
-                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio-version}-win32/ApacheDirectoryStudio-${studio-version}-win32.zip" verbose="on" usetimestamp="true" dest="target/ApacheDirectoryStudio.zip" />
+                    <get src="http://vm094.oxylos.org/mirror-maven2/org/apache/directory/studio/ApacheDirectoryStudio/${studio.version}-win32/ApacheDirectoryStudio-${studio.version}-win32.zip" verbose="on" usetimestamp="true" dest="target/ApacheDirectoryStudio.zip" />
                     <touch file="target/ApacheDirectoryStudio.zip" />
                     <unzip src="target/ApacheDirectoryStudio.zip" dest="target/images/studio-win32" overwrite="false" />
                     <move toDir="target/images/studio-win32/ApacheDirectoryStudio">
-                      <fileset dir="target/images/studio-win32/ApacheDirectoryStudio-win32-${studio-version}" />
+                      <fileset dir="target/images/studio-win32/ApacheDirectoryStudio-win32-${studio.version}" />
                     </move>
                   </tasks>
                 </configuration>
@@ -307,7 +309,7 @@
                   <id>studio-win32</id>
                   <nsisCompiler>/usr/local/share/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-studio-win.nsi</nsisConfigurationFile>
-                  <finalName>apache-directory-studio-${studio-version}-setup</finalName>
+                  <finalName>apache-directory-studio-${studio.version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -356,12 +358,12 @@
                 <id>deploy-installer-studio-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apache-directory-studio-${studio-version}-setup.exe</file>
+                  <file>target/images/apache-directory-studio-${studio.version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>exe</packaging>
-                  <version>studio-win32-${studio-version}</version>
+                  <version>studio-win32-${studio.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -412,7 +414,7 @@
               <application>
                 <name>apacheds</name>
                 <icon>src/main/resources/feather.ico</icon>
-                <version>${server-version}</version>
+                <version>${server.version}</version>
                 <copyrightYear>2007</copyrightYear>
                 <minimumJavaVersion>1.5</minimumJavaVersion>
                 <url>http://directory.apache.org</url>
@@ -490,7 +492,7 @@
                   <id>apacheds-i386-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>apacheds-${server-version}-i386.rpm</finalName>
+                  <finalName>apacheds-${server.version}-i386.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>i386</osArch>
@@ -535,7 +537,7 @@
                   <id>apacheds-x86_64-rpm</id>
                   <rpmSpecificationFile>src/main/installers/apacheds-rpm.spec</rpmSpecificationFile>
                   <rpmTopDir>target/rpmbuild</rpmTopDir>
-                  <finalName>apacheds-${server-version}-x86_64.rpm</finalName>
+                  <finalName>apacheds-${server.version}-x86_64.rpm</finalName>
                   <osName>Linux</osName>
                   <osFamily>unix</osFamily>
                   <osArch>x86_64</osArch>
@@ -578,7 +580,7 @@
                   <id>server-win32</id>
                   <nsisCompiler>/usr/local/nsis/makensis</nsisCompiler>
                   <nsisConfigurationFile>src/main/installers/apacheds-server-win.nsi</nsisConfigurationFile>
-                  <finalName>apacheds-${server-version}-setup</finalName>
+                  <finalName>apacheds-${server.version}-setup</finalName>
                   <osName>Windows XP</osName>
                   <osFamily>windows</osFamily>
                   <osVersion>5.1</osVersion>
@@ -591,7 +593,7 @@
               <macOsXPkgTargets>
                 <macOsXPkgTarget>
                  <id>apacheds-macosx</id>
-                  <finalName>apacheds-${server-version}.dmg</finalName>
+                  <finalName>apacheds-${server.version}.dmg</finalName>
                   <osName>Mac OS X</osName>
                   <osFamily>macosx</osFamily>
                   <osArch>x86</osArch>
@@ -603,14 +605,14 @@
               <solarisPkgTargets>
                 <solarisPkgTarget>
                   <id>apacheds-solaris-x86</id>
-                  <finalName>apacheds-${server-version}-solaris-x86.pkg</finalName>
+                  <finalName>apacheds-${server.version}-solaris-x86.pkg</finalName>
                   <osName>solaris</osName>
                   <osArch>x86</osArch>
                   <daemonFramework>tanuki</daemonFramework>
                 </solarisPkgTarget>
                 <solarisPkgTarget>
                   <id>apacheds-solaris-sparc</id>
-                  <finalName>apacheds-${server-version}-solaris-sparc.pkg</finalName>
+                  <finalName>apacheds-${server.version}-solaris-sparc.pkg</finalName>
                   <osName>solaris</osName>
                   <osArch>sparc</osArch>
                   <daemonFramework>tanuki</daemonFramework>
@@ -621,7 +623,7 @@
               <debTargets>
                 <debTarget>
                  <id>apacheds-debian-i386</id>
-                  <finalName>apacheds-${server-version}-i386.deb</finalName>
+                  <finalName>apacheds-${server.version}-i386.deb</finalName>
                   <osName>linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>i386</osArch>
@@ -629,7 +631,7 @@
                 </debTarget>
                 <debTarget>
                  <id>apacheds-debian-amd64</id>
-                  <finalName>apacheds-${server-version}-amd64.deb</finalName>
+                  <finalName>apacheds-${server.version}-amd64.deb</finalName>
                   <osName>linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>amd64</osArch>
@@ -641,7 +643,7 @@
               <binTargets>
                 <binTarget>
                  <id>apacheds-bin-installer-i386</id>
-                  <finalName>apacheds-${server-version}-i386.bin</finalName>
+                  <finalName>apacheds-${server.version}-i386.bin</finalName>
                   <osName>Linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>i386</osArch>
@@ -649,7 +651,7 @@
                 </binTarget>
                  <binTarget>
                  <id>apacheds-bin-installer-x86_64</id>
-                  <finalName>apacheds-${server-version}-x86_64.bin</finalName>
+                  <finalName>apacheds-${server.version}-x86_64.bin</finalName>
                   <osName>Linux</osName>
                   <osFamily>linux</osFamily>
                   <osArch>x86_64</osArch>
@@ -665,7 +667,7 @@
                   <osFamily>any</osFamily>
                   <osArch>any</osArch>
                   <daemonFramework>any</daemonFramework>
-                  <finalName>apacheds-${server-version}.zip</finalName>
+                  <finalName>apacheds-${server.version}.zip</finalName>
                   <archiveType>zip</archiveType>
                 </archiveTarget>
                 <archiveTarget>
@@ -674,7 +676,7 @@
                   <osFamily>any</osFamily>
                   <osArch>any</osArch>
                   <daemonFramework>any</daemonFramework>
-                  <finalName>apacheds-${server-version}.tar.gz</finalName>
+                  <finalName>apacheds-${server.version}.tar.gz</finalName>
                   <archiveType>tar.gz</archiveType>
                 </archiveTarget>
               </archiveTargets>
@@ -697,7 +699,7 @@
       <id>deploy-installer-server-win32</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-setup.exe</exists>
+          <exists>target/images/apacheds-${server.version}-setup.exe</exists>
         </file>
       </activation>
       <build>
@@ -710,12 +712,12 @@
                 <id>deploy-installer-server-win32</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-setup.exe</file>
+                  <file>target/images/apacheds-${server.version}-setup.exe</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>exe</packaging>
-                  <version>server-win32-${server-version}</version>
+                  <version>server-win32-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -733,7 +735,7 @@
       <id>deploy-installer-server-rpm-x86</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-server-${server-version}-x86.rpm</exists>
+          <exists>target/images/apacheds-server-${server.version}-x86.rpm</exists>
         </file>
       </activation>
       <build>
@@ -746,12 +748,12 @@
                 <id>deploy-installer-server-rpm-x86</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-${server-version}-x86.rpm</file>
+                  <file>target/images/apacheds-server-${server.version}-x86.rpm</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>rpm</packaging>
-                  <version>server-x86-${server-version}</version>
+                  <version>server-x86-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -769,7 +771,7 @@
       <id>deploy-installer-server-rpm-x86_64</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-server-${server-version}-x86_64.rpm</exists>
+          <exists>target/images/apacheds-server-${server.version}-x86_64.rpm</exists>
         </file>
       </activation>
       <build>
@@ -782,12 +784,12 @@
                 <id>deploy-installer-server-rpm-x86_64</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-server-${server-version}-x86_64.rpm</file>
+                  <file>target/images/apacheds-server-${server.version}-x86_64.rpm</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>rpm</packaging>
-                  <version>server-x86_64-${server-version}</version>
+                  <version>server-x86_64-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -805,7 +807,7 @@
       <id>deploy-installer-server-macosx</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}.dmg</exists>
+          <exists>target/images/apacheds-${server.version}.dmg</exists>
         </file>
       </activation>
       <build>
@@ -818,12 +820,12 @@
                 <id>deploy-installer-server-macosx</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}.dmg</file>
+                  <file>target/images/apacheds-${server.version}.dmg</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>dmg</packaging>
-                  <version>server-${server-version}</version>
+                  <version>server-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -841,7 +843,7 @@
       <id>deploy-installer-server-solaris-x86</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-solaris-x86.pkg</exists>
+          <exists>target/images/apacheds-${server.version}-solaris-x86.pkg</exists>
         </file>
       </activation>
       <build>
@@ -854,12 +856,12 @@
                 <id>deploy-installer-server-solaris-x86</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-solaris-x86.pkg</file>
+                  <file>target/images/apacheds-${server.version}-solaris-x86.pkg</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>pkg</packaging>
-                  <version>server-solaris-x86-${server-version}</version>
+                  <version>server-solaris-x86-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -877,7 +879,7 @@
       <id>deploy-installer-server-solaris-sparc</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-solaris-x86.pkg</exists>
+          <exists>target/images/apacheds-${server.version}-solaris-x86.pkg</exists>
         </file>
       </activation>
       <build>
@@ -890,12 +892,12 @@
                 <id>deploy-installer-server-solaris-sparc</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-solaris-sparc.pkg</file>
+                  <file>target/images/apacheds-${server.version}-solaris-sparc.pkg</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>pkg</packaging>
-                  <version>server-solaris-sparc-${server-version}</version>
+                  <version>server-solaris-sparc-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -913,7 +915,7 @@
       <id>deploy-installer-server-debian-i386</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-i386.deb</exists>
+          <exists>target/images/apacheds-${server.version}-i386.deb</exists>
         </file>
       </activation>
       <build>
@@ -926,12 +928,12 @@
                 <id>deploy-installer-server-debian-i386</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-i386.deb</file>
+                  <file>target/images/apacheds-${server.version}-i386.deb</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>deb</packaging>
-                  <version>server-i386-${server-version}</version>
+                  <version>server-i386-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -949,7 +951,7 @@
       <id>deploy-installer-server-debian-amd64</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-amd64.deb</exists>
+          <exists>target/images/apacheds-${server.version}-amd64.deb</exists>
         </file>
       </activation>
       <build>
@@ -962,12 +964,12 @@
                 <id>deploy-installer-server-debian-amd64</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-amd64.deb</file>
+                  <file>target/images/apacheds-${server.version}-amd64.deb</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>deb</packaging>
-                  <version>server-amd64-${server-version}</version>
+                  <version>server-amd64-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -985,7 +987,7 @@
       <id>deploy-installer-server-binary-i386</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-i386.bin</exists>
+          <exists>target/images/apacheds-${server.version}-i386.bin</exists>
         </file>
       </activation>
       <build>
@@ -998,12 +1000,12 @@
                 <id>deploy-installer-server-binary-i386</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-i386.bin</file>
+                  <file>target/images/apacheds-${server.version}-i386.bin</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>bin</packaging>
-                  <version>server-i386-${server-version}</version>
+                  <version>server-i386-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -1021,7 +1023,7 @@
       <id>deploy-installer-server-binary-x86_64</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}-x86_64.bin</exists>
+          <exists>target/images/apacheds-${server.version}-x86_64.bin</exists>
         </file>
       </activation>
       <build>
@@ -1034,12 +1036,12 @@
                 <id>deploy-installer-server-binary-x86_64</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}-x86_64.bin</file>
+                  <file>target/images/apacheds-${server.version}-x86_64.bin</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>bin</packaging>
-                  <version>server-x86_64-${server-version}</version>
+                  <version>server-x86_64-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -1057,7 +1059,7 @@
       <id>deploy-installer-server-archive-zip</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}.zip</exists>
+          <exists>target/images/apacheds-${server.version}.zip</exists>
         </file>
       </activation>
       <build>
@@ -1070,12 +1072,12 @@
                 <id>deploy-installer-server-archive-zip</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}.zip</file>
+                  <file>target/images/apacheds-${server.version}.zip</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>zip</packaging>
-                  <version>server-${server-version}</version>
+                  <version>server-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -1093,7 +1095,7 @@
       <id>deploy-installer-server-archive-tar.gz</id>
       <activation>
         <file>
-          <exists>target/images/apacheds-${server-version}.tar.gz</exists>
+          <exists>target/images/apacheds-${server.version}.tar.gz</exists>
         </file>
       </activation>
       <build>
@@ -1106,12 +1108,12 @@
                 <id>deploy-installer-server-archive-tar.gz</id>
                 <phase>deploy</phase>
                 <configuration>
-                  <file>target/images/apacheds-${server-version}.tar.gz</file>
+                  <file>target/images/apacheds-${server.version}.tar.gz</file>
                   <url>${pom.distributionManagement.snapshotRepository.url}</url>
                   <artifactId>ApacheDirectoryInstaller</artifactId>
                   <groupId>${pom.groupId}</groupId>
                   <packaging>tar.gz</packaging>
-                  <version>server-${server-version}</version>
+                  <version>server-${server.version}</version>
                   <uniqueVersion>false</uniqueVersion>
                 </configuration>
                 <goals>
@@ -1132,7 +1134,7 @@
         <plugin>
           <groupId>org.apache.directory.daemon</groupId>
           <artifactId>daemon-plugin</artifactId>
-          <version>1.1.7-SNAPSHOT</version>
+          <version>${daemon.plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -1152,7 +1154,7 @@
                 <artifactItem>
                   <groupId>org.apache.directory.server</groupId>
                   <artifactId>apacheds-server-xml</artifactId>
-                  <version>1.5.6-SNAPSHOT</version>
+                  <version>${server.version}</version>
                   <excludes>serverAuthenticatorInAuthenticationInterceptor.xml,serverJdbmPartition.xml,serverReplicationInterceptor.xml</excludes>
                 </artifactItem>
               </artifactItems>
