@@ -42,18 +42,22 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.directory.installers</groupId>
+      <groupId>${groupId}</groupId>
       <artifactId>apacheds-noarch-installer</artifactId>
-      <version>${pom.version}</version>
+      <version>${version}</version>
     </dependency>  
+    
     <dependency>
       <groupId>tanukisoft</groupId>
       <artifactId>wrapper</artifactId>
+      <version>${wrapper.version}</version>
       <scope>runtime</scope>
     </dependency>
+    
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-server-tools</artifactId>
+      <groupId>org.apache.directory.server</groupId>
+      <version>${server.version}</version>
     </dependency>
   </dependencies>
 
@@ -84,6 +88,7 @@
               </execution>
             </executions>
           </plugin>
+          
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
@@ -200,6 +205,7 @@
               </execution>
             </executions>
           </plugin>
+          
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
@@ -225,6 +231,7 @@
         </plugins>
       </build>
     </profile>
+    
     <profile>
       <id>studio-installer</id>
       <build>
@@ -251,6 +258,7 @@
               </execution>
             </executions>
           </plugin>
+          
           <plugin>
             <groupId>org.apache.directory.daemon</groupId>
             <artifactId>daemon-plugin</artifactId>
@@ -350,6 +358,7 @@
               </execution>
             </executions>
           </plugin>
+          
           <plugin>
             <groupId>org.apache.org.maven</groupId>
             <artifactId>maven-deploy-plugin</artifactId>

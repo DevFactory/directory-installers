@@ -27,14 +27,14 @@ on startup.
 On Windows the server can be started like any other service using the services
 console via Microsoft Management Console.  It can also be started, stopped and
 configured using the procrun service manager installed for it: see 
-Start->All Programs->apacheds->Service Setttings. A tray icon can also be 
+Start->All Programs->apacheds->Service Settings. A tray icon can also be 
 launched for the application to monitor it and to control the service: see 
 Start->All Programs->apacheds->Tray Monitor.  The server can also be started 
 in a special debug mode (not for IDE remote debugging though) where it dumps
 output to the command line in a cmd window rather than to the log files.  You
 can launch the server in this mode by selecting Start->All Programs->
 apacheds->Test Service.  The server can also be started in test mode by
-running the apacheds.exe executable from the commandline.  Likewise the 
+running the apacheds.exe executable from the command line.  Likewise the 
 service manager can be started from the command line by invoking
 apachedsw.exe.
 
@@ -48,12 +48,12 @@ available commands on all platforms like so:
 
    java -jar apacheds-tools.jar help
 
-The tool contains several commands.  Here's a breif listing with description:
+The tool contains several commands.  Here's a brief listing with description:
 
    help             displays help message 
-   notifications    listens to the server for disconnect msgs
+   notifications    listens to the server for disconnect messages
    dump             dumps partitions in LDIF format for recovery and backup
-   graceful         starts graceful shutdown with shutdown delay & timeoffline
+   graceful         starts graceful shutdown with shutdown delay & time offline
    diagnostic       launches diagnostic UI for inspecting server partitions
                     and client sessions
    import           imports data to the server from a LDIF file
