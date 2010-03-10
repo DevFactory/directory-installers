@@ -20,10 +20,9 @@
 package org.apache.directory.server;
 
 
-import org.apache.directory.daemon.InstallLayout;
-import org.apache.directory.daemon.InstanceLayout;
-
 import java.io.File;
+
+import org.apache.directory.daemon.InstallationLayout;
 
 
 /**
@@ -47,10 +46,10 @@ public class UberjarMain
 
         if ( args.length > 0 && new File( args[0] ).isDirectory() )
         {
-            InstallLayout installLayout = new InstallLayout( new File( args[0] ) );
-            String confFile = installLayout.getConfigurationFile().toURI().toURL().toString();
-            InstanceLayout instanceLayout = new InstanceLayout( "default", installLayout ); // TODO: make name configurable
-            service.init( instanceLayout, new String[] { confFile } );
+            InstallationLayout layout = new InstallationLayout( args[0] );
+            String confFile = layout.getConfigurationFile().toURI().toURL().toString();
+            service.init( layout, new String[]
+                { confFile } );
         }
         else if ( args.length > 0 && new File( args[0] ).isFile() )
         {
