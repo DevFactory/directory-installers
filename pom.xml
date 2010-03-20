@@ -195,7 +195,7 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.directory.server.http</groupId>
+        <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-http-integration</artifactId>
         <version>${server.version}</version>
       </dependency>
@@ -506,7 +506,7 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.directory.server.http</groupId>
+      <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-http-integration</artifactId>
     </dependency>
 
