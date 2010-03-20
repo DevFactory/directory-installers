@@ -40,9 +40,9 @@
     <skin.version>1.0.1</skin.version>
 
     <!-- Set versions for depending projects -->
-    <shared.version>0.9.18-SNAPSHOT</shared.version>
-    <daemon.version>1.1.7-SNAPSHOT</daemon.version>
-    <server.version>1.5.6-SNAPSHOT</server.version>
+    <shared.version>0.9.18</shared.version>
+    <daemon.version>1.1.7</daemon.version>
+    <server.version>1.5.6</server.version>
 
     <!-- Set versions for depending jars -->
     <antlr.version>2.7.7</antlr.version>
@@ -560,9 +560,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/trunk</connection>
-    <url>http://svn.apache.org/repos/asf/directory/installers/trunk</url>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/trunk</developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/branches/installers-1.5.6/</connection>
+    <url>http://svn.apache.org/repos/asf/directory/installers/branches/installers-1.5.6/</url>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/branches/installers-1.5.6/</developerConnection>
   </scm>
 
   <reporting>
@@ -628,6 +628,18 @@
       </plugin>
     </plugins>
   </reporting>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <pluginRepositories>
     <pluginRepository>
