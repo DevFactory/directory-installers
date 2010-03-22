@@ -30,7 +30,7 @@
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.6-SNAPSHOT</version>
+  <version>1.5.7-SNAPSHOT</version>
   <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
@@ -40,9 +40,9 @@
     <skin.version>1.0.1</skin.version>
 
     <!-- Set versions for depending projects -->
-    <shared.version>0.9.18-SNAPSHOT</shared.version>
-    <daemon.version>1.1.7-SNAPSHOT</daemon.version>
-    <server.version>1.5.6-SNAPSHOT</server.version>
+    <shared.version>0.9.19-SNAPSHOT</shared.version>
+    <daemon.version>1.1.8-SNAPSHOT</daemon.version>
+    <server.version>1.5.7-SNAPSHOT</server.version>
 
     <!-- Set versions for depending jars -->
     <antlr.version>2.7.7</antlr.version>
@@ -195,7 +195,7 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.directory.server.http</groupId>
+        <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-http-integration</artifactId>
         <version>${server.version}</version>
       </dependency>
@@ -506,7 +506,7 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.directory.server.http</groupId>
+      <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-http-integration</artifactId>
     </dependency>
 
