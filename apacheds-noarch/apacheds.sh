@@ -17,11 +17,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-if [ -e target/apacheds-noarch-installer-1.5.6-SNAPSHOT-app.jar ] ; then
+UBER_JAR=target/apacheds-noarch-installer-1.5.7-SNAPSHOT-app.jar
+
+if [ -e $UBER_JAR ] ; then
   echo uber jar exists
 else
   echo uber jar not found need to build it
   mvn clean install
 fi
 
-java -Dlog4j.debug -Dlog4j.configuration=file:./log4j.properties -jar target/apacheds-noarch-installer-1.5.6-SNAPSHOT-app.jar target/plan/server.xml 
+java -Dlog4j.debug -Dlog4j.configuration=file:./log4j.properties -jar $UBER_JAR target/plan/server.xml 
