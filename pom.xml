@@ -565,6 +565,18 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/directory/installers/branches/installers-1.5.7</developerConnection>
   </scm>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
   <reporting>
     <excludeDefaults>true</excludeDefaults>
     <plugins>
