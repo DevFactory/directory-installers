@@ -33,9 +33,9 @@
   </description>
 
   <properties>
-    <daemon.version>1.1.8-SNAPSHOT</daemon.version>
-    <daemon.plugin.version>1.1.8-SNAPSHOT</daemon.plugin.version>
-    <server.version>1.5.7-SNAPSHOT</server.version>
+    <daemon.version>1.1.8</daemon.version>
+    <daemon.plugin.version>1.1.8</daemon.plugin.version>
+    <server.version>1.5.7</server.version>
   </properties>
 
   <dependencies>
