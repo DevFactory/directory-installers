@@ -24,7 +24,7 @@
   <parent>
     <groupId>org.apache.directory.installers</groupId>
     <artifactId>installers-parent</artifactId>
-    <version>1.5.7-SNAPSHOT</version>
+    <version>1.5.7</version>
   </parent>
   <artifactId>apacheds-noarch-installer</artifactId>
   <name>ApacheDS Architecture Independent Installer</name>
@@ -103,12 +103,12 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-core-annotations</artifactId>
-      <version>${version}</version>
+      <version>1.5.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-core-api</artifactId>
-      <version>${version}</version>
+      <version>1.5.7</version>
     </dependency>
   </dependencies>
 </project>
