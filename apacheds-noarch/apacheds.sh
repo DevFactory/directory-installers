@@ -26,4 +26,4 @@ else
   mvn clean install
 fi
 
-java -Dlog4j.debug -Dlog4j.configuration=file:./log4j.properties -jar $UBER_JAR target/plan/server.xml 
+java -Dlog4j.debug -Dlog4j.configuration=file:./log4j.properties -jar $UBER_JAR example.com

@@ -110,5 +110,10 @@
       <artifactId>apacheds-core-api</artifactId>
       <version>${version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-default-config</artifactId>
+      <version>${version}</version>
+    </dependency>
   </dependencies>
 </project>
