@@ -44,16 +44,24 @@ public class UberjarMain
     {
         Service service = new Service();
 
-        if ( args.length > 0 && new File( args[0] ).isDirectory() )
+        if ( args.length > 0 )
         {
             InstallationLayout layout = new InstallationLayout( args[0] );
-            String confFile = layout.getConfigurationFile().toURI().toURL().toString();
-            service.init( layout, new String[]
-                { confFile } );
-        }
-        else if ( args.length > 0 && new File( args[0] ).isFile() )
-        {
-            service.init( null, args );
+            
+            // assign the given directory path first
+            String partitionDir = args[0];
+            try
+            {
+                // check the validity of the installationlayout, if correct set it's partition dir to partitionDir
+                layout.verifyInstallation();
+                partitionDir = layout.getPartitionsDirectory().getAbsolutePath();
+            }
+            catch( Exception e )
+            {
+                // nothing to do
+            }
+            
+            service.init( layout, new String[]{ partitionDir } );
         }
         else
         {

@@ -21,19 +21,28 @@ package org.apache.directory.server;
 
 
 import java.io.File;
+import java.util.List;
 
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.changepw.ChangePasswordServer;
-import org.apache.directory.server.configuration.ApacheDS;
+import org.apache.directory.server.config.ConfigPartitionReader;
+import org.apache.directory.server.config.LdifConfigExtractor;
 import org.apache.directory.server.core.DirectoryService;
-import org.apache.directory.server.core.factory.DefaultDirectoryServiceFactory;
+import org.apache.directory.server.core.partition.ldif.LdifPartition;
+import org.apache.directory.server.core.schema.SchemaPartition;
+import org.apache.directory.server.i18n.I18n;
 import org.apache.directory.server.integration.http.HttpServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
 import org.apache.directory.server.ldap.LdapServer;
 import org.apache.directory.server.ntp.NtpServer;
-import org.apache.directory.server.protocol.shared.transport.TcpTransport;
-import org.apache.xbean.spring.context.FileSystemXmlApplicationContext;
+import org.apache.directory.shared.ldap.schema.SchemaManager;
+import org.apache.directory.shared.ldap.schema.ldif.extractor.SchemaLdifExtractor;
+import org.apache.directory.shared.ldap.schema.ldif.extractor.impl.DefaultSchemaLdifExtractor;
+import org.apache.directory.shared.ldap.schema.loader.ldif.LdifSchemaLoader;
+import org.apache.directory.shared.ldap.schema.manager.impl.DefaultSchemaManager;
+import org.apache.directory.shared.ldap.schema.registries.SchemaLoader;
+import org.apache.directory.shared.ldap.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,15 +73,38 @@ public class Service implements DaemonApplication
     /** The Kerberos server instance */
     private KdcServer kdcServer;
 
-    private ApacheDS apacheDS;
-
     private HttpServer httpServer;
 
-    private FileSystemXmlApplicationContext factory;
+    private LdifPartition schemaLdifPartition;
+
+    private SchemaManager schemaManager;
+
+    private LdifPartition configPartition;
+
+    private ConfigPartitionReader cpReader;
 
 
     public void init( InstallationLayout layout, String[] args ) throws Exception
     {
+        if ( args == null )
+        {
+            args = new String[1];
+            args[0] = System.getProperty( "java.io.tmpdir" ) + File.separator + "server-work";
+        }
+
+        File partitionsDir = new File( args[0] );
+        if ( !partitionsDir.exists() )
+        {
+            LOG.info( "partition directory doesn't exist, creating {}", partitionsDir.getAbsolutePath() );
+            partitionsDir.mkdirs();
+        }
+
+        LOG.info( "using partition dir {}", partitionsDir.getAbsolutePath() );
+        initSchemaLdifPartition( partitionsDir );
+        initConfigPartition( partitionsDir );
+
+        cpReader = new ConfigPartitionReader( configPartition );
+
         // Initialize the LDAP server
         initLdap( layout, args );
 
@@ -97,6 +129,79 @@ public class Service implements DaemonApplication
 
 
     /**
+     * initialize the schema partition by loading the schema LDIF files
+     * 
+     * @throws Exception in case of any problems while extracting and writing the schema files
+     */
+    private void initSchemaLdifPartition( File partitionsDir ) throws Exception
+    {
+        // Init the LdifPartition
+        schemaLdifPartition = new LdifPartition();
+        schemaLdifPartition.setWorkingDirectory( partitionsDir.getPath() + "/schema" );
+
+        // Extract the schema on disk (a brand new one) and load the registries
+        File schemaRepository = new File( partitionsDir, "schema" );
+
+        if ( schemaRepository.exists() )
+        {
+            LOG.info( "schema partition already exists, skipping schema extraction" );
+        }
+        else
+        {
+            SchemaLdifExtractor extractor = new DefaultSchemaLdifExtractor( partitionsDir );
+            extractor.extractOrCopy();
+        }
+
+        SchemaLoader loader = new LdifSchemaLoader( schemaRepository );
+        schemaManager = new DefaultSchemaManager( loader );
+
+        // We have to load the schema now, otherwise we won't be able
+        // to initialize the Partitions, as we won't be able to parse 
+        // and normalize their suffix DN
+        schemaManager.loadAllEnabled();
+
+        List<Throwable> errors = schemaManager.getErrors();
+
+        if ( errors.size() != 0 )
+        {
+            throw new Exception( I18n.err( I18n.ERR_317, ExceptionUtils.printErrors( errors ) ) );
+        }
+    }
+
+
+    /**
+     * 
+     * initializes a LDIF partition for configuration
+     * 
+     * @param partitionsDir the directory where all the partitions' data is stored
+     * @throws Exception in case of any issues while extracting the schema
+     */
+    private void initConfigPartition( File partitionsDir ) throws Exception
+    {
+
+        File configRepository = new File( partitionsDir, "config" );
+
+        if ( configRepository.exists() )
+        {
+            LOG.info( "config partition already exists, skipping default config extraction" );
+        }
+        else
+        {
+            LdifConfigExtractor.extract( partitionsDir, true );
+        }
+
+        configPartition = new LdifPartition();
+        configPartition.setId( "config" );
+        configPartition.setSuffix( "ou=config" );
+        configPartition.setSchemaManager( schemaManager );
+        configPartition.setWorkingDirectory( partitionsDir.getPath() + "/config" );
+        configPartition.setPartitionDir( new File( configPartition.getWorkingDirectory() ) );
+
+        configPartition.initialize();
+    }
+
+
+    /**
      * Initialize the LDAP server
      */
     private void initLdap( InstallationLayout layout, String[] args ) throws Exception
@@ -106,35 +211,27 @@ public class Service implements DaemonApplication
         printBanner( BANNER_LDAP );
         long startTime = System.currentTimeMillis();
 
-        if ( ( args != null ) && ( args.length > 0 ) && new File( args[0] ).exists() ) // hack that takes server.xml file argument
-        {
-            LOG.info( "server: loading settings from ", args[0] );
-            factory = new FileSystemXmlApplicationContext( new File( args[0] ).toURI().toURL().toString() );
-            ldapServer = ( LdapServer ) factory.getBean( "ldapServer" );
-            apacheDS = ( ApacheDS ) factory.getBean( "apacheDS" );
-        }
-        else
-        {
-            LOG.info( "server: using default settings ..." );
-            DefaultDirectoryServiceFactory.DEFAULT.init( "default" );
-            DirectoryService directoryService = DefaultDirectoryServiceFactory.DEFAULT.getDirectoryService();
-            directoryService.startup();
-            ldapServer = new LdapServer();
-            ldapServer.setDirectoryService( directoryService );
-            TcpTransport tcpTransportSsl = new TcpTransport( 10636 );
-            tcpTransportSsl.enableSSL( true );
-            ldapServer.setTransports( new TcpTransport( 10389 ), tcpTransportSsl );
-            apacheDS = new ApacheDS( ldapServer );
-        }
+        DirectoryService directoryService = cpReader.getDirectoryService();
+        directoryService.setSchemaManager( schemaManager );
 
-        if ( layout != null )
-        {
-            ldapServer.getDirectoryService().setWorkingDirectory( layout.getPartitionsDirectory() );
-        }
+        SchemaPartition schemaPartition = directoryService.getSchemaService().getSchemaPartition();
+        schemaPartition.setWrappedPartition( schemaLdifPartition );
+        schemaPartition.setSchemaManager( schemaManager );
+
+        directoryService.addPartition( configPartition );
+
+        // this is a chicken-egg issue to have the working directory in the configuration so it should always be passed as
+        // a command line arg
+        directoryService.setWorkingDirectory( new File( args[0] ) );
+
+        ldapServer = cpReader.getLdapServer();
+        ldapServer.setDirectoryService( directoryService );
+
+        directoryService.startup();
 
         // And start the server now
-        apacheDS.startup();
-
+        start();
+        
         if ( LOG.isInfoEnabled() )
         {
             LOG.info( "LDAP server: started in {} milliseconds", ( System.currentTimeMillis() - startTime ) + "" );
@@ -147,19 +244,11 @@ public class Service implements DaemonApplication
      */
     private void initNtp( InstallationLayout layout, String[] args ) throws Exception
     {
-        if ( factory == null )
-        {
-            return;
-        }
-
-        try
-        {
-            ntpServer = ( NtpServer ) factory.getBean( "ntpServer" );
-        }
-        catch ( Exception e )
+        ntpServer = cpReader.getNtpServer();
+        if ( ntpServer == null )
         {
             LOG
-                .info( "Cannot find any reference to the NTP Server in the server.xml file : the server won't be started" );
+                .info( "Cannot find any reference to the NTP Server in the configuration : the server won't be started" );
             return;
         }
 
@@ -195,7 +284,7 @@ public class Service implements DaemonApplication
     //        }
     //        catch ( Exception e )
     //        {
-    //            LOG.info( "Cannot find any reference to the DNS Server in the server.xml file : the server won't be started" );
+    //            LOG.info( "Cannot find any reference to the DNS Server in the configuration : the server won't be started" );
     //            return;
     //        }
     //        
@@ -219,19 +308,12 @@ public class Service implements DaemonApplication
      */
     private void initKerberos( InstallationLayout layout, String[] args ) throws Exception
     {
-        if ( factory == null )
-        {
-            return;
-        }
 
-        try
-        {
-            kdcServer = ( KdcServer ) factory.getBean( "kdcServer" );
-        }
-        catch ( Exception e )
+        kdcServer = cpReader.getKdcServer();
+        if( kdcServer == null )
         {
             LOG
-                .info( "Cannot find any reference to the Kerberos Server in the server.xml file : the server won't be started" );
+            .info( "Cannot find any reference to the Kerberos Server in the configuration : the server won't be started" );
             return;
         }
 
@@ -257,19 +339,12 @@ public class Service implements DaemonApplication
      */
     private void initChangePwd( InstallationLayout layout, String[] args ) throws Exception
     {
-        if ( factory == null )
-        {
-            return;
-        }
 
-        try
-        {
-            changePwdServer = ( ChangePasswordServer ) factory.getBean( "changePasswordServer" );
-        }
-        catch ( Exception e )
+        changePwdServer = cpReader.getChangePwdServer();
+        if ( changePwdServer == null )
         {
             LOG
-                .info( "Cannot find any reference to the Change Password Server in the server.xml file : the server won't be started" );
+                .info( "Cannot find any reference to the Change Password Server in the configuration : the server won't be started" );
             return;
         }
 
@@ -292,19 +367,12 @@ public class Service implements DaemonApplication
 
     private void initHttpServer() throws Exception
     {
-        if ( factory == null )
-        {
-            return;
-        }
 
-        try
-        {
-            httpServer = ( HttpServer ) factory.getBean( "httpServer" );
-        }
-        catch ( Exception e )
+        httpServer = cpReader.getHttpServer();
+        if ( httpServer == null )
         {
             LOG
-                .info( "Cannot find any reference to the HTTP Server in the server.xml file : the server won't be started" );
+                .info( "Cannot find any reference to the HTTP Server in the configuration : the server won't be started" );
             return;
         }
 
@@ -342,11 +410,6 @@ public class Service implements DaemonApplication
 
     public void stop( String[] args ) throws Exception
     {
-
-        if ( factory != null )
-        {
-            factory.close();
-        }
 
         // Stops the server
         ldapServer.stop();
