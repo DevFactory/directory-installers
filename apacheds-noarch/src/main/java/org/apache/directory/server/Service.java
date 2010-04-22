@@ -252,6 +252,9 @@ public class Service implements DaemonApplication
             return;
         }
 
+        getDirectoryService().startup();
+        ntpServer.setDirectoryService( getDirectoryService() );
+        
         System.out.println( "Starting the NTP server" );
         LOG.info( "Starting the NTP server" );
 
@@ -316,6 +319,9 @@ public class Service implements DaemonApplication
             .info( "Cannot find any reference to the Kerberos Server in the configuration : the server won't be started" );
             return;
         }
+        
+        getDirectoryService().startup();
+        kdcServer.setDirectoryService( getDirectoryService() );
 
         System.out.println( "Starting the Kerberos server" );
         LOG.info( "Starting the Kerberos server" );
@@ -348,6 +354,9 @@ public class Service implements DaemonApplication
             return;
         }
 
+        getDirectoryService().startup();
+        changePwdServer.setDirectoryService( getDirectoryService() );
+        
         System.out.println( "Starting the Change Password server" );
         LOG.info( "Starting the Change Password server" );
 
