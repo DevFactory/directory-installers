@@ -30,7 +30,7 @@
 
   <groupId>org.apache.directory.installers</groupId>
   <artifactId>installers-parent</artifactId>
-  <version>1.5.7-SNAPSHOT</version>
+  <version>1.5.8-SNAPSHOT</version>
   <name>ApacheDS Installers Parent</name>
   <packaging>pom</packaging>
 
@@ -40,9 +40,10 @@
     <skin.version>1.0.1</skin.version>
 
     <!-- Set versions for depending projects -->
-    <shared.version>0.9.19-SNAPSHOT</shared.version>
-    <daemon.version>1.1.8-SNAPSHOT</daemon.version>
-    <server.version>1.5.7-SNAPSHOT</server.version>
+    <shared.version>0.9.20-SNAPSHOT</shared.version>
+    <daemon.version>1.1.9-SNAPSHOT</daemon.version>
+    <daemon.bootstrappers.version>1.1.9-SNAPSHOT</daemon.bootstrappers.version>
+    <server.version>1.5.8-SNAPSHOT</server.version>
 
     <!-- Set versions for depending jars -->
     <antlr.version>2.7.7</antlr.version>
@@ -50,12 +51,11 @@
     <commons.cli.version>1.2</commons.cli.version>
     <commons.collections.version>3.2.1</commons.collections.version>
     <commons.daemon.version>1.0.1</commons.daemon.version>
-    <commons.dbcp.version>1.2.2</commons.dbcp.version>
+    <commons.dbcp.version>1.4</commons.dbcp.version>
     <commons.io.version>1.4</commons.io.version>
     <commons.lang.version>2.5</commons.lang.version>
-    <commons.net.version>2.0</commons.net.version>
+    <commons.net.version>2.1</commons.net.version>
     <commons.pool.version>1.5.4</commons.pool.version>
-    <daemon.bootstrappers.version>1.1.8-SNAPSHOT</daemon.bootstrappers.version>
     <derby.version>10.4.2.0</derby.version>
     <dnsjava.version>2.0.1</dnsjava.version>
     <jcl.over.slf4j.version>1.5.10</jcl.over.slf4j.version>
