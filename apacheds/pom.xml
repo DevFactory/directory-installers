@@ -53,7 +53,7 @@
     </dependency>
     
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
+      <artifactId>apacheds-server-tools</artifactId>
       <groupId>${project.groupId}</groupId>
       <version>${server.version}</version>
     </dependency>
