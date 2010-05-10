@@ -102,19 +102,19 @@
   <dependencies>
     <dependency>
       <artifactId>apacheds-core-annotations</artifactId>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.directory.server</groupId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <artifactId>apacheds-core-api</artifactId>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.directory.server</groupId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <artifactId>apacheds-default-config</artifactId>
-      <groupId>${project.groupId}</groupId>
+      <groupId>org.apache.directory.server</groupId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
