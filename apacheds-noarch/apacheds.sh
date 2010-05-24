@@ -17,7 +17,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-UBER_JAR=target/apacheds-noarch-installer-1.5.7-SNAPSHOT-app.jar
+UBER_JAR=target/apacheds-noarch-installer-1.5.8-SNAPSHOT-app.jar
 
 if [ -e $UBER_JAR ] ; then
   echo uber jar exists

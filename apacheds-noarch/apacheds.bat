@@ -20,7 +20,7 @@ REM under the License.
 REM this script starts ApacheDS (as non-windows-service)
 
 
-IF NOT exist target/apacheds-noarch-installer-1.5.7-SNAPSHOT-app.jar GOTO :MVN
+IF NOT exist target/apacheds-noarch-installer-1.5.8-SNAPSHOT-app.jar GOTO :MVN
    echo uber jar exists
    GOTO :JAVA
 
@@ -30,4 +30,4 @@ IF NOT exist target/apacheds-noarch-installer-1.5.7-SNAPSHOT-app.jar GOTO :MVN
    GOTO :JAVA
 
 :JAVA
-   java -Dlog4j.configuration="file:///%cd%/log4j.properties" -jar target/apacheds-noarch-installer-1.5.7-SNAPSHOT-app.jar example.com
+   java -Dlog4j.configuration="file:///%cd%/log4j.properties" -jar target/apacheds-noarch-installer-1.5.8-SNAPSHOT-app.jar example.com
