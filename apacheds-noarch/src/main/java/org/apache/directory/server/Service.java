@@ -21,14 +21,24 @@ package org.apache.directory.server;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.directory.daemon.DaemonApplication;
 import org.apache.directory.daemon.InstallationLayout;
 import org.apache.directory.server.changepw.ChangePasswordServer;
 import org.apache.directory.server.config.ConfigPartitionReader;
 import org.apache.directory.server.config.LdifConfigExtractor;
+import org.apache.directory.server.core.CoreSession;
 import org.apache.directory.server.core.DirectoryService;
+import org.apache.directory.server.core.entry.ClonedServerEntry;
+import org.apache.directory.server.core.filtering.EntryFilteringCursor;
+import org.apache.directory.server.core.interceptor.context.ModifyOperationContext;
+import org.apache.directory.server.core.partition.Partition;
 import org.apache.directory.server.core.partition.ldif.LdifPartition;
 import org.apache.directory.server.core.schema.SchemaPartition;
 import org.apache.directory.server.i18n.I18n;
@@ -36,12 +46,29 @@ import org.apache.directory.server.integration.http.HttpServer;
 import org.apache.directory.server.kerberos.kdc.KdcServer;
 import org.apache.directory.server.ldap.LdapServer;
 import org.apache.directory.server.ntp.NtpServer;
+import org.apache.directory.shared.ldap.constants.SchemaConstants;
+import org.apache.directory.shared.ldap.entry.DefaultEntryAttribute;
+import org.apache.directory.shared.ldap.entry.DefaultModification;
+import org.apache.directory.shared.ldap.entry.EntryAttribute;
+import org.apache.directory.shared.ldap.entry.Modification;
+import org.apache.directory.shared.ldap.entry.ModificationOperation;
+import org.apache.directory.shared.ldap.filter.ExprNode;
+import org.apache.directory.shared.ldap.filter.PresenceNode;
+import org.apache.directory.shared.ldap.filter.SearchScope;
+import org.apache.directory.shared.ldap.message.AliasDerefMode;
+import org.apache.directory.shared.ldap.name.DN;
+import org.apache.directory.shared.ldap.schema.AttributeType;
+import org.apache.directory.shared.ldap.schema.AttributeTypeOptions;
 import org.apache.directory.shared.ldap.schema.SchemaManager;
 import org.apache.directory.shared.ldap.schema.ldif.extractor.SchemaLdifExtractor;
 import org.apache.directory.shared.ldap.schema.ldif.extractor.impl.DefaultSchemaLdifExtractor;
 import org.apache.directory.shared.ldap.schema.loader.ldif.LdifSchemaLoader;
 import org.apache.directory.shared.ldap.schema.manager.impl.DefaultSchemaManager;
 import org.apache.directory.shared.ldap.schema.registries.SchemaLoader;
+import org.apache.directory.shared.ldap.schema.syntaxCheckers.CsnSyntaxChecker;
+import org.apache.directory.shared.ldap.schema.syntaxCheckers.GeneralizedTimeSyntaxChecker;
+import org.apache.directory.shared.ldap.schema.syntaxCheckers.UuidSyntaxChecker;
+import org.apache.directory.shared.ldap.util.DateUtils;
 import org.apache.directory.shared.ldap.util.LdapExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +110,21 @@ public class Service implements DaemonApplication
 
     private ConfigPartitionReader cpReader;
 
-
+    // variables used during the initial startup to update the mandatory operational
+    // attributes
+    private UuidSyntaxChecker uuidChecker = new UuidSyntaxChecker();
+    
+    private CsnSyntaxChecker csnChecker = new CsnSyntaxChecker();
+    
+    private GeneralizedTimeSyntaxChecker timeChecker = new GeneralizedTimeSyntaxChecker();
+    
+    private static final Map<String, AttributeTypeOptions> MANDATORY_ENTRY_ATOP_MAP = new HashMap<String, AttributeTypeOptions>();
+    
+    private boolean isConfigPartitionFirstExtraction = false;
+    
+    private boolean isSchemaPartitionFirstExtraction = false;
+    
+    
     public void init( InstallationLayout layout, String[] args ) throws Exception
     {
         if ( args == null )
@@ -150,6 +191,7 @@ public class Service implements DaemonApplication
         {
             SchemaLdifExtractor extractor = new DefaultSchemaLdifExtractor( partitionsDir );
             extractor.extractOrCopy();
+            isSchemaPartitionFirstExtraction = true;
         }
 
         SchemaLoader loader = new LdifSchemaLoader( schemaRepository );
@@ -188,6 +230,7 @@ public class Service implements DaemonApplication
         else
         {
             LdifConfigExtractor.extract( partitionsDir, true );
+            isConfigPartitionFirstExtraction = true;
         }
 
         configPartition = new LdifPartition();
@@ -229,6 +272,39 @@ public class Service implements DaemonApplication
 
         directoryService.startup();
 
+        AttributeType ocAt = schemaManager.lookupAttributeTypeRegistry( SchemaConstants.OBJECT_CLASS_AT );
+        MANDATORY_ENTRY_ATOP_MAP.put( ocAt.getName(), new AttributeTypeOptions( ocAt ) );
+        
+        AttributeType uuidAt = schemaManager.lookupAttributeTypeRegistry( SchemaConstants.ENTRY_UUID_AT );
+        MANDATORY_ENTRY_ATOP_MAP.put( uuidAt.getName(), new AttributeTypeOptions( uuidAt ) );
+
+        AttributeType csnAt = schemaManager.lookupAttributeTypeRegistry( SchemaConstants.ENTRY_CSN_AT );
+        MANDATORY_ENTRY_ATOP_MAP.put( csnAt.getName(), new AttributeTypeOptions( csnAt ) );
+
+        AttributeType creatorAt = schemaManager.lookupAttributeTypeRegistry( SchemaConstants.CREATORS_NAME_AT );
+        MANDATORY_ENTRY_ATOP_MAP.put( creatorAt.getName(), new AttributeTypeOptions( creatorAt ) );
+
+        AttributeType createdTimeAt = schemaManager.lookupAttributeTypeRegistry( SchemaConstants.CREATE_TIMESTAMP_AT );
+        MANDATORY_ENTRY_ATOP_MAP.put( createdTimeAt.getName(), new AttributeTypeOptions( createdTimeAt ) );
+
+        if( isConfigPartitionFirstExtraction )
+        {
+            LOG.info( "begining to update config partition LDIF files after modifying manadatory attributes" );
+            
+            updateMandatoryOpAttributes( configPartition, directoryService );
+            
+            LOG.info( "config partition data was successfully updated" );
+        }
+
+        if( isSchemaPartitionFirstExtraction)
+        {
+            LOG.info( "begining to update schema partition LDIF files after modifying manadatory attributes" );
+            
+            updateMandatoryOpAttributes( schemaLdifPartition, directoryService );
+            
+            LOG.info( "schema partition data was successfully updated" );
+        }
+        
         // And start the server now
         start();
         
@@ -484,6 +560,103 @@ public class Service implements DaemonApplication
     public static void printBanner( String bannerConstant )
     {
         System.out.println( bannerConstant );
+    }
+
+    
+    /**
+     * 
+     * adds mandatory operational attributes {@link #MANDATORY_ENTRY_ATOP_MAP} and updates all the LDIF files.
+     * WARN: this method is only called for the first time when schema and config files are bootstrapped
+     *       afterwards it is the responsibility of the user to ensure correctness of LDIF files if modified
+     *       by hand 
+     * 
+     * Note: we do these modifications explicitly cause we have no idea if each entry's LDIF file has the
+     *       correct values for all these mandatory attributes
+     *       
+     * @param partition instance of the partition Note: should only be those which are loaded before starting the DirectoryService
+     * @param dirService the DirectoryService instance
+     * @throws Exception
+     */
+    public void updateMandatoryOpAttributes( Partition partition, DirectoryService dirService ) throws Exception
+    {
+        CoreSession session = dirService.getAdminSession();
+        
+        String adminDn = session.getEffectivePrincipal().getName();
+        
+        ExprNode filter = new PresenceNode( SchemaConstants.OBJECT_CLASS_AT );
+        
+        EntryFilteringCursor cursor = session.search( partition.getSuffixDn(), SearchScope.SUBTREE, filter, AliasDerefMode.NEVER_DEREF_ALIASES, new HashSet( MANDATORY_ENTRY_ATOP_MAP.values() ) );
+        cursor.beforeFirst();
+
+        List<Modification> mods = new ArrayList<Modification>();
+
+        while( cursor.next() )
+        {
+            ClonedServerEntry entry = cursor.get();
+
+            AttributeType atType = MANDATORY_ENTRY_ATOP_MAP.get( SchemaConstants.ENTRY_UUID_AT ).getAttributeType();
+            
+            EntryAttribute uuidAt = entry.get( atType );
+            String uuid = ( uuidAt == null ? null : uuidAt.getString() );
+            
+            if( ! uuidChecker.isValidSyntax( uuid ) )
+            {
+                uuidAt = new DefaultEntryAttribute( atType, UUID.randomUUID().toString() );
+            }
+
+            Modification uuidMod = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, uuidAt );
+            mods.add( uuidMod );
+            
+            atType = MANDATORY_ENTRY_ATOP_MAP.get( SchemaConstants.ENTRY_CSN_AT ).getAttributeType();
+            EntryAttribute csnAt = entry.get( atType );
+            String csn = ( csnAt == null ? null : csnAt.getString() );
+            
+            if( ! csnChecker.isValidSyntax( csn ) )
+            {
+                csnAt = new DefaultEntryAttribute( atType, dirService.getCSN().toString() );
+            }
+            
+            Modification csnMod = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, csnAt );
+            mods.add( csnMod );
+            
+            atType = MANDATORY_ENTRY_ATOP_MAP.get( SchemaConstants.CREATORS_NAME_AT ).getAttributeType();
+            EntryAttribute creatorAt = entry.get( atType );
+            String creator = ( creatorAt == null ? "" : creatorAt.getString().trim() );
+            
+            if( ( creator.length() == 0 ) || ( ! DN.isValid( creator ) ) )
+            {
+                creatorAt = new DefaultEntryAttribute( atType, adminDn );
+            }
+            
+            Modification creatorMod = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, creatorAt );
+            mods.add( creatorMod );
+            
+            atType = MANDATORY_ENTRY_ATOP_MAP.get( SchemaConstants.CREATE_TIMESTAMP_AT ).getAttributeType();
+            EntryAttribute createdTimeAt = entry.get( atType );
+            String createdTime = ( createdTimeAt == null ? null : createdTimeAt.getString() );
+            
+            if( ! timeChecker.isValidSyntax( createdTime ) )
+            {
+                createdTimeAt = new DefaultEntryAttribute( atType, DateUtils.getGeneralizedTime() );
+            }
+            
+            Modification createdMod = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, createdTimeAt );
+            mods.add( createdMod );
+            
+            if( ! mods.isEmpty() )
+            {
+                LOG.debug( "modifying the entry {} after adding missing manadatory operational attributes", entry.getDn() );
+                ModifyOperationContext modOpContext = new ModifyOperationContext( session );
+                modOpContext.setEntry( entry );
+                modOpContext.setDn( entry.getDn() );
+                modOpContext.setModItems( mods );
+                partition.modify( modOpContext );
+            }
+            
+            mods.clear();
+        }
+        
+        cursor.close();
     }
 
 }
