@@ -44,6 +44,7 @@
     <daemon.version>1.1.9-SNAPSHOT</daemon.version>
     <daemon.bootstrappers.version>1.1.9-SNAPSHOT</daemon.bootstrappers.version>
     <server.version>1.5.8-SNAPSHOT</server.version>
+    <org.apache.directory.buildtools.directory-checkstyle.version>0.1-SNAPSHOT</org.apache.directory.buildtools.directory-checkstyle.version>
 
     <!-- Set versions for depending jars -->
     <antlr.version>2.7.7</antlr.version>
@@ -548,6 +549,22 @@
     <module>apacheds-noarch</module>
   </modules>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.directory.buildtools</groupId>
+            <artifactId>directory-checkstyle</artifactId>
+            <version>${org.apache.directory.buildtools.directory-checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/directory/installers/trunk</connection>
     <url>http://svn.apache.org/repos/asf/directory/installers/trunk</url>
@@ -612,6 +629,10 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+          <xrefTestLocation>${project.reporting.outputDirectory}/../xref-test</xrefTestLocation>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -622,6 +643,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>directory-checks.xml</configLocation>
+          <xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
