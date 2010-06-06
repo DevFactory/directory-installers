@@ -235,7 +235,7 @@ public class Service implements DaemonApplication
 
         configPartition = new LdifPartition();
         configPartition.setId( "config" );
-        configPartition.setSuffix( "ou=config" );
+        configPartition.setSuffix( new DN( "ou=config" ) );
         configPartition.setSchemaManager( schemaManager );
         configPartition.setWorkingDirectory( partitionsDir.getPath() + "/config" );
         configPartition.setPartitionDir( new File( configPartition.getWorkingDirectory() ) );
@@ -585,7 +585,7 @@ public class Service implements DaemonApplication
         
         ExprNode filter = new PresenceNode( SchemaConstants.OBJECT_CLASS_AT );
         
-        EntryFilteringCursor cursor = session.search( partition.getSuffixDn(), SearchScope.SUBTREE, filter, AliasDerefMode.NEVER_DEREF_ALIASES, new HashSet( MANDATORY_ENTRY_ATOP_MAP.values() ) );
+        EntryFilteringCursor cursor = session.search( partition.getSuffix(), SearchScope.SUBTREE, filter, AliasDerefMode.NEVER_DEREF_ALIASES, new HashSet( MANDATORY_ENTRY_ATOP_MAP.values() ) );
         cursor.beforeFirst();
 
         List<Modification> mods = new ArrayList<Modification>();
