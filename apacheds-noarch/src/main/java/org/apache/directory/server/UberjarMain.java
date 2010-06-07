@@ -30,7 +30,6 @@ import org.apache.directory.daemon.InstallationLayout;
  * case so there really is not much here.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
- * @version $Rev$
  */
 public class UberjarMain
 {
