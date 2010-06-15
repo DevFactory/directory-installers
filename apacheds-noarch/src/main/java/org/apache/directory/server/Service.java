@@ -645,11 +645,11 @@ public class Service implements DaemonApplication
             if( ! mods.isEmpty() )
             {
                 LOG.debug( "modifying the entry {} after adding missing manadatory operational attributes", entry.getDn() );
-                ModifyOperationContext modOpContext = new ModifyOperationContext( session );
-                modOpContext.setEntry( entry );
-                modOpContext.setDn( entry.getDn() );
-                modOpContext.setModItems( mods );
-                partition.modify( modOpContext );
+                ModifyOperationContext modifyContext = new ModifyOperationContext( session );
+                modifyContext.setEntry( entry );
+                modifyContext.setDn( entry.getDn() );
+                modifyContext.setModItems( mods );
+                partition.modify( modifyContext );
             }
             
             mods.clear();
