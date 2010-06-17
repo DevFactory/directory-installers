@@ -20,8 +20,6 @@
 package org.apache.directory.server;
 
 
-import java.io.File;
-
 import org.apache.directory.daemon.InstallationLayout;
 
 
