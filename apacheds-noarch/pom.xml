@@ -113,7 +113,7 @@
     </dependency>
 
     <dependency>
-      <artifactId>apacheds-config</artifactId>
+      <artifactId>apacheds-default-config</artifactId>
       <groupId>org.apache.directory.server</groupId>
       <version>${project.version}</version>
     </dependency>
