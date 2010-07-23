@@ -57,7 +57,6 @@
     <commons.lang.version>2.5</commons.lang.version>
     <commons.net.version>2.0</commons.net.version>
     <commons.pool.version>1.5.4</commons.pool.version>
-    <derby.version>10.4.2.0</derby.version>
     <dnsjava.version>2.0.1</dnsjava.version>
     <jcl.over.slf4j.version>1.5.11</jcl.over.slf4j.version>
     <jetty.version>6.1.14</jetty.version>
@@ -74,12 +73,8 @@
     <quartz.version>1.6.0</quartz.version>
     <slf4j.api.version>1.5.11</slf4j.api.version>
     <slf4j.log4j12.version>1.5.11</slf4j.log4j12.version>
-    <spring.beans.version>2.5.6.SEC01</spring.beans.version>
-    <spring.context.version>2.5.6.SEC01</spring.context.version>
-    <spring.core.version>2.5.6.SEC01</spring.core.version>
     <velocity.version>1.5</velocity.version>
     <wrapper.version>3.2.3</wrapper.version>
-    <xbean.spring.version>3.5</xbean.spring.version>
     <xercesImpl.version>2.9.1</xercesImpl.version>
     <findbugs.annotations.version>1.0.0</findbugs.annotations.version>
   </properties>
@@ -88,18 +83,7 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.apache.directory.server</groupId>
-        <artifactId>apacheds-xbean-spring</artifactId>
-        <version>${server.version}</version>
-      </dependency>  
 
-      <dependency>
-        <groupId>org.apache.directory.server</groupId>
-        <artifactId>apacheds-server-xml</artifactId>
-        <version>${server.version}</version>
-      </dependency>
-  
       <dependency>
         <groupId>org.apache.directory.daemon</groupId>
         <artifactId>daemon-bootstrappers</artifactId>
@@ -320,52 +304,6 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.derby</groupId>
-        <artifactId>derby</artifactId>
-        <version>${derby.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>${spring.core.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-beans</artifactId>
-        <version>${spring.beans.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>${spring.context.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>aopalliance</groupId>
-            <artifactId>aopalliance</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-plugin-api</artifactId>
         <version>${maven.plugin.api.version}</version>
@@ -402,34 +340,6 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.xbean</groupId>
-        <artifactId>xbean-spring</artifactId>
-        <version>${xbean.spring.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jmx</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
         <groupId>tanukisoft</groupId>
         <artifactId>wrapper</artifactId>
         <version>${wrapper.version}</version>
@@ -457,10 +367,6 @@
   </distributionManagement>
 
   <dependencies>
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-xbean-spring</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>org.apache.directory.server</groupId>
@@ -490,11 +396,6 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-protocol-dns</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-xml</artifactId>
     </dependency>
 
     <dependency>
@@ -528,26 +429,6 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.xbean</groupId>
-      <artifactId>xbean-spring</artifactId>
     </dependency>
 
     <!-- for Java5 findbugs annotations are required in each module at compile time -->
