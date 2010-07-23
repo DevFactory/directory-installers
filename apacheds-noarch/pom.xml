@@ -86,7 +86,7 @@
     </dependency>
 
     <dependency>
-      <artifactId>apacheds-config</artifactId>
+      <artifactId>server-config</artifactId>
       <groupId>org.apache.directory.server</groupId>
       <version>${project.version}</version>
     </dependency>
