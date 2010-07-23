@@ -1142,33 +1142,5 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack-server-xml</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.apache.directory.server</groupId>
-                  <artifactId>apacheds-server-xml</artifactId>
-                  <version>${server.version}</version>
-                  <excludes>serverAuthenticatorInAuthenticationInterceptor.xml,serverJdbmPartition.xml,serverReplicationInterceptor.xml</excludes>
-                </artifactItem>
-              </artifactItems>
-              <outputDirectory>${basedir}/src/main/installers</outputDirectory>
-              <overWriteReleases>true</overWriteReleases>
-              <overWriteSnapshots>true</overWriteSnapshots>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 </project>
