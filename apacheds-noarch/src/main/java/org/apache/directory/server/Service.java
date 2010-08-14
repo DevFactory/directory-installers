@@ -253,7 +253,7 @@ public class Service implements DaemonApplication
         printBanner( BANNER_LDAP );
         long startTime = System.currentTimeMillis();
 
-        DirectoryService directoryService = cpReader.getDirectoryService();
+        DirectoryService directoryService = cpReader.createDirectoryService();
         directoryService.setSchemaManager( schemaManager );
 
         SchemaPartition schemaPartition = directoryService.getSchemaService().getSchemaPartition();
@@ -266,7 +266,7 @@ public class Service implements DaemonApplication
         // a command line arg
         directoryService.setWorkingDirectory( new File( args[0] ) );
 
-        ldapServer = cpReader.getLdapServer();
+        ldapServer = cpReader.createLdapServer();
         ldapServer.setDirectoryService( directoryService );
 
         directoryService.startup();
@@ -319,7 +319,7 @@ public class Service implements DaemonApplication
      */
     private void initNtp( InstallationLayout layout, String[] args ) throws Exception
     {
-        ntpServer = cpReader.getNtpServer();
+        ntpServer = cpReader.createNtpServer();
         if ( ntpServer == null )
         {
             LOG
@@ -387,7 +387,7 @@ public class Service implements DaemonApplication
     private void initKerberos( InstallationLayout layout, String[] args ) throws Exception
     {
 
-        kdcServer = cpReader.getKdcServer();
+        kdcServer = cpReader.createKdcServer();
         if( kdcServer == null )
         {
             LOG
@@ -421,7 +421,7 @@ public class Service implements DaemonApplication
     private void initChangePwd( InstallationLayout layout, String[] args ) throws Exception
     {
 
-        changePwdServer = cpReader.getChangePwdServer();
+        changePwdServer = cpReader.createChangePwdServer();
         if ( changePwdServer == null )
         {
             LOG
@@ -452,7 +452,7 @@ public class Service implements DaemonApplication
     private void initHttpServer() throws Exception
     {
 
-        httpServer = cpReader.getHttpServer();
+        httpServer = cpReader.createHttpServer();
         if ( httpServer == null )
         {
             LOG
