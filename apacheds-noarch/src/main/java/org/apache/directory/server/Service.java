@@ -462,7 +462,7 @@ public class Service implements DaemonApplication
 
         if ( httpServer != null )
         {
-            httpServer.start();
+            httpServer.start( getDirectoryService() );
         }
     }
 
