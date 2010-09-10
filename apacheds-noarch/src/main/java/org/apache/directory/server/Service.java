@@ -496,8 +496,31 @@ public class Service implements DaemonApplication
     {
 
         // Stops the server
-        ldapServer.stop();
+        if( ldapServer != null )
+        {
+            ldapServer.stop();
+        }
+        
+        if( kdcServer != null )
+        {
+            kdcServer.stop();
+        }
 
+        if( changePwdServer != null )
+        {
+            changePwdServer.stop();
+        }
+        
+        if( ntpServer != null )
+        {
+            ntpServer.stop();
+        }
+        
+        if( httpServer != null )
+        {
+            httpServer.stop();
+        }
+        
         // We now have to stop the underlaying DirectoryService
         ldapServer.getDirectoryService().shutdown();
     }
