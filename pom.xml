@@ -140,12 +140,6 @@
 
       <dependency>
         <groupId>org.apache.directory.shared</groupId>
-        <artifactId>shared-asn1-codec</artifactId>
-        <version>${shared.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.directory.shared</groupId>
         <artifactId>shared-ldap</artifactId>
         <version>${shared.version}</version>
       </dependency>
