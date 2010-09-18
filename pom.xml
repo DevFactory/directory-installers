@@ -157,12 +157,6 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.directory.shared</groupId>
-        <artifactId>shared-cursor</artifactId>
-        <version>${shared.version}</version>
-      </dependency>
-
-      <dependency>
         <groupId>org.apache.directory.server</groupId>
         <artifactId>apacheds-http-integration</artifactId>
         <version>${server.version}</version>
