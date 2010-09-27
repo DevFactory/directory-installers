@@ -292,7 +292,14 @@ public class Service implements DaemonApplication
         {
             LOG.info( "begining to update config partition LDIF files after modifying manadatory attributes" );
             
+            // disable writes to the disk upon every modification to improve performance
+            configPartition.setEnableRewriting( false );
+            
+            // perform updates
             updateMandatoryOpAttributes( configPartition, directoryService );
+            
+            // enable writes to disk, this will save the partition data first if found dirty
+            configPartition.setEnableRewriting( true );
             
             LOG.info( "config partition data was successfully updated" );
         }
