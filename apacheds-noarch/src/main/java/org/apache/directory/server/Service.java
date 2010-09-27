@@ -40,6 +40,7 @@ import org.apache.directory.server.core.filtering.EntryFilteringCursor;
 import org.apache.directory.server.core.interceptor.context.ModifyOperationContext;
 import org.apache.directory.server.core.partition.Partition;
 import org.apache.directory.server.core.partition.ldif.LdifPartition;
+import org.apache.directory.server.core.partition.ldif.SingleFileLdifPartition;
 import org.apache.directory.server.core.schema.SchemaPartition;
 import org.apache.directory.server.i18n.I18n;
 import org.apache.directory.server.integration.http.HttpServer;
@@ -105,7 +106,7 @@ public class Service implements DaemonApplication
 
     private SchemaManager schemaManager;
 
-    private LdifPartition configPartition;
+    private SingleFileLdifPartition configPartition;
 
     private ConfigPartitionReader cpReader;
 
@@ -143,7 +144,7 @@ public class Service implements DaemonApplication
         initSchemaLdifPartition( partitionsDir );
         initConfigPartition( partitionsDir );
 
-        cpReader = new ConfigPartitionReader( configPartition );
+        cpReader = new ConfigPartitionReader( configPartition, partitionsDir );
 
         // Initialize the LDAP server
         initLdap( layout, args );
@@ -220,24 +221,25 @@ public class Service implements DaemonApplication
     private void initConfigPartition( File partitionsDir ) throws Exception
     {
 
-        File configRepository = new File( partitionsDir, "config" );
+        File configRepository = new File( partitionsDir.getParentFile(), "conf" );
 
-        if ( configRepository.exists() )
+        File confFile = new File( configRepository, LdifConfigExtractor.LDIF_CONFIG_FILE );
+        
+        if ( confFile.exists() )
         {
             LOG.info( "config partition already exists, skipping default config extraction" );
         }
         else
         {
-            LdifConfigExtractor.extract( partitionsDir, true );
+            LdifConfigExtractor.extractSingleFileConfig( configRepository, true );
             isConfigPartitionFirstExtraction = true;
         }
 
-        configPartition = new LdifPartition();
+        configPartition = new SingleFileLdifPartition( confFile.getAbsolutePath() );
+        
         configPartition.setId( "config" );
         configPartition.setSuffix( new DN( "ou=config" ) );
         configPartition.setSchemaManager( schemaManager );
-        configPartition.setWorkingDirectory( partitionsDir.getPath() + "/config" );
-        configPartition.setPartitionDir( new File( configPartition.getWorkingDirectory() ) );
 
         configPartition.initialize();
     }
